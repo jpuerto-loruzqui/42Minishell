@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/09 18:51:20 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:16:00 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_lexer
  */
 typedef struct s_parser
 {
-	char			**args;		// comando + sus argumentos
+	char			**args;		// comando + sus flags
 	char			*infile;	// nombre de fichero de entrada (<)
 	char			*outfile;	// nombre de fichero de salida (>, >>)
 	int				append;		// 0 si “>”, 1 si “>>”

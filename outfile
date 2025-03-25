@@ -1,0 +1,10 @@
+[38;2;0;189;157mbash> [0mhola pas doisiojda papap
+Token 0: [hola] -> Tipo 0
+Token 1: [pas] -> Tipo 0
+Token 2: [doisiojda] -> Tipo 0
+Token 3: [papap] -> Tipo 0
+Command 0:
+  args[0]: hola
+  args[2]: doisiojda
+  outfile: NULL
+Saliendo de la shell...

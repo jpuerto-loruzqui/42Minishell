@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/09 18:54:25 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:40:43 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_parser	*parser(t_lexer *lexer)
 			curr->infile = ft_strdup(lexer->next->data);
 			lexer = lexer->next;
 		}
-		else if ((lexer->type_token == T_REDIR_OUT || lexer->type_token == T_APPEND)
+		else if ((lexer->type_token == T_REDIR_OUT|| lexer->type_token == T_APPEND)
 			&& lexer->next)
 		{
 			curr->outfile = ft_strdup(lexer->next->data);
