@@ -22,7 +22,7 @@ static t_parser	*new_node(void)
 	node->args = NULL;
 	node->infile = NULL;
 	node->outfile = NULL;
-	node->append = 0;
+	node->append = false;
 	node->next = NULL;
 	return (node);
 }
@@ -98,7 +98,8 @@ t_parser	*parser(t_lexer *lexer)
 			curr->infile = ft_strdup(lexer->next->data);
 			lexer = lexer->next;
 		}
-		else if ((lexer->type_token == T_REDIR_OUT || lexer->type_token == T_APPEND)
+		else if ((lexer->type_token == T_REDIR_OUT
+				|| lexer->type_token == T_APPEND)
 			&& lexer->next)
 		{
 			curr->outfile = ft_strdup(lexer->next->data);

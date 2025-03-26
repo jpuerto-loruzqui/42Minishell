@@ -21,9 +21,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
+# include <signal.h>
+# include <stdbool.h>
 
 # define COLOR_BANNER "\033[38;2;0;189;157m"
-# define COLOR_RESET  "\033[0m"
+# define COLOR_USERS "\033[38;2;84;222;253m"
+# define COLOR_RESET "\033[0m"
 
 /**
  * @brief Tipos de tokens
@@ -58,10 +61,10 @@ typedef struct s_lexer
  */
 typedef struct s_parser
 {
-	char			**args;		// comando + sus argumentos
+	char			**args;		// comando + sus flags
 	char			*infile;	// nombre de fichero de entrada (<)
 	char			*outfile;	// nombre de fichero de salida (>, >>)
-	int				append;		// 0 si “>”, 1 si “>>”
+	bool			append;		// false si “>”, true si “>>”
 	struct s_parser	*next;		// siguiente comando (pipe)
 }	t_parser;
 
@@ -84,6 +87,14 @@ char		*ft_strtok(char *str, const char *delim);
 /****************************************************/
 //BUILT-INS
 /****************************************************/
-void	ft_exit(void);
+bool		is_built_in(t_parser *commands);
+void		ft_exit(void);
+int			ft_cd(char **args);
+int			ft_pwd(char **args);
+
+/****************************************************/
+//SIGNALS
+/****************************************************/
+void		sigint_handler(int sig);
 
 #endif

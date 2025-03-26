@@ -44,12 +44,14 @@ int	main(void)
 	t_lexer		*tokens;
 	t_parser	*commands;
 
+	signal(SIGQUIT, SIG_IGN); //SIGQUIT es el Ctrl '\' y SIG_IGN es para ignorar esa señal
+	signal(SIGINT, sigint_handler); //SIGINT es el Ctrl C
 	while (1)
 	{
 		input = readline(COLOR_BANNER "bash> " COLOR_RESET);
-		if (!input)
+		if (!input) //para el Ctrl D
 		{
-			printf("\nSaliendo de la shell...\n");
+			printf(COLOR_USERS "\nSaliendo de la shell...\n" COLOR_RESET);
 			break ;
 		}
 		if (*input)
@@ -58,8 +60,8 @@ int	main(void)
 		print_tokens(tokens);
 		commands = parser(tokens);
 		print_commands(commands);
-		if (ft_strncmp(commands->args[0], "exit", 4) == 0)
-			ft_exit();
+		if (!is_built_in(commands))
+			//ejecutar comando normal -> no built-in
 		free(input);
 		//free_lexer();
 		//free_parser();
