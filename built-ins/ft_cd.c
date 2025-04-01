@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 15:40:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/21 15:40:40 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/03/26 15:50:35 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/03/26 15:50:37 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exit(t_parser *parser)
+int	ft_cd(char **args)
 {
-	free_parser(parser);
-	printf("Saliendo de la shell...\n");
-	exit(EXIT_SUCCESS);
+	if (!args[1] || args[2])
+	{
+		printf("cd: usage: cd <path>\n");
+		return (1);
+	}
+	if (chdir(args[1]) == -1) //chdir cambia el directorio
+	{
+		perror("minishell: cd");
+		return (1);
+	}
+	return (0);
 }

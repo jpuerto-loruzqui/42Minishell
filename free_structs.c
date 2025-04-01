@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 15:40:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/21 15:40:40 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/04/01 16:10:13 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/04/01 16:10:15 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void	ft_exit(t_parser *parser)
+void	free_lexer(t_lexer *lexer)
 {
-	free_parser(parser);
-	printf("Saliendo de la shell...\n");
-	exit(EXIT_SUCCESS);
+	while (lexer)
+	{
+		free(lexer->data);
+		lexer = lexer->next;
+	}
+}
+
+void	free_parser(t_parser *parser)
+{
+	while (parser)
+	{
+		free(parser->infile);
+		free(parser->outfile);
+		ft_free_split(parser->args);
+		parser = parser->next;
+	}
 }
