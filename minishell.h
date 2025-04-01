@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/09 18:51:20 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/01 15:48:41 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
@@ -26,8 +27,14 @@
 # include <sys/wait.h> //para el waitpid
 
 # define COLOR_BANNER "\033[38;2;0;189;157m"
+
+# define NORMAL_MODE 0
+# define DOUBLE_MODE 1
+# define SIMPLE_MODE 2
+
 # define COLOR_USERS "\033[38;2;84;222;253m"
 # define COLOR_RESET "\033[0m"
+
 
 /**
  * @brief Tipos de tokens
@@ -53,6 +60,7 @@ typedef struct s_lexer
 {
 	int				index;		// indice token
 	char			*data;		// contenido del token
+	int				mode;
 	int				type_token;	// tipo de token -> t_token
 	struct s_lexer	*next;		// siguiente token
 }	t_lexer;
@@ -83,15 +91,18 @@ t_parser	*parser(t_lexer *lexer);
 /****************************************************/
 //UTILS
 /****************************************************/
-char		*ft_strtok(char *str, const char *delim);
+char		*ft_strtok(char *str, int *mode);
+char	*append_char(char const *s1, char c);
 int			ft_parserlen(t_parser *parser);
 void		ft_free_split(char **split);
 
 /****************************************************/
 //BUILT-INS
 /****************************************************/
+
 bool		is_built_in(t_parser *commands);
 void		ft_exit(t_parser *parser);
+void	  exit_error(char *message);
 int			ft_cd(char **args);
 int			ft_pwd(char **args);
 
@@ -125,5 +136,6 @@ void		output_redir(t_parser *commands);
 /****************************************************/
 void		free_lexer(t_lexer *lexer);
 void		free_parser(t_parser *parser);
+
 
 #endif
