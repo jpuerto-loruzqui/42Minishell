@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/09 18:54:06 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/01 12:26:20 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief Crea un nuevo nodo de la lista del léxico.
  */
-static t_lexer	*new_token(int index, char *data, t_token type)
+static t_lexer	*new_token(int index, char *data, t_token type, int mode)
 {
 	t_lexer	*token;
 
@@ -24,6 +24,7 @@ static t_lexer	*new_token(int index, char *data, t_token type)
 		return (NULL);
 	token->index = index;
 	token->data = ft_strdup(data);
+	token->mode = mode;
 	token->type_token = type;
 	token->next = NULL;
 	return (token);
@@ -55,11 +56,13 @@ t_lexer	*lexer(char *input)
 	t_lexer	*lexer_list;
 	char	*token;
 	int		index;
+	int		mode;
 	t_token	type;
 
+	mode = NORMAL_MODE;
 	lexer_list = NULL;
 	index = 0;
-	token = ft_strtok(input, " \t\n");
+	token = ft_strtok(input, &mode);
 	while (token)
 	{
 		type = T_GENERAL;
@@ -73,8 +76,9 @@ t_lexer	*lexer(char *input)
 			type = T_REDIR_IN;
 		else if (ft_strncmp(token, ">", 1) == 0)
 			type = T_REDIR_OUT;
-		add_token(&lexer_list, new_token(index++, token, type));
-		token = ft_strtok(NULL, " \t\n");
+		if (token[0])
+			add_token(&lexer_list, new_token(index++, token, type, mode));
+		token = ft_strtok(NULL, &mode);
 	}
 	return (lexer_list);
 }

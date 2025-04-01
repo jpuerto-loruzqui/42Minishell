@@ -1,10 +1,10 @@
 NAME = minishell
 
-SRC = main.c lexer/lexer.c parser/parser.c utils/ft_strtok.c built-ins/ft_exit.c
+SRC = main.c lexer/lexer.c parser/parser.c utils/ft_strtok.c utils/ft_append_char.c built-ins/ft_exit.c built-ins/ft_exit_error.c
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
-CC = cc
+CC = cc -g
 CFLAGS = -Wall -Wextra -Werror
 LDFLAGS = -L/usr/local/opt/readline -lreadline -L ./libft -lft
 INCLUDES = -I/usr/local/opt/readlineinclude
