@@ -1,20 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   exec_one_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 15:40:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/21 15:40:40 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/03/27 16:52:35 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/03/27 16:52:38 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exit(t_parser *parser)
+void	exec_one_command(t_parser *commands, char **envp)
 {
-	free_parser(parser);
-	printf("Saliendo de la shell...\n");
-	exit(EXIT_SUCCESS);
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("minishell: exec one command");
+		free_parser(commands);
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		input_redir(commands);
+		output_redir(commands);
+		find_path(commands, envp);
+	}
+	else
+	{
+		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, sigint_handler);
+		waitpid(pid, NULL, 0);
+	}
 }

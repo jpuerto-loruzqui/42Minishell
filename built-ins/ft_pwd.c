@@ -1,20 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 15:40:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/21 15:40:40 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/03/26 16:02:45 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/03/26 16:02:47 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exit(t_parser *parser)
+int	ft_pwd(char **args)
 {
-	free_parser(parser);
-	printf("Saliendo de la shell...\n");
-	exit(EXIT_SUCCESS);
+	char	*cwd;
+
+	if (args[1])
+	{
+		printf("pwd: usage: pwd\n");
+		return (1);
+	}
+	cwd = getcwd(NULL, 0); //getcwd obtiene el directorio
+	if (!cwd)
+	{
+		perror("minishell: pwd");
+		return (1);
+	}
+	printf("%s\n", cwd);
+	free(cwd);
+	return (0);
 }

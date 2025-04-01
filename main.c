@@ -38,18 +38,24 @@ static void	print_commands(t_parser *head)
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char		*input;
 	t_lexer		*tokens;
 	t_parser	*commands;
+	int			num_commands;
 
+	(void)argc;
+	(void)argv;
+	signal(SIGQUIT, SIG_IGN); //SIGQUIT es el Ctrl '\' y SIG_IGN es para ignorar esa señal
+	signal(SIGINT, sigint_handler); //SIGINT es el Ctrl C
+	num_commands = 0;
 	while (1)
 	{
 		input = readline(COLOR_BANNER "bash> " COLOR_RESET);
-		if (!input)
+		if (!input) //para el Ctrl D
 		{
-			printf("\nSaliendo de la shell...\n");
+			printf(COLOR_USERS "\nSaliendo de la shell...\n" COLOR_RESET);
 			break ;
 		}
 		if (*input)
@@ -57,12 +63,15 @@ int	main(void)
 		tokens = lexer(input);
 		print_tokens(tokens);
 		commands = parser(tokens);
+		free_lexer(tokens);
 		print_commands(commands);
-		if (ft_strncmp(commands->args[0], "exit", 4) == 0)
-			ft_exit();
+		num_commands = ft_parserlen(commands);
+		if (num_commands == 1 && !is_built_in(commands))
+			exec_one_command(commands, envp);
+		else if (num_commands > 1)
+			exec_pipes(commands, envp, num_commands);
 		free(input);
-		//free_lexer();
-		//free_parser();
+		free_parser(commands);
 	}
 	return (0);
 }
