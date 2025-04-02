@@ -32,6 +32,8 @@
 # define DOUBLE_MODE 1
 # define SIMPLE_MODE 2
 
+# define VALID_CHARS "0123456789abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ<> \"\'|$"
+
 # define COLOR_USERS "\033[38;2;84;222;253m"
 # define COLOR_RESET "\033[0m"
 
@@ -102,7 +104,8 @@ void		ft_free_split(char **split);
 
 bool		is_built_in(t_parser *commands);
 void		ft_exit(t_parser *parser);
-void	  exit_error(char *message);
+void	  	exit_error(char *message);
+void 		unrecognized_error(char *command);
 int			ft_cd(char **args);
 int			ft_pwd(char **args);
 

@@ -83,16 +83,17 @@ char	*ft_strtok(char *str, int *mode)
 	if (!save_ptr || *save_ptr == '\0')
 		return (NULL);
 	if (separator)
-	{
-		save_ptr += ft_strlen(separator);
-		return (separator);
-	}
+		return (save_ptr += ft_strlen(separator), separator);
 	while (*save_ptr)
 	{
 		delim = check_quote(*save_ptr);
 		separator = check_separator(save_ptr);
+		if (ft_strchr(VALID_CHARS, (int)*save_ptr) == NULL)
+			unrecognized_error((char[]){*save_ptr, '\0'});
 		if (delim)
 			get_command(mode, &save_ptr, &token, delim);
+		else if (*save_ptr == ' ')
+			return (save_ptr++, token);
 		else if (separator)
 			return (token);
 		else 
