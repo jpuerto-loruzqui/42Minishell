@@ -89,12 +89,14 @@ void		print_tokens(t_lexer *lexer);
 //PARSER
 /****************************************************/
 t_parser	*parser(t_lexer *lexer);
+char 		*expand_cmd(char *token);
+
 
 /****************************************************/
 //UTILS
 /****************************************************/
 char		*ft_strtok(char *str, int *mode);
-char	*append_char(char const *s1, char c);
+char 		*append_char(char *str, char c);
 int			ft_parserlen(t_parser *parser);
 void		ft_free_split(char **split);
 

@@ -78,10 +78,13 @@ t_parser	*parser(t_lexer *lexer)
 
 	head = NULL;
 	curr = NULL;
+	char *dollar_pos = ft_strchr(lexer->data, '$');
 	while (lexer)
 	{
-		if (lexer->mode == DOUBLE_MODE && ft_strchr(lexer->data, '$' != NULL))
-			lexer->data == expand_cmd(lexer);
+		if ((lexer->mode == DOUBLE_MODE && dollar_pos) && (ft_isalnum(*(dollar_pos + 1)) || !ft_strncmp(dollar_pos + 1,  "{", 1)))
+		{
+			lexer->data = expand_cmd(lexer->data);
+		}	
 		if (lexer->type_token == T_PIPE)
 		{
 			curr = NULL;

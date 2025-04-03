@@ -43,13 +43,14 @@ int	main(int argc, char **argv, char **envp)
 	char		*input;
 	t_lexer		*tokens;
 	t_parser	*commands;
-	int			num_commands;
+	// int			num_commands;
 
 	(void)argc;
 	(void)argv;
+	(void)envp;
 	signal(SIGQUIT, SIG_IGN); //SIGQUIT es el Ctrl '\' y SIG_IGN es para ignorar esa señal
 	signal(SIGINT, sigint_handler); //SIGINT es el Ctrl C
-	num_commands = 0;
+	// num_commands = 0;
 	while (1)
 	{
 		input = readline(COLOR_BANNER "bash> " COLOR_RESET);
@@ -65,11 +66,11 @@ int	main(int argc, char **argv, char **envp)
 		commands = parser(tokens);
 		free_lexer(tokens);
 		print_commands(commands);
-		num_commands = ft_parserlen(commands);
-		if (num_commands == 1 && !is_built_in(commands))
-			exec_one_command(commands, envp);
-		else if (num_commands > 1)
-			exec_pipes(commands, envp, num_commands);
+		// num_commands = ft_parserlen(commands);
+		// if (num_commands == 1 && !is_built_in(commands))
+		// 	exec_one_command(commands, envp);
+		// else if (num_commands > 1)
+		// exec_pipes(commands, envp, num_commands);
 		free(input);
 		free_parser(commands);
 	}

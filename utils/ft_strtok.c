@@ -39,10 +39,7 @@ void	get_command(int *mode, char **save_ptr, char **token, char delim)
 		}
 	}
 	if (**save_ptr == delim)
-	{
 		(*save_ptr)++;
-		*mode = NORMAL_MODE;
-	}
 	else
 		exit_error("Invalid format");
 }
@@ -83,19 +80,20 @@ char	*ft_strtok(char *str, int *mode)
 	if (!save_ptr || *save_ptr == '\0')
 		return (NULL);
 	if (separator)
-		return (save_ptr += ft_strlen(separator), separator);
+	{
+		save_ptr += ft_strlen(separator);
+		return (ft_strdup(separator));
+	}
 	while (*save_ptr)
 	{
 		delim = check_quote(*save_ptr);
 		separator = check_separator(save_ptr);
-		if (ft_strchr(VALID_CHARS, (int)*save_ptr) == NULL)
-			unrecognized_error((char[]){*save_ptr, '\0'});
 		if (delim)
 			get_command(mode, &save_ptr, &token, delim);
-		else if (*save_ptr == ' ')
-			return (save_ptr++, token);
 		else if (separator)
 			return (token);
+		else if (*save_ptr == ' ')
+			return (save_ptr++, token);
 		else 
 		{
 			token = append_char(token, *save_ptr);

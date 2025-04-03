@@ -78,8 +78,11 @@ t_lexer	*lexer(char *input)
 			type = T_REDIR_OUT;
 		if (token[0])
 			add_token(&lexer_list, new_token(index++, token, type, mode));
+		if (token[0])
+			free(token);
 		token = ft_strtok(NULL, &mode);
 	}
+
 	return (lexer_list);
 }
 
