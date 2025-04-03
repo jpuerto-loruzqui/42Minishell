@@ -41,7 +41,7 @@ void	get_command(int *mode, char **save_ptr, char **token, char delim)
 	if (**save_ptr == delim)
 		(*save_ptr)++;
 	else
-		exit_error("Invalid format");
+		exit_error("Invalid format"); // FIX
 }
 
 char	check_quote(char c)
@@ -70,7 +70,6 @@ char	*ft_strtok(char *str, int *mode)
 {
 	static char	*save_ptr = NULL;
 	char		*token;
-	char		delim;
 	char	*separator;
 
 	token = "";
@@ -80,25 +79,19 @@ char	*ft_strtok(char *str, int *mode)
 	if (!save_ptr || *save_ptr == '\0')
 		return (NULL);
 	if (separator)
-	{
-		save_ptr += ft_strlen(separator);
-		return (ft_strdup(separator));
-	}
+		return (save_ptr += ft_strlen(separator), ft_strdup(separator));
 	while (*save_ptr)
 	{
-		delim = check_quote(*save_ptr);
-		separator = check_separator(save_ptr);
-		if (delim)
-			get_command(mode, &save_ptr, &token, delim);
-		else if (separator)
+		if (check_separator(save_ptr))
 			return (token);
+		else if (!ft_strchr(VALID_CHARS, *save_ptr))
+			unrecognized_error((char[]){*save_ptr, '\0'}); //FIX
 		else if (*save_ptr == ' ')
 			return (save_ptr++, token);
+		if (check_quote(*save_ptr))
+			get_command(mode, &save_ptr, &token, check_quote(*save_ptr));
 		else 
-		{
-			token = append_char(token, *save_ptr);
-			save_ptr++;
-		}
+			token = append_char(token, *save_ptr++);
 	}
 	return (token);
 }
