@@ -18,7 +18,7 @@ void do_expansion(int *i, char *token, char **aux)
         if (env_value)
         {
             expanded_value = ft_strdup(env_value);
-            *aux = ft_strjoin(*aux, expanded_value);
+            *aux = ft_strjoin_free(*aux, expanded_value);
         }
         free(cmd);
     }

@@ -1,0 +1,16 @@
+Makefile
+README.md
+built-ins
+exec
+free_structs.c
+lexer
+libft
+main.c
+minishell
+minishell.h
+obj
+outfile
+parser
+redirections
+signals.c
+utils
