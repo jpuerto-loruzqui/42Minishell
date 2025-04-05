@@ -80,6 +80,10 @@ t_parser	*parser(t_lexer *lexer)
 	curr = NULL;
 	while (lexer)
 	{
+		if ((lexer->mode == DOUBLE_MODE && ft_strchr(lexer->data, '$'))
+				&& (ft_isalnum(*(ft_strchr(lexer->data, '$') + 1))
+				|| !ft_strncmp(ft_strchr(lexer->data, '$') + 1,  "{", 1)))
+			lexer->data = expand_cmd(lexer->data);
 		if (lexer->type_token == T_PIPE)
 		{
 			curr = NULL;

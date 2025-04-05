@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:59:20 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/09 18:59:22 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/05 13:08:08 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,11 @@ int	main(int argc, char **argv, char **envp)
 	t_lexer		*tokens;
 	t_parser	*commands;
 	int			num_commands;
+	char		**env;
 
 	(void)argc;
 	(void)argv;
+	env = ft_strdup_matrix(envp);
 	signal(SIGQUIT, SIG_IGN); //SIGQUIT es el Ctrl '\' y SIG_IGN es para ignorar esa señal
 	signal(SIGINT, sigint_handler); //SIGINT es el Ctrl C
 	num_commands = 0;
@@ -66,12 +68,14 @@ int	main(int argc, char **argv, char **envp)
 		free_lexer(tokens);
 		print_commands(commands);
 		num_commands = ft_parserlen(commands);
-		if (num_commands == 1 && !is_built_in(commands))
-			exec_one_command(commands, envp);
+		if (num_commands == 1 && !is_built_in(commands, &env))
+			exec_one_command(commands, env);
 		else if (num_commands > 1)
-			exec_pipes(commands, envp, num_commands);
+		exec_pipes(commands, env, num_commands);
 		free(input);
 		free_parser(commands);
 	}
+	if (env && env[0])
+		ft_free_split(env);
 	return (0);
 }

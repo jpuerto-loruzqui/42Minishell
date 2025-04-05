@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-bool	is_built_in(t_parser *commands)
+bool	is_built_in(t_parser *commands, char ***envp)
 {
 	if (ft_strncmp(commands->args[0], "exit", 4) == 0)
 		return (ft_exit(commands), true);
@@ -20,5 +20,14 @@ bool	is_built_in(t_parser *commands)
 		return (ft_cd(commands->args), true);
 	else if (ft_strncmp(commands->args[0], "pwd", 3) == 0)
 		return (ft_pwd(commands->args), true);
+	else if (ft_strncmp(commands->args[0], "echo", 4) == 0)
+		return (ft_echo(commands->args), true);
+	else if (ft_strncmp(commands->args[0], "env", 3) == 0)
+		return (ft_env(commands->args, *envp), true);
+	else if (ft_strncmp(commands->args[0], "unset", 5) == 0)
+	{
+		*envp = ft_unset(commands->args, envp);
+		return (true);
+	}
 	return (false);
 }

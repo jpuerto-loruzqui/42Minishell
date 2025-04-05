@@ -12,21 +12,16 @@
 
 #include "../minishell.h"
 
-char	*append_char(char const *s1, char c)
+char *append_char(char *str, char c)
 {
-	char	*str;
-	int		i;
-
-	str = malloc((ft_strlen(s1) + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (s1[i] != '\0')
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	str[i] = c;
-	str[i + 1] = '\0';
-	return (str);
+    size_t len = ft_strlen(str);
+    char *new_str = malloc(len + 2);
+    if (!new_str)
+        return NULL;
+    ft_strlcpy(new_str, str, len + 1);
+    new_str[len] = c;
+    new_str[len + 1] = '\0';
+    if (str && str[0])
+        free(str);
+    return new_str;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/01 15:48:41 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/04/05 13:01:07 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define NORMAL_MODE 0
 # define DOUBLE_MODE 1
 # define SIMPLE_MODE 2
+
+# define VALID_CHARS "/-.0123456789abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ<> \"\'|$"
 
 # define COLOR_USERS "\033[38;2;84;222;253m"
 # define COLOR_RESET "\033[0m"
@@ -77,6 +79,13 @@ typedef struct s_parser
 	struct s_parser	*next;		// siguiente comando (pipe)
 }	t_parser;
 
+typedef struct s_env
+{
+	char			*content;
+	bool			exported;
+	struct s_env	*next;
+}	t_env;
+
 /****************************************************/
 //LEXER
 /****************************************************/
@@ -87,24 +96,32 @@ void		print_tokens(t_lexer *lexer);
 //PARSER
 /****************************************************/
 t_parser	*parser(t_lexer *lexer);
+char 		*expand_cmd(char *token);
+
 
 /****************************************************/
 //UTILS
 /****************************************************/
 char		*ft_strtok(char *str, int *mode);
-char	*append_char(char const *s1, char c);
+char 		*append_char(char *str, char c);
 int			ft_parserlen(t_parser *parser);
 void		ft_free_split(char **split);
+char 		**ft_lstoa(t_env *env);
+t_env   	*ft_dup_env(char **envp);
 
 /****************************************************/
 //BUILT-INS
 /****************************************************/
 
-bool		is_built_in(t_parser *commands);
+bool		is_built_in(t_parser *commands, char ***envp);
 void		ft_exit(t_parser *parser);
-void	  exit_error(char *message);
+void	  	exit_error(char *message);
+void 		unrecognized_error(char *command);
 int			ft_cd(char **args);
 int			ft_pwd(char **args);
+int			ft_echo(char **arg);
+int			ft_env(char **args, char **envp);
+char 		**ft_unset(char **args, char ***envp);
 
 /****************************************************/
 //SIGNALS

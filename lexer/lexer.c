@@ -15,7 +15,7 @@
 /**
  * @brief Crea un nuevo nodo de la lista del léxico.
  */
-static t_lexer	*new_token(int index, char *data, t_token type, int mode)
+static t_lexer	*new_token(int index, char *data, t_token type, int *mode)
 {
 	t_lexer	*token;
 
@@ -24,9 +24,10 @@ static t_lexer	*new_token(int index, char *data, t_token type, int mode)
 		return (NULL);
 	token->index = index;
 	token->data = ft_strdup(data);
-	token->mode = mode;
+	token->mode = *mode;
 	token->type_token = type;
 	token->next = NULL;
+	(*mode) = NORMAL_MODE;
 	return (token);
 }
 
@@ -77,9 +78,12 @@ t_lexer	*lexer(char *input)
 		else if (ft_strncmp(token, ">", 1) == 0)
 			type = T_REDIR_OUT;
 		if (token[0])
-			add_token(&lexer_list, new_token(index++, token, type, mode));
+			add_token(&lexer_list, new_token(index++, token, type, &mode));
+		if (token[0])
+			free(token);
 		token = ft_strtok(NULL, &mode);
 	}
+
 	return (lexer_list);
 }
 
