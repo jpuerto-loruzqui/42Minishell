@@ -26,10 +26,7 @@ bool	is_built_in(t_parser *commands, char ***envp)
 		return (ft_env(commands->args, *envp), true);
 	else if (ft_strncmp(commands->args[0], "unset", 5) == 0)
 	{
-		char **new_env;
-		new_env = ft_unset(commands->args, envp);
-		*envp = new_env;
-		free(new_env);
+		*envp = ft_unset(commands->args, envp);
 		return (true);
 	}
 	return (false);

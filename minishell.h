@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/01 15:48:41 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/04/05 13:01:07 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,13 @@ typedef struct s_parser
 	struct s_parser	*next;		// siguiente comando (pipe)
 }	t_parser;
 
+typedef struct s_env
+{
+	char			*content;
+	bool			exported;
+	struct s_env	*next;
+}	t_env;
+
 /****************************************************/
 //LEXER
 /****************************************************/
@@ -99,6 +106,8 @@ char		*ft_strtok(char *str, int *mode);
 char 		*append_char(char *str, char c);
 int			ft_parserlen(t_parser *parser);
 void		ft_free_split(char **split);
+char 		**ft_lstoa(t_env *env);
+t_env   	*ft_dup_env(char **envp);
 
 /****************************************************/
 //BUILT-INS

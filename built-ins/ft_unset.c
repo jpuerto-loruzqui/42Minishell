@@ -20,7 +20,6 @@ int get_env_size(char **args, char **envp)
     }
     return (size);
 }
-
 char **ft_unset(char **args, char ***envp)
 {
     char **new_env;
@@ -29,23 +28,26 @@ char **ft_unset(char **args, char ***envp)
     int j;
     int k;
 
-    i = 0;
+    i = -1;
     k = 0;
     size = get_env_size(args, *envp);
     new_env = malloc(sizeof(char *) * (size + 1));
     if (!new_env)
         return NULL;
-    while ((*envp)[i]) {
-        j =-1;
-        while (args[++j])
+    while ((*envp)[++i]) {
+        j = -1;
+        while (args[++j]) {
             if (strncmp((*envp)[i], args[j], strlen(args[j])) == 0 && (*envp)[i][strlen(args[j])] == '=')
-                break;
+            {
+                free((*envp)[i]);
+                break ;
+            }
+        }
         if (!args[j])
             new_env[k++] = (*envp)[i];
-        i++;
     }
-    // if (*envp != NULL)
-    //     ft_free_split(*envp);
     new_env[k] = NULL;
+    free(*envp);
+    *envp = new_env;
     return new_env;
 }
