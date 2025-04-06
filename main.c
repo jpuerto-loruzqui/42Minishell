@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/09 18:59:20 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/05 13:08:08 by jpuerto          ###   ########.fr       */
+/*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/04/06 19:55:10 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,13 @@ int	main(int argc, char **argv, char **envp)
 			add_history(data.input);
 		data.tokens = lexer(&data);
 		if (data.error)
+		{
+			free_lexer(data.tokens);
 			continue ;
+		}
 		print_tokens(data.tokens);
 		data.commands = parser(data.tokens);
 		free_lexer(data.tokens);
-		free(data.tokens);
 		print_commands(data.commands);
 		data.num_commands = ft_parserlen(data.commands);
 		if (data.num_commands == 1 && !is_built_in(data.commands, &data.env))
@@ -75,7 +77,6 @@ int	main(int argc, char **argv, char **envp)
 			exec_pipes(data.commands, data.env, data.num_commands);
 		free(data.input);
 		free_parser(data.commands);
-		free(data.commands);
 	}
 	if (data.env && data.env[0])
 		ft_free_split(data.env);

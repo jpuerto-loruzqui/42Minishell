@@ -14,21 +14,29 @@
 
 void	free_lexer(t_lexer *lexer)
 {
+	t_lexer	*tmp;
+
 	while (lexer)
 	{
+		tmp = lexer->next;
 		free(lexer->data);
-		lexer = lexer->next;
+		free(lexer);
+		lexer = tmp;
 	}
 }
 
 void	free_parser(t_parser *parser)
 {
+	t_parser	*tmp;
+
 	while (parser)
 	{
+		tmp = parser->next;
 		free(parser->infile);
 		free(parser->outfile);
 		ft_free_split(parser->args);
-		parser = parser->next;
+		free(parser);
+		parser = tmp;
 	}
 }
 
