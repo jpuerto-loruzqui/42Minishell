@@ -15,16 +15,17 @@
 void	exec_one_command(t_parser *commands, char **envp)
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid < 0)
 	{
-		perror("minishell: exec one command");
 		free_parser(commands);
-		exit(EXIT_FAILURE);
+		exit_error("Error fork one command");
 	}
 	else if (pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
 		input_redir(commands);
 		output_redir(commands);
 		find_path(commands, envp);
@@ -32,7 +33,10 @@ void	exec_one_command(t_parser *commands, char **envp)
 	else
 	{
 		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_IGN);
+		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			write(1, "\n", 1);
 		signal(SIGINT, sigint_handler);
-		waitpid(pid, NULL, 0);
 	}
 }

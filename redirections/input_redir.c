@@ -21,16 +21,14 @@ void	input_redir(t_parser *commands)
 		fd_in = open(commands->infile, O_RDONLY);
 		if (fd_in < 0)
 		{
-			perror("minishell: error opening file input");
 			free_parser(commands);
-			exit(EXIT_FAILURE);
+			exit_error("Error opening file input");
 		}
 		if (dup2(fd_in, STDIN_FILENO) == -1)
 		{
-			perror("minishell: error in dup2");
 			close(fd_in);
 			free_parser(commands);
-			exit(EXIT_FAILURE);
+			exit_error("Error in dup2");
 		}
 		close(fd_in);
 	}

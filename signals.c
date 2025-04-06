@@ -16,7 +16,7 @@ void	sigint_handler(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
-	rl_on_new_line(); //le indica a readline que el cursor está en una nueva línea, preparando el prompt para dibujarse de nuevo
-	rl_replace_line("", 0); //sustituye el contenido actual del buffer de entrada por una cadena vacía (borra lo escrito).
-	rl_redisplay(); //muestra un nuevo prompt
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }

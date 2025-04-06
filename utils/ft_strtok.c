@@ -21,7 +21,8 @@ int	check_mode(char c, int mode)
 	return (mode);
 }
 
-void	get_command(int *mode, char **save_ptr, char **token, char delim)
+void	get_command(int *mode, char **save_ptr, char **token, char delim,
+		t_data *data)
 {
 	*mode = check_mode(**save_ptr, *mode);
 	(*save_ptr)++;
@@ -41,7 +42,10 @@ void	get_command(int *mode, char **save_ptr, char **token, char delim)
 	if (**save_ptr == delim)
 		(*save_ptr)++;
 	else
-		exit_error("Invalid format"); // FIX
+	{
+		data->error = true;
+		exit_error("Invalid format");
+	}
 }
 
 char	check_quote(char c)
@@ -51,7 +55,7 @@ char	check_quote(char c)
 	return ('\0');
 }
 
-char *check_separator(char *sep)
+char	*check_separator(char *sep)
 {
 	if (ft_strncmp(sep, "<<", 2) == 0)
 		return ("<<");
@@ -66,11 +70,11 @@ char *check_separator(char *sep)
 	return (NULL);
 }
 
-char	*ft_strtok(char *str, int *mode)
+char	*ft_strtok(char *str, int *mode, t_data *data)
 {
 	static char	*save_ptr = NULL;
 	char		*token;
-	char	*separator;
+	char		*separator;
 
 	token = "";
 	if (str)
@@ -85,12 +89,15 @@ char	*ft_strtok(char *str, int *mode)
 		if (check_separator(save_ptr))
 			return (token);
 		else if (!ft_strchr(VALID_CHARS, *save_ptr))
-			unrecognized_error((char[]){*save_ptr, '\0'}); //FIX
+		{
+			unrecognized_error((char[]){*save_ptr, '\0'});
+			data->error = true;
+		}
 		else if (*save_ptr == ' ')
 			return (save_ptr++, token);
 		if (check_quote(*save_ptr))
-			get_command(mode, &save_ptr, &token, check_quote(*save_ptr));
-		else 
+			get_command(mode, &save_ptr, &token, check_quote(*save_ptr), data);
+		else
 			token = append_char(token, *save_ptr++);
 	}
 	return (token);
