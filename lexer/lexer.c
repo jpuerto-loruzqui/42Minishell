@@ -52,7 +52,7 @@ static void	add_token(t_lexer **lexer, t_lexer *new)
 /**
  * @brief Divide la entrada en tokens.
  */
-t_lexer	*lexer(char *input)
+t_lexer	*lexer(t_data *data)
 {
 	t_lexer	*lexer_list;
 	char	*token;
@@ -63,7 +63,7 @@ t_lexer	*lexer(char *input)
 	mode = NORMAL_MODE;
 	lexer_list = NULL;
 	index = 0;
-	token = ft_strtok(input, &mode);
+	token = ft_strtok(data->input, &mode, data);
 	while (token)
 	{
 		type = T_GENERAL;
@@ -81,9 +81,10 @@ t_lexer	*lexer(char *input)
 			add_token(&lexer_list, new_token(index++, token, type, &mode));
 		if (token[0])
 			free(token);
-		token = ft_strtok(NULL, &mode);
+		token = ft_strtok(NULL, &mode, data);
+		if (data->error)
+			return (NULL);
 	}
-
 	return (lexer_list);
 }
 
@@ -94,7 +95,7 @@ void	print_tokens(t_lexer *lexer)
 {
 	while (lexer)
 	{
-		printf("Token %d: [%s] -> Tipo %d\n", lexer->index, \
+		printf("Token %d: [%s] -> Tipo %d\n", lexer->index,
 			lexer->data, lexer->type_token);
 		lexer = lexer->next;
 	}

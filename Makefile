@@ -10,7 +10,7 @@ OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 LDFLAGS = -L/usr/local/opt/readline -lreadline -L ./libft -lft
 INCLUDES = -I/usr/local/opt/readlineinclude
 

@@ -18,19 +18,22 @@ void	output_redir(t_parser *commands)
 
 	if (commands->outfile != NULL)
 	{
-		fd_out = open(commands->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+		if (commands->append == true)
+			fd_out = open(commands->outfile, O_WRONLY
+					| O_CREAT | O_APPEND, 0644);
+		else
+			fd_out = open(commands->outfile, O_WRONLY
+					| O_CREAT | O_TRUNC, 0644);
 		if (fd_out < 0)
 		{
-			perror("minishell: error opening file output");
 			free_parser(commands);
-			exit(EXIT_FAILURE);
+			exit_error("Error opening file output");
 		}
 		if (dup2(fd_out, STDOUT_FILENO) == -1)
 		{
-			perror("minishell: error in dup2");
 			close(fd_out);
 			free_parser(commands);
-			exit(EXIT_FAILURE);
+			exit_error("Error in dup2");
 		}
 		close(fd_out);
 	}

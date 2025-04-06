@@ -19,7 +19,7 @@ int	ft_cd(char **args)
 		printf("cd: usage: cd <path>\n");
 		return (1);
 	}
-	if (chdir(args[1]) == -1) //chdir cambia el directorio
+	if (chdir(args[1]) == -1)
 	{
 		perror("minishell: cd");
 		return (1);

@@ -40,42 +40,44 @@ static void	print_commands(t_parser *head)
 
 int	main(int argc, char **argv, char **envp)
 {
-	char		*input;
-	t_lexer		*tokens;
-	t_parser	*commands;
-	int			num_commands;
-	char		**env;
+	t_data		data;
 
 	(void)argc;
 	(void)argv;
-	env = ft_strdup_matrix(envp);
-	signal(SIGQUIT, SIG_IGN); //SIGQUIT es el Ctrl '\' y SIG_IGN es para ignorar esa señal
-	signal(SIGINT, sigint_handler); //SIGINT es el Ctrl C
-	num_commands = 0;
+	data.env = ft_strdup_matrix(envp);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sigint_handler);
+	data.num_commands = 0;
 	while (1)
 	{
-		input = readline(COLOR_BANNER "bash> " COLOR_RESET);
-		if (!input) //para el Ctrl D
+		data.input = readline(COLOR_BANNER "bash> " COLOR_RESET);
+		data.error = false;
+		if (!data.input)
 		{
 			printf(COLOR_USERS "\nSaliendo de la shell...\n" COLOR_RESET);
+			free(data.input);
 			break ;
 		}
-		if (*input)
-			add_history(input);
-		tokens = lexer(input);
-		print_tokens(tokens);
-		commands = parser(tokens);
-		free_lexer(tokens);
-		print_commands(commands);
-		num_commands = ft_parserlen(commands);
-		if (num_commands == 1 && !is_built_in(commands, &env))
-			exec_one_command(commands, env);
-		else if (num_commands > 1)
-		exec_pipes(commands, env, num_commands);
-		free(input);
-		free_parser(commands);
+		if (*data.input)
+			add_history(data.input);
+		data.tokens = lexer(&data);
+		if (data.error)
+			continue ;
+		print_tokens(data.tokens);
+		data.commands = parser(data.tokens);
+		free_lexer(data.tokens);
+		free(data.tokens);
+		print_commands(data.commands);
+		data.num_commands = ft_parserlen(data.commands);
+		if (data.num_commands == 1 && !is_built_in(data.commands, &data.env))
+			exec_one_command(data.commands, data.env);
+		else if (data.num_commands > 1)
+			exec_pipes(data.commands, data.env, data.num_commands);
+		free(data.input);
+		free_parser(data.commands);
+		free(data.commands);
 	}
-	if (env && env[0])
-		ft_free_split(env);
+	if (data.env && data.env[0])
+		ft_free_split(data.env);
 	return (0);
 }

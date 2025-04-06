@@ -31,3 +31,14 @@ void	free_parser(t_parser *parser)
 		parser = parser->next;
 	}
 }
+
+void	free_data(t_data data)
+{
+	free_lexer(data.tokens);
+	free(data.tokens);
+	free_parser(data.commands);
+	free(data.commands);
+	free(data.input);
+	if (data.env && data.env[0])
+		ft_free_split(data.env);
+}

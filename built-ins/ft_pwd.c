@@ -21,7 +21,7 @@ int	ft_pwd(char **args) // no funciona cambiando la salida > ejemplo.txt
 		printf("pwd: too many arguments\n");
 		return (1);
 	}
-	cwd = getcwd(NULL, 0); //getcwd obtiene el directorio
+	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
 		perror("minishell: pwd");

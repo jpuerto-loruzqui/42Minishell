@@ -79,10 +79,7 @@ void	init_pipes(int num_commands, int ***array_pipes, pid_t **array_pids)
 	while (i < num_commands - 1)
 	{
 		if (pipe((*array_pipes)[i]) == -1)
-		{
-			perror("minishell: error pipe");
-			exit(EXIT_FAILURE);
-		}
+			exit_error("Error init pipes");
 		i++;
 	}
 }
@@ -138,8 +135,7 @@ void	find_path(t_parser *commands, char **envp)
 	path = ft_find_executable(commands->args[0], envp);
 	if (!path || execve(path, commands->args, envp) == -1)
 	{
-		perror("minishell: execve");
 		free_parser(commands);
-		exit(EXIT_FAILURE);
+		exit_error("Error execve");
 	}
 }

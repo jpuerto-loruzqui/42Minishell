@@ -12,16 +12,17 @@
 
 #include "../minishell.h"
 
-void unrecognized_error(char *command)
+void	unrecognized_error(char *command)
 {
 	ft_putstr_fd("Unrecognized command: ", 2);
 	ft_putstr_fd(command, 2);
 	ft_putchar_fd('\n', 2);
-	exit(EXIT_FAILURE);
 }
 
 void	exit_error(char *message)
 {
 	ft_putstr_fd(message, 2);
-	exit(EXIT_FAILURE);
+	ft_putchar_fd('\n', 2);
+	rl_on_new_line();
+	rl_replace_line("", 0);
 }
