@@ -44,6 +44,13 @@ void	exec_pipes(t_parser *commands, char **envp, int num_commands)
 		commands = commands->next;
 		i++;
 	}
+	i = 0;
+	while (i < num_commands - 1)
+	{
+		close(array_pipes[i][0]);
+		close(array_pipes[i][1]);
+		i++;
+	}
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, SIG_IGN);
 	i = 0;
