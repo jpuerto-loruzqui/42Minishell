@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/01 17:14:48 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:47:15 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	get_command(int *mode, char **save_ptr, char **token, char delim,
 	(*save_ptr)++;
 	while (**save_ptr && **save_ptr != delim)
 	{
+		if (!ft_strchr(VALID_CHARS, **save_ptr))
+		{
+			data->error = true;
+			unrecognized_error((char[]){**save_ptr, '\0'});
+		}
 		if (**save_ptr == '\\' && *(*save_ptr + 1) == delim)
 		{
 			(*token) = append_char((*token), delim);

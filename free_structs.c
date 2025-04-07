@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:10:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/01 16:10:15 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:31:49 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ void	free_parser(t_parser *parser)
 	}
 }
 
-void	free_data(t_data data)
-{
-	free_lexer(data.tokens);
-	free(data.tokens);
-	free_parser(data.commands);
-	free(data.commands);
-	free(data.input);
-	if (data.env && data.env[0])
-		ft_free_split(data.env);
-}
+// void	free_data(t_data data)
+// {
+// 	free_lexer(data.tokens);
+// 	free(data.tokens);
+// 	free_parser(data.commands);
+// 	free(data.commands);
+// 	free(data.input);
+// 	if (data.env && data.env[0])
+// 		ft_free_split(data.env);
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/01 12:26:20 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:05:54 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,13 @@ t_lexer	*lexer(t_data *data)
 		else if (ft_strncmp(token, ">", 1) == 0)
 			type = T_REDIR_OUT;
 		if (token[0])
+		{
 			add_token(&lexer_list, new_token(index++, token, type, &mode));
-		if (token[0])
 			free(token);
+		}
 		token = ft_strtok(NULL, &mode, data);
 		if (data->error)
-			return (NULL);
+			return (free_lexer(lexer_list), NULL);
 	}
 	return (lexer_list);
 }
