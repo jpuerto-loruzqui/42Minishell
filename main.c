@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/07 17:28:23 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/08 18:46:07 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void	print_commands(t_parser *head)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_data		data;
+	t_data	data;
+	char	*temp;
 
 	(void)argc;
 	(void)argv;
@@ -68,13 +69,18 @@ int	main(int argc, char **argv, char **envp)
 		}
 		print_tokens(data.tokens);
 		data.commands = parser(data.tokens);
+		temp = get_heredoc_delimiter(data.tokens);
+		if (temp)
+			data.delim = ft_strdup(temp);
+		else
+			data.delim = NULL;
 		free_lexer(data.tokens);
 		print_commands(data.commands);
 		data.num_commands = ft_parserlen(data.commands);
 		if (data.num_commands == 1 && !is_built_in(data.commands, &data.env))
-			exec_one_command(data.commands, data.env);
+			exec_one_command(&data);
 		else if (data.num_commands > 1)
-			exec_pipes(data.commands, data.env, data.num_commands);
+			exec_pipes(&data);
 		free(data.input);
 		free_parser(data.commands);
 	}

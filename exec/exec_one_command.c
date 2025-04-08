@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_one_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/05 13:07:58 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/08 18:41:11 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	exec_one_command(t_parser *commands, char **envp)
+void	exec_one_command(t_data *data)
 {
 	pid_t	pid;
 	int		status;
@@ -20,15 +20,18 @@ void	exec_one_command(t_parser *commands, char **envp)
 	pid = fork();
 	if (pid < 0)
 	{
-		free_parser(commands);
+		free_parser(data->commands);
 		exit_error("Error fork one command");
 	}
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		input_redir(commands);
-		output_redir(commands);
-		find_path(commands, envp);
+		if (data->delim)
+			ft_heredoc(data->delim);
+		else
+			input_redir(data->commands);
+		output_redir(data->commands);
+		find_path(data->commands, data->env);
 	}
 	else
 	{

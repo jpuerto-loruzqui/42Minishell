@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_childs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:01:51 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/29 18:01:53 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:34:12 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,24 @@ static void	pipes_middle_child(int i, int ***array_pipes)
 	close((*array_pipes)[i - 1][0]);
 }
 
-void	exec_child(int i, int num_commands, int ***array_pipes,
-		t_parser *commands, char **envp)
+void	exec_child(int i, int ***array_pipes, t_data *data)
 {
-	close_unused_pipes(num_commands, i, array_pipes);
+	close_unused_pipes(data->num_commands, i, array_pipes);
 	if (i == 0)
 	{
-		input_redir(commands);
+		signal(SIGINT, SIG_DFL);
+		if (data->delim)
+			ft_heredoc(data->delim);
+		else
+			input_redir(data->commands);
 		pipes_first_child(i, array_pipes);
 	}
-	else if (i == num_commands - 1)
+	else if (i == data->num_commands - 1)
 	{
-		output_redir(commands);
+		output_redir(data->commands);
 		pipes_last_child(i, array_pipes);
 	}
 	else
 		pipes_middle_child(i, array_pipes);
-	find_path(commands, envp);
+	find_path(data->commands, data->env);
 }

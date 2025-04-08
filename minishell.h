@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/05 13:01:07 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/08 18:34:22 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <signal.h>
 # include <stdbool.h>
 # include <sys/wait.h> //para el waitpid
+# include "gnl/get_next_line.h"
 
 # define COLOR_BANNER "\033[38;2;0;189;157m"
 
@@ -94,6 +95,7 @@ typedef struct s_data
 	int			num_commands;
 	char		**env;
 	bool		error;
+	char		*delim;
 }	t_data;
 
 /****************************************************/
@@ -142,16 +144,15 @@ void		sigint_handler(int sig);
 /****************************************************/
 char		*ft_get_path_from_env(char **envp);
 char		*ft_find_executable(char *command, char **envp);
-void		exec_one_command(t_parser *commands, char **envp);
-void		exec_pipes(t_parser *commands, char **envp, int num_commands);
+void		exec_one_command(t_data *data);
+void		exec_pipes(t_data *data);
 void		init_pipes(int num_commands, int ***array_pipes,
 				pid_t **array_pids);
 void		finish_exec(int num_commands, int ***array_pipes,
 				pid_t **array_pids);
 void		close_unused_pipes(int num_commands, int i, int ***array_pipes);
 void		find_path(t_parser *commands, char **envp);
-void		exec_child(int i, int num_commands, int ***array_pipes,
-				t_parser *commands, char **envp);
+void		exec_child(int i, int ***array_pipes, t_data *data);
 
 /****************************************************/
 //REDIRECTIONS
@@ -165,5 +166,11 @@ void		output_redir(t_parser *commands);
 void		free_lexer(t_lexer *lexer);
 void		free_parser(t_parser *parser);
 void		free_data(t_data data);
+
+/****************************************************/
+//HEREDOC
+/****************************************************/
+char		*get_heredoc_delimiter(t_lexer *tokens);
+int			ft_heredoc(char *delim);
 
 #endif
