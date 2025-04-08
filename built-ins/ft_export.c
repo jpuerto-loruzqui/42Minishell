@@ -3,29 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:50 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/05 19:00:52 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/08 19:23:50 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_export_sort(t_env **lst)
+void	ft_export_sort(t_env *lst)
 {
 	t_env	*current;
 	t_env	*next_node;
 	char	*temp_content;
 	int		ordered;
 
-	if (lst == NULL || *lst == NULL)
+	if (lst == NULL || lst == NULL)
 		return ;
 	ordered = false;
-	while (ordered = false)
+	while (ordered == false)
 	{
 		ordered = true;
-		current = *lst;
+		current = lst;
 		while (current != NULL && current->next != NULL)
 		{
 			next_node = current->next;
@@ -49,17 +49,88 @@ void	print_export(t_env *exports)
 	while (lst != NULL)
 	{
 		ft_putendl_fd(lst->content, STDERR_FILENO);
-		ft_putchar_fd('\n', STDOUT_FILENO);
 		lst = lst->next;
 	}
 }
 
-int	ft_export(char **args, t_env *envp)
+void	free_exports(t_env *env)
+{
+	t_env	*tmp;
+
+	if (!env)
+		return ;
+	while (env)
+	{
+		tmp = env->next;
+		free(env->content);
+		free(env);
+		env = tmp;
+	}
+}
+void	create_var(t_env **new_var, char *args, t_data *data)
+{
+	char	*var;
+	bool quotes;
+	int i;
+
+	i = 0;
+	quotes = false;	
+	while (args[i] && (ft_isalnum(args[i]) || args[i] == '_'))
+			i++;
+	if ((!ft_isalpha(args[0]) && args[0] != '_') || (args[i] != '=' && args[i] != '\0'))
+		return (ft_putstr_fd("export: Not an identifier: ", 2), ft_putendl_fd(args, 2));
+	var = ft_substr(args, 0, i);
+	if (!args[i] || (args[i] == '=' && !args[i + 1]) )
+	{	
+		quotes = true;
+		var = append_char(var, '=');
+		var = append_char(var, '\'');
+	}
+	while (args[i])
+		var = append_char(var, args[i++]);
+	if (quotes)
+		var = append_char(var, '\'');
+	(*new_var) = new_node_env(var);
+	ft_envadd_back(&data->env, *new_var);
+	free(var);
+}
+
+int check_var(char *arg, t_data *data)
+{
+	t_env *tmp = data->env;
+	int i;
+
+	i = 0;
+	while (arg[i] != '=')
+		i++;
+	while (tmp)
+	{
+		if (ft_strncmp(tmp->content, arg, i) == 0 && tmp->content[i] == '=')
+		{
+			free(tmp->content);
+			tmp->content = ft_strdup(arg);
+			return (1);
+		}
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+int  ft_export(char **args, t_data *data)
 {
 	t_env	*exports;
+	t_env	*new_var;
 
-	exports = ft_dup_env(envp);
-	ft_export_sort(&exports);
+	exports = ft_dup_env(data->env_arr);
+	ft_export_sort(exports);
 	if (args[0] && !args[1])
-		print_export(exports);
+		return (print_export(exports), free_exports(exports), 1);
+	args++;
+	while (*args)
+	{
+		if (!check_var(*args, data))
+			create_var(&new_var, *args, data);
+		args++;
+	}
+	return (1);
 }

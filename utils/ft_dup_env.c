@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dup_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:10:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/05 19:10:42 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:21:49 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_env	*new_node_env(void *content)
 	toreturn = malloc(sizeof(t_env));
 	if (!toreturn)
 		return (NULL);
-	toreturn->content = content;
+	toreturn->content = ft_strdup(content);
 	toreturn->exported = true;
 	toreturn->next = NULL;
 	return (toreturn);

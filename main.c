@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/07 17:28:23 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/08 13:26:34 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	data.env = ft_strdup_matrix(envp);
+	data.env = ft_dup_env(envp);
+	data.env_arr = ft_strdup_matrix(envp);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sigint_handler);
 	data.num_commands = 0;
@@ -71,14 +72,13 @@ int	main(int argc, char **argv, char **envp)
 		free_lexer(data.tokens);
 		print_commands(data.commands);
 		data.num_commands = ft_parserlen(data.commands);
-		if (data.num_commands == 1 && !is_built_in(data.commands, &data.env))
-			exec_one_command(data.commands, data.env);
+		if (data.num_commands == 1 && !is_built_in(data.commands, &data))
+			exec_one_command(data.commands, data.env_arr);
 		else if (data.num_commands > 1)
-			exec_pipes(data.commands, data.env, data.num_commands);
+			exec_pipes(data.commands, data.env_arr, data.num_commands);
 		free(data.input);
 		free_parser(data.commands);
 	}
-	if (data.env && data.env[0])
-		ft_free_split(data.env);
+	free_env(&data);
 	return (0);
 }
