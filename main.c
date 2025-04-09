@@ -6,7 +6,7 @@
 /*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 17:04:07 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/09 18:48:24 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ static void	print_commands(t_parser *head)
 	while (curr)
 	{
 		printf("Command %d:\n", i);
-		printf("  args[0]: %s\n", curr->args[0]);
+		if (curr->args != NULL)
+			printf("  args[0]: %s\n", curr->args[0]);
 		j = 1;
-		while (curr->args[j])
+		while (curr->args != NULL && curr->args[j])
 		{
 			printf("  args[%d]: %s\n", j, curr->args[j]);
 			j++;
