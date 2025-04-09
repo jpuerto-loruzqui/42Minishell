@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 13:02:24 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/09 11:59:04 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_env *ft_unset(char **args, t_env *envp)
         while (args[i])
         {
             if (strncmp(current->content, args[i], strlen(args[i])) == 0
-                && current->content[strlen(args[i])] == '=')
+                && (current->content[strlen(args[i])] == '=' || current->content[strlen(args[i])] == '\0'))
             {
                 if (prev)
                     prev->next = current->next;

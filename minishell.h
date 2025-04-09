@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 17:24:20 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/09 15:56:29 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define DOUBLE_MODE 1
 # define SIMPLE_MODE 2
 
-# define VALID_CHARS "=_/-.0123456789abcdefghijklmn\
-	ñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ<> \"\'|$"
+# define VALID_CHARS "?=_/-.0123456789abcdefghijklmn\
+	ñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ<>\\ \"\'|$"
 
 # define COLOR_USERS "\033[38;2;84;222;253m"
 # define COLOR_RESET "\033[0m"
@@ -64,7 +64,8 @@ typedef struct s_lexer
 	char			*data;		// contenido del token
 	int				mode;
 	int				type_token;	// tipo de token -> t_token
-	struct s_lexer	*next;		// siguiente token
+	struct s_lexer	*next;
+	struct s_lexer	*prev;		// siguiente token
 }	t_lexer;
 
 /**
@@ -96,6 +97,7 @@ typedef struct s_data
 	t_env		*env;
 	char		**env_arr;
 	bool		error;
+	int			last_exit_code;
 }	t_data;
 
 /****************************************************/
@@ -107,7 +109,7 @@ void		print_tokens(t_lexer *lexer);
 /****************************************************/
 //PARSER
 /****************************************************/
-t_parser	*parser(t_lexer *lexer);
+t_parser	*parser(t_lexer *lexer, t_data data);
 char		*expand_cmd(char *token);
 
 /****************************************************/
@@ -120,7 +122,7 @@ void		ft_free_split(char **split);
 char		**ft_lsttoa(t_data data);
 t_env		*ft_dup_env(char **envp);
 t_env		*new_node_env(void *content);
-void	ft_envadd_back(t_env **lst, t_env *new);
+void		ft_envadd_back(t_env **lst, t_env *new);
 
 /****************************************************/
 //BUILT-INS
@@ -147,7 +149,7 @@ void		sigint_handler(int sig);
 /****************************************************/
 char		*ft_get_path_from_env(char **envp);
 char		*ft_find_executable(char *command, char **envp);
-void		exec_one_command(t_parser *commands, char **envp);
+void		exec_one_command(t_data	*data);
 void		exec_pipes(t_parser *commands, char **envp, int num_commands);
 void		init_pipes(int num_commands, int ***array_pipes,
 				pid_t **array_pids);

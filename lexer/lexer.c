@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/07 17:05:54 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:18:27 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static t_lexer	*new_token(int index, char *data, t_token type, int *mode)
 	token->mode = *mode;
 	token->type_token = type;
 	token->next = NULL;
+	token->prev = NULL;
 	(*mode) = NORMAL_MODE;
 	return (token);
 }
@@ -46,6 +47,7 @@ static void	add_token(t_lexer **lexer, t_lexer *new)
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = new;
+		new->prev = tmp;
 	}
 }
 

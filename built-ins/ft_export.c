@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:50 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 19:23:50 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/09 11:44:54 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,20 @@ void	ft_export_sort(t_env *lst)
 void	print_export(t_env *exports)
 {
 	t_env	*lst;
+	char *value;
 
 	lst = exports;
 	while (lst != NULL)
 	{
-		ft_putendl_fd(lst->content, STDERR_FILENO);
+		value = ft_strchr(lst->content, '=');
+		if (value && *(value + 1) == '\0')
+		{
+			ft_putstr_fd(lst->content, STDERR_FILENO);
+			ft_putstr_fd("\'\'", STDERR_FILENO);
+			ft_putchar_fd('\n', STDOUT_FILENO);
+		}
+		else
+			ft_putendl_fd(lst->content, STDERR_FILENO);
 		lst = lst->next;
 	}
 }
@@ -70,26 +79,17 @@ void	free_exports(t_env *env)
 void	create_var(t_env **new_var, char *args, t_data *data)
 {
 	char	*var;
-	bool quotes;
 	int i;
 
 	i = 0;
-	quotes = false;	
 	while (args[i] && (ft_isalnum(args[i]) || args[i] == '_'))
 			i++;
 	if ((!ft_isalpha(args[0]) && args[0] != '_') || (args[i] != '=' && args[i] != '\0'))
 		return (ft_putstr_fd("export: Not an identifier: ", 2), ft_putendl_fd(args, 2));
 	var = ft_substr(args, 0, i);
-	if (!args[i] || (args[i] == '=' && !args[i + 1]) )
-	{	
-		quotes = true;
-		var = append_char(var, '=');
-		var = append_char(var, '\'');
-	}
+	var = append_char(var, '=');
 	while (args[i])
 		var = append_char(var, args[i++]);
-	if (quotes)
-		var = append_char(var, '\'');
 	(*new_var) = new_node_env(var);
 	ft_envadd_back(&data->env, *new_var);
 	free(var);
@@ -101,10 +101,12 @@ int check_var(char *arg, t_data *data)
 	int i;
 
 	i = 0;
-	while (arg[i] != '=')
+	while (arg[i] && arg[i] != '=')
 		i++;
 	while (tmp)
 	{
+		if (ft_strncmp(tmp->content, arg, i) == 0 && !arg[i])
+			return (1);
 		if (ft_strncmp(tmp->content, arg, i) == 0 && tmp->content[i] == '=')
 		{
 			free(tmp->content);
@@ -132,5 +134,6 @@ int  ft_export(char **args, t_data *data)
 			create_var(&new_var, *args, data);
 		args++;
 	}
+	free_exports(exports);
 	return (1);
 }

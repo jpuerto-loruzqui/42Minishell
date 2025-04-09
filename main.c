@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 13:26:34 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/09 13:03:06 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	data.env = ft_dup_env(envp);
 	data.env_arr = ft_strdup_matrix(envp);
+	data.last_exit_code = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sigint_handler);
 	data.num_commands = 0;
@@ -68,12 +69,12 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		print_tokens(data.tokens);
-		data.commands = parser(data.tokens);
+		data.commands = parser(data.tokens, data);
 		free_lexer(data.tokens);
 		print_commands(data.commands);
 		data.num_commands = ft_parserlen(data.commands);
 		if (data.num_commands == 1 && !is_built_in(data.commands, &data))
-			exec_one_command(data.commands, data.env_arr);
+			exec_one_command(&data);
 		else if (data.num_commands > 1)
 			exec_pipes(data.commands, data.env_arr, data.num_commands);
 		free(data.input);
