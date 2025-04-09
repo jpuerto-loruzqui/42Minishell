@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 16:18:27 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/08 13:17:10 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,20 @@ static void	add_token(t_lexer **lexer, t_lexer *new)
 	}
 }
 
+void	get_type_of_delimiter(char *token, t_token *type)
+{
+	if (ft_strncmp(token, "|", 1) == 0)
+		*type = T_PIPE;
+	else if (ft_strncmp(token, "<<", 2) == 0)
+		*type = T_HEREDOC;
+	else if (ft_strncmp(token, ">>", 2) == 0)
+		*type = T_APPEND;
+	else if (ft_strncmp(token, "<", 1) == 0)
+		*type = T_REDIR_IN;
+	else if (ft_strncmp(token, ">", 1) == 0)
+		*type = T_REDIR_OUT;
+}
+
 /**
  * @brief Divide la entrada en tokens.
  */
@@ -69,16 +83,7 @@ t_lexer	*lexer(t_data *data)
 	while (token)
 	{
 		type = T_GENERAL;
-		if (ft_strncmp(token, "|", 1) == 0)
-			type = T_PIPE;
-		else if (ft_strncmp(token, "<<", 2) == 0)
-			type = T_HEREDOC;
-		else if (ft_strncmp(token, ">>", 2) == 0)
-			type = T_APPEND;
-		else if (ft_strncmp(token, "<", 1) == 0)
-			type = T_REDIR_IN;
-		else if (ft_strncmp(token, ">", 1) == 0)
-			type = T_REDIR_OUT;
+		get_type_of_delimiter(token, &type);
 		if (token[0])
 		{
 			add_token(&lexer_list, new_token(index++, token, type, &mode));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 13:03:06 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/08 18:46:07 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void	print_commands(t_parser *head)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_data		data;
+	t_data	data;
+	char	*temp;
 
 	(void)argc;
 	(void)argv;
@@ -69,8 +70,13 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		print_tokens(data.tokens);
-		data.commands = parser(data.tokens, data);
-		free_lexer(data.tokens);
+    data.commands = parser(data.tokens, data);
+    temp = get_heredoc_delimiter(data.tokens);
+		if (temp)
+			data.delim = ft_strdup(temp);
+		else
+		  data.delim = NULL;
+    free_lexer(data.tokens);
 		print_commands(data.commands);
 		data.num_commands = ft_parserlen(data.commands);
 		if (data.num_commands == 1 && !is_built_in(data.commands, &data))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_one_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 12:29:35 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/08 18:41:11 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	exec_one_command(t_data *data)
 	else if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
-		input_redir(data->commands);
+		if (data->delim)
+			ft_heredoc(data->delim);
+		else
+			input_redir(data->commands);
 		output_redir(data->commands);
 		find_path(data->commands, data->env_arr);
 	}
