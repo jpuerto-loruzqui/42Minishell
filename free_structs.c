@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:10:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/07 17:31:49 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/08 13:25:40 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,22 @@ void	free_lexer(t_lexer *lexer)
 		free(lexer);
 		lexer = tmp;
 	}
+}
+
+void	free_env(t_data *data)
+{
+	t_env	*tmp;
+
+	if (!data->env)
+		return ;
+	while (data->env)
+	{
+		tmp = data->env->next;
+		free(data->env->content);
+		free(data->env);
+		data->env = tmp;
+	}
+	ft_free_split(data->env_arr);
 }
 
 void	free_parser(t_parser *parser)

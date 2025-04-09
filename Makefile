@@ -5,7 +5,7 @@ SRC = main.c lexer/lexer.c parser/parser.c utils/ft_strtok.c built-ins/ft_exit.c
 	exec/exec_one_command.c exec/exec.c utils/ft_parserlen.c\
 	exec/exec_pipes.c exec/pipes_childs.c redirections/input_redir.c redirections/output_redir.c\
 	free_structs.c built-ins/ft_exit_error.c utils/ft_append_char.c parser/expand_cmd.c\
-	built-ins/ft_echo.c built-ins/ft_env.c built-ins/ft_unset.c
+	built-ins/ft_echo.c built-ins/ft_env.c built-ins/ft_unset.c utils/ft_dup_env.c utils/ft_lsttoa.c built-ins/ft_export.c
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
