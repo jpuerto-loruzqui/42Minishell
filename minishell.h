@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 17:09:05 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/09 22:31:29 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <stdbool.h>
 # include <sys/wait.h> //para el waitpid
 # include "gnl/get_next_line.h"
+# include <linux/limits.h> //para el PATH_MAX
 
 # define COLOR_BANNER "\033[38;2;0;189;157m"
 
@@ -33,7 +34,7 @@
 # define DOUBLE_MODE 1
 # define SIMPLE_MODE 2
 
-# define VALID_CHARS "?=_/-.0123456789abcdefghijklmn\
+# define VALID_CHARS "?=_+/-.0123456789abcdefghijklmn\
 	ñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ<>\\ \"\'|$"
 
 # define COLOR_USERS "\033[38;2;84;222;253m"
@@ -134,11 +135,17 @@ bool		is_built_in(t_parser *commands, t_data *data);
 void		ft_exit(t_parser *parser);
 void		exit_error(char *message);
 void		unrecognized_error(char *command);
-int			ft_cd(char **args);
+int			ft_cd(char **args, t_data *data);
 int			ft_pwd(char **args);
 int			ft_echo(char **arg);
 int			ft_env(char **args, t_env *envp);
 t_env		*ft_unset(char **args, t_env *envp);
+
+/****************************************************/
+//EXPORT
+/****************************************************/
+int			check_var(char *arg, t_data *data);
+void		create_var(t_env **new_var, char *args, t_data *data);
 int 		ft_export(char **args, t_data *data);
 
 /****************************************************/

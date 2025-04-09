@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_childs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:01:51 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 17:09:17 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/09 23:21:35 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,24 @@
 static void	pipes_first_child(int i, int ***array_pipes)
 {
 	close((*array_pipes)[i][0]);
-	dup2((*array_pipes)[i][1], STDOUT_FILENO);
+	if (dup2((*array_pipes)[i][1], STDOUT_FILENO) == -1)
+	{
+		close((*array_pipes)[i][1]);
+		exit_error("Error in dup2");
+		exit(EXIT_FAILURE);
+	}
 	close((*array_pipes)[i][1]);
 }
 
 static void	pipes_last_child(int i, int ***array_pipes)
 {
 	close((*array_pipes)[i - 1][1]);
-	dup2((*array_pipes)[i - 1][0], STDIN_FILENO);
+	if (dup2((*array_pipes)[i - 1][0], STDIN_FILENO) == -1)
+	{
+		close((*array_pipes)[i - 1][0]);
+		exit_error("Error in dup2");
+		exit(EXIT_FAILURE);
+	}
 	close((*array_pipes)[i - 1][0]);
 }
 
@@ -30,8 +40,20 @@ static void	pipes_middle_child(int i, int ***array_pipes)
 {
 	close((*array_pipes)[i][0]);
 	close((*array_pipes)[i - 1][1]);
-	dup2((*array_pipes)[i - 1][0], STDIN_FILENO);
-	dup2((*array_pipes)[i][1], STDOUT_FILENO);
+	if (dup2((*array_pipes)[i - 1][0], STDIN_FILENO) == -1)
+	{
+		close((*array_pipes)[i][1]);
+		close((*array_pipes)[i - 1][0]);
+		exit_error("Error in dup2");
+		exit(EXIT_FAILURE);
+	}
+	if (dup2((*array_pipes)[i][1], STDOUT_FILENO) == -1)
+	{
+		close((*array_pipes)[i][1]);
+		close((*array_pipes)[i - 1][0]);
+		exit_error("Error in dup2");
+		exit(EXIT_FAILURE);
+	}
 	close((*array_pipes)[i][1]);
 	close((*array_pipes)[i - 1][0]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_built_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 18:26:27 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/09 22:31:44 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	is_built_in(t_parser *commands, t_data *data)
 	if (ft_strncmp(commands->args[0], "exit", 5) == 0)
 		return (ft_exit(commands), true);
 	else if (ft_strncmp(commands->args[0], "cd", 3) == 0)
-		return (ft_cd(commands->args), true);
+		return (ft_cd(commands->args, data), true);
 	else if (ft_strncmp(commands->args[0], "pwd", 4) == 0)
 		return (ft_pwd(commands->args), true);
 	else if (ft_strncmp(commands->args[0], "echo", 5) == 0)
