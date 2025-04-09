@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtok.c                                        :+:      :+:    :+:   */
+/*   zzzzzz.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 13:32:54 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/09 14:22:49 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
 	(*save_ptr)++;
 }
 
+
 char	*check_separator(char *sep)
 {
 	if (ft_strncmp(sep, "<<", 2) == 0)
@@ -89,13 +90,12 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 		if (check_separator(save_ptr))
 			return (token);
 		else if (!ft_strchr(VALID_CHARS, *save_ptr))
-			return (unrecognized_error(save_ptr), data->error = true, NULL);
+			return (unrecognized_error(str), data->error = true, NULL);
 		else if (*save_ptr == ' ')
 			return (save_ptr++, token);
 		if (check_quote(*save_ptr))
 			get_command(mode, &save_ptr, &token, data);
-		else
-			token = append_char(token, *save_ptr++);
+		token = append_char(token, *save_ptr++);
 	}
 	return (token);
 }

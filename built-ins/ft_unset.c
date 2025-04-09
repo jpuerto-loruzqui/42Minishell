@@ -3,71 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/05 19:00:42 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/09 11:59:04 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	get_env_size(char **args, char **envp)
+t_env *ft_unset(char **args, t_env *envp)
 {
-	int	size;
-	int	i;
-	int	j;
+    t_env *current = envp;
+    t_env *temp;
+    t_env *prev = NULL;
+    int i;
 
-	size = 0;
-	i = 0;
-	while (envp[i])
-	{
-		j = 0;
-		while (args[j])
-		{
-			if (strncmp(envp[i], args[j], strlen(args[j])) == 0
-				&& envp[i][strlen(args[j])] == '=')
-				break ;
-			j++;
-		}
-		if (!args[j])
-			size++;
-		i++;
-	}
-	return (size);
+    while (current)
+    {
+        i = 0;
+        while (args[i])
+        {
+            if (strncmp(current->content, args[i], strlen(args[i])) == 0
+                && (current->content[strlen(args[i])] == '=' || current->content[strlen(args[i])] == '\0'))
+            {
+                if (prev)
+                    prev->next = current->next;
+                else
+                    current = current->next;
+                temp = current;
+                current = current->next;
+                free(temp->content);
+                free(temp);
+                break;
+            }
+            i++;
+        }
+        if (!args[i])
+        {
+            prev = current;
+            current = current->next;
+        }
+    }
+    return envp; 
 }
 
-char	**ft_unset(char **args, char ***envp)
-{
-	char	**new_env;
-	int		size;
-	int		i;
-	int		j;
-	int		k;
-
-	i = -1;
-	k = 0;
-	size = get_env_size(args, *envp);
-	new_env = malloc(sizeof(char *) * (size + 1));
-	if (!new_env)
-		return (NULL);
-	while ((*envp)[++i])
-	{
-		j = -1;
-		while (args[++j])
-		{
-			if (strncmp((*envp)[i], args[j], strlen(args[j])) == 0
-				&& (*envp)[i][strlen(args[j])] == '=')
-			{
-				free((*envp)[i]);
-				break ;
-			}
-		}
-		if (!args[j])
-			new_env[k++] = (*envp)[i];
-	}
-	new_env[k] = NULL;
-	free(*envp);
-	*envp = new_env;
-	return (new_env);
-}

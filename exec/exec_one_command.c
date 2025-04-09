@@ -31,13 +31,19 @@ void	exec_one_command(t_data *data)
 		else
 			input_redir(data->commands);
 		output_redir(data->commands);
-		find_path(data->commands, data->env);
+		find_path(data->commands, data->env_arr);
 	}
 	else
 	{
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			data->last_exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			data->last_exit_code = 128 + WTERMSIG(status);
+		else
+			data->last_exit_code = 1;
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 			write(1, "\n", 1);
 		signal(SIGINT, sigint_handler);

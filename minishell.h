@@ -33,8 +33,8 @@
 # define DOUBLE_MODE 1
 # define SIMPLE_MODE 2
 
-# define VALID_CHARS "/-.0123456789abcdefghijklmn\
-	ñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ<> \"\'|$"
+# define VALID_CHARS "?=_/-.0123456789abcdefghijklmn\
+	ñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ<>\\ \"\'|$"
 
 # define COLOR_USERS "\033[38;2;84;222;253m"
 # define COLOR_RESET "\033[0m"
@@ -65,7 +65,8 @@ typedef struct s_lexer
 	char			*data;		// contenido del token
 	int				mode;
 	int				type_token;	// tipo de token -> t_token
-	struct s_lexer	*next;		// siguiente token
+	struct s_lexer	*next;
+	struct s_lexer	*prev;		// siguiente token
 }	t_lexer;
 
 /**
@@ -85,6 +86,7 @@ typedef struct s_env
 	char			*content;
 	bool			exported;
 	struct s_env	*next;
+	struct s_env	*prev;
 }	t_env;
 
 typedef struct s_data
@@ -93,9 +95,11 @@ typedef struct s_data
 	t_lexer		*tokens;
 	t_parser	*commands;
 	int			num_commands;
-	char		**env;
+	t_env		*env;
+	char		**env_arr;
 	bool		error;
 	char		*delim;
+	int			last_exit_code;
 }	t_data;
 
 /****************************************************/
@@ -107,7 +111,7 @@ void		print_tokens(t_lexer *lexer);
 /****************************************************/
 //PARSER
 /****************************************************/
-t_parser	*parser(t_lexer *lexer);
+t_parser	*parser(t_lexer *lexer, t_data data);
 char		*expand_cmd(char *token);
 
 /****************************************************/
@@ -117,22 +121,25 @@ char		*ft_strtok(char *str, int *mode, t_data *data);
 char		*append_char(char *str, char c);
 int			ft_parserlen(t_parser *parser);
 void		ft_free_split(char **split);
-char		**ft_lstoa(t_env *env);
+char		**ft_lsttoa(t_data data);
 t_env		*ft_dup_env(char **envp);
+t_env		*new_node_env(void *content);
+void		ft_envadd_back(t_env **lst, t_env *new);
 
 /****************************************************/
 //BUILT-INS
 /****************************************************/
 
-bool		is_built_in(t_parser *commands, char ***envp);
+bool		is_built_in(t_parser *commands, t_data *data);
 void		ft_exit(t_parser *parser);
 void		exit_error(char *message);
 void		unrecognized_error(char *command);
 int			ft_cd(char **args);
 int			ft_pwd(char **args);
 int			ft_echo(char **arg);
-int			ft_env(char **args, char **envp);
-char		**ft_unset(char **args, char ***envp);
+int			ft_env(char **args, t_env *envp);
+t_env		*ft_unset(char **args, t_env *envp);
+int 		 ft_export(char **args, t_data *data);
 
 /****************************************************/
 //SIGNALS
@@ -166,6 +173,7 @@ void		output_redir(t_parser *commands);
 void		free_lexer(t_lexer *lexer);
 void		free_parser(t_parser *parser);
 void		free_data(t_data data);
+void		free_env(t_data *data);
 
 /****************************************************/
 //HEREDOC

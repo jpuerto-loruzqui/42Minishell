@@ -45,7 +45,9 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	data.env = ft_strdup_matrix(envp);
+	data.env = ft_dup_env(envp);
+	data.env_arr = ft_strdup_matrix(envp);
+	data.last_exit_code = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sigint_handler);
 	data.num_commands = 0;
@@ -68,23 +70,22 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		print_tokens(data.tokens);
-		data.commands = parser(data.tokens);
-		temp = get_heredoc_delimiter(data.tokens);
+    data.commands = parser(data.tokens, data);
+    temp = get_heredoc_delimiter(data.tokens);
 		if (temp)
 			data.delim = ft_strdup(temp);
 		else
-			data.delim = NULL;
-		free_lexer(data.tokens);
+		  data.delim = NULL;
+    free_lexer(data.tokens);
 		print_commands(data.commands);
 		data.num_commands = ft_parserlen(data.commands);
-		if (data.num_commands == 1 && !is_built_in(data.commands, &data.env))
+		if (data.num_commands == 1 && !is_built_in(data.commands, &data))
 			exec_one_command(&data);
 		else if (data.num_commands > 1)
-			exec_pipes(&data);
+			exec_pipes(data.commands, data.env_arr, data.num_commands);
 		free(data.input);
 		free_parser(data.commands);
 	}
-	if (data.env && data.env[0])
-		ft_free_split(data.env);
+	free_env(&data);
 	return (0);
 }

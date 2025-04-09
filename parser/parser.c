@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/09 18:54:25 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:16:46 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,15 +71,21 @@ static char	**add_arg(char **args, const char *arg)
 	return (new);
 }
 
-t_parser	*parser(t_lexer *lexer)
+t_parser	*parser(t_lexer *lexer, t_data data)
 {
 	t_parser	*head;
 	t_parser	*curr;
 
 	head = NULL;
 	curr = NULL;
+	(void)data;
 	while (lexer)
 	{
+		if (lexer->mode != SIMPLE_MODE && ft_strncmp("$?", lexer->data, 3) == 0)
+		{
+			free(lexer->data);
+			lexer->data = ft_itoa(data.last_exit_code);
+		}
 		if ((lexer->mode == DOUBLE_MODE && ft_strchr(lexer->data, '$'))
 			&& (ft_isalnum(*(ft_strchr(lexer->data, '$') + 1))
 				|| !ft_strncmp(ft_strchr(lexer->data, '$') + 1, "{", 1)))
@@ -95,6 +101,8 @@ t_parser	*parser(t_lexer *lexer)
 			curr = new_node();
 			add_node(&head, curr);
 		}
+		if (lexer->prev != NULL && lexer->prev->type_token == T_HEREDOC)
+			lexer->type_token = T_LIMITER;
 		if (lexer->type_token == T_GENERAL)
 			curr->args = add_arg(curr->args, lexer->data);
 		else if (lexer->type_token == T_REDIR_IN && lexer->next)
@@ -110,6 +118,8 @@ t_parser	*parser(t_lexer *lexer)
 			curr->append = (lexer->type_token == T_APPEND);
 			lexer = lexer->next;
 		}
+		// else if (lexer->prev->type_token == T_HEREDOC)
+		
 		lexer = lexer->next;
 	}
 	return (head);
