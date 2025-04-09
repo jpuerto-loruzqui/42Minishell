@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:50 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 11:44:54 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/09 16:24:53 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_export_sort(t_env *lst)
 		while (current != NULL && current->next != NULL)
 		{
 			next_node = current->next;
-			if (strcmp(current->content, next_node->content) > 0)
+			if (ft_strcmp(current->content, next_node->content) > 0)
 			{
 				temp_content = current->content;
 				current->content = next_node->content;
