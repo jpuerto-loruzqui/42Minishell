@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 17:00:33 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/09 19:36:18 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	exec_pipes(t_data *data)
 		if (pid < 0)
 		{
 			free_parser(data->commands);
-			exit_error("Error fork pipes");
+			exit_error("Error fork pipes"); // aqui no deberia haber tambien un exit?
 		}
 		else if (pid == 0)
 		{

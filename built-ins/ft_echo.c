@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:54:41 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/05 18:54:43 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/09 19:33:50 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_echo(char **arg) // no saca al > outfile
 	while (*arg)
 	{
 		ft_putstr_fd(*arg, STDOUT_FILENO);
-		ft_putchar_fd(' ', STDERR_FILENO);
+		ft_putchar_fd(' ', STDOUT_FILENO);
 		arg++;
 	}
 	if (newline == true)
