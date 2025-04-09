@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 16:16:46 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/09 16:52:48 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 			lexer = lexer->next;
 		}
 		// else if (lexer->prev->type_token == T_HEREDOC)
-		
 		lexer = lexer->next;
 	}
 	return (head);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_childs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:01:51 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 18:34:12 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:09:17 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ void	exec_child(int i, int ***array_pipes, t_data *data)
 	{
 		signal(SIGINT, SIG_DFL);
 		if (data->delim)
-			ft_heredoc(data->delim);
-		else
-			input_redir(data->commands);
+			ft_heredoc(data->delim, data->commands);
+		input_redir(data->commands);
 		pipes_first_child(i, array_pipes);
 	}
 	else if (i == data->num_commands - 1)
@@ -55,5 +54,5 @@ void	exec_child(int i, int ***array_pipes, t_data *data)
 	}
 	else
 		pipes_middle_child(i, array_pipes);
-	find_path(data->commands, data->env);
+	find_path(data->commands, data->env_arr);
 }

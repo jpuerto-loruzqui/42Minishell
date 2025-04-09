@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 18:46:07 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:04:07 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,19 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		print_tokens(data.tokens);
-    data.commands = parser(data.tokens, data);
-    temp = get_heredoc_delimiter(data.tokens);
+		data.commands = parser(data.tokens, data);
+		temp = get_heredoc_delimiter(data.tokens);
 		if (temp)
 			data.delim = ft_strdup(temp);
 		else
-		  data.delim = NULL;
-    free_lexer(data.tokens);
+			data.delim = NULL;
+		free_lexer(data.tokens);
 		print_commands(data.commands);
 		data.num_commands = ft_parserlen(data.commands);
 		if (data.num_commands == 1 && !is_built_in(data.commands, &data))
 			exec_one_command(&data);
 		else if (data.num_commands > 1)
-			exec_pipes(data.commands, data.env_arr, data.num_commands);
+			exec_pipes(&data);
 		free(data.input);
 		free_parser(data.commands);
 	}

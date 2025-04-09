@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_one_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 18:41:11 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:09:26 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ void	exec_one_command(t_data *data)
 	{
 		signal(SIGINT, SIG_DFL);
 		if (data->delim)
-			ft_heredoc(data->delim);
-		else
-			input_redir(data->commands);
+			ft_heredoc(data->delim, data->commands);
+		input_redir(data->commands);
 		output_redir(data->commands);
 		find_path(data->commands, data->env_arr);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 13:22:56 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:00:33 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,17 @@ void	exec_pipes(t_data *data)
 	while (i < data->num_commands)
 	{
 		waitpid(array_pids[i], &status, 0);
+		if (WIFEXITED(status))
+			data->last_exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			data->last_exit_code = 128 + WTERMSIG(status);
+		else
+			data->last_exit_code = 1;
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
 			interrupted = 1;
+			write(1, "\n", 1);
+		}
 		i++;
 	}
 	if (interrupted)

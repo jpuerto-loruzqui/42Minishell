@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:42:14 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 18:53:16 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:11:17 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,6 @@ char	*get_heredoc_delimiter(t_lexer *tokens)
 	return (NULL);
 }
 
-#include <string.h>
-#include <unistd.h>
-
 void	print_prompt(void)
 {
 	write(STDOUT_FILENO, COLOR_USERS, strlen(COLOR_USERS));
@@ -43,7 +40,7 @@ void	print_prompt(void)
 	write(STDOUT_FILENO, COLOR_RESET, strlen(COLOR_RESET));
 }
 
-int	ft_heredoc(char *delim)
+int	ft_heredoc(char *delim, t_parser *commands)
 {
 	int		fd;
 	char	*line;
@@ -56,7 +53,6 @@ int	ft_heredoc(char *delim)
 		perror("open");
 		return (-1);
 	}
-	unlink(temp_filename);
 	while (1)
 	{
 		print_prompt();
@@ -75,5 +71,6 @@ int	ft_heredoc(char *delim)
 		free(line);
 	}
 	lseek(fd, 0, SEEK_SET);
+	commands->infile = ft_strdup(temp_filename);
 	return (fd);
 }

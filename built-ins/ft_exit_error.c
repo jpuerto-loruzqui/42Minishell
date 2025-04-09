@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:53:08 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/04/09 15:18:29 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/09 16:57:35 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	unrecognized_error(char *command)
 {
-	char *str_cmd;
+	char	*str_cmd;
 
 	str_cmd = command;
 	while (*str_cmd)

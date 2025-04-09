@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 18:34:22 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:09:05 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int			ft_pwd(char **args);
 int			ft_echo(char **arg);
 int			ft_env(char **args, t_env *envp);
 t_env		*ft_unset(char **args, t_env *envp);
-int 		 ft_export(char **args, t_data *data);
+int 		ft_export(char **args, t_data *data);
 
 /****************************************************/
 //SIGNALS
@@ -179,6 +179,6 @@ void		free_env(t_data *data);
 //HEREDOC
 /****************************************************/
 char		*get_heredoc_delimiter(t_lexer *tokens);
-int			ft_heredoc(char *delim);
+int			ft_heredoc(char *delim, t_parser *commands);
 
 #endif
