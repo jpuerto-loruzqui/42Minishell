@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:54:41 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 12:23:05 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:16:07 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int check_all_n(char *arg)
+int	check_all_n(char *arg)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (arg[i])

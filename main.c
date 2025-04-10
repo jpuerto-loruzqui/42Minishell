@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 14:31:22 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:20:51 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	main(int argc, char **argv, char **envp)
 		if (isatty(STDIN_FILENO))
 			data.input = readline(COLOR_BANNER "bash> " COLOR_RESET);
 		else
-			data.input = get_next_line(STDIN_FILENO); 
+			data.input = get_next_line(STDIN_FILENO);
 		data.error = false;
-		if (!data.input )
+		if (!data.input)
 		{
 			// printf(COLOR_USERS "\nSaliendo de la shell...\n" COLOR_RESET);
 			free(data.input);

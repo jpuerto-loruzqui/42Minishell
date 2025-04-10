@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 19:22:50 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:21:32 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ typedef struct s_data
 	int			last_exit_code;
 }	t_data;
 
-
 /****************************************************/
 //LEXER
 /****************************************************/
@@ -128,7 +127,6 @@ t_env		*new_node_env(void *content);
 void		ft_envadd_back(t_env **lst, t_env *new);
 char		*ft_getenv(const char *cmd, char **env_arr);
 
-
 /****************************************************/
 //BUILT-INS
 /****************************************************/
@@ -142,9 +140,8 @@ int			ft_pwd(char **args);
 int			ft_echo(char **arg);
 int			ft_env(char **args, t_env *envp);
 t_env		*ft_unset(char **args, t_env *envp);
-int 		ft_export(char **args, t_data *data);
-void create_var(t_env **new_var, char *args, t_data *data);
-
+int			ft_export(char **args, t_data *data);
+void		create_var(t_env **new_var, char *args, t_data *data);
 
 /****************************************************/
 //SIGNALS

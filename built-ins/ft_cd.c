@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:50:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 20:16:45 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:19:11 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void free_cd(t_data *data, char *export_str, char *newpwd)
+static void	free_cd(t_data *data, char *export_str, char *newpwd)
 {
 	ft_free_split(data->env_arr);
 	free(export_str);
@@ -43,9 +43,7 @@ int	ft_cd(char **args, t_data *data)
 		return (perror("minishell: getcwd"), 1);
 	export_str = ft_strjoin("PWD=", newpwd);
 	ft_export((char *[]){"export", export_str, NULL}, data);
-	data->env_arr = ft_lsttoa(*data);
 	free_cd(data, export_str, newpwd);
+	data->env_arr = ft_lsttoa(*data);
 	return (0);
 }
-
-

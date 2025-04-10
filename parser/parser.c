@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 14:52:53 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:15:43 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 			curr->outfile = ft_strdup(lexer->next->data); // LEAK
 			curr->append = (lexer->type_token == T_APPEND);
 			lexer = lexer->next;
-		}		
+		}
 		lexer = lexer->next;
 	}
 	return (head);

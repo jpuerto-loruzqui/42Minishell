@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:50 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 20:11:52 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:20:06 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_export_sort(t_env *lst)
 void	print_export(t_env *exports)
 {
 	t_env	*lst;
-	char *value;
+	char	*value;
 
 	lst = exports;
 	while (lst != NULL)
@@ -76,38 +76,38 @@ void	free_exports(t_env *env)
 		env = tmp;
 	}
 }
-void create_var(t_env **new_var, char *args, t_data *data)
-{
-    char    *var;
-    int     i;
 
-    i = 0;
-    while (args[i] && (ft_isalnum(args[i]) || args[i] == '_'))
-        i++;
-    if ((!ft_isalpha(args[0]) && args[0] != '_') || (args[i] != '=' && args[i] != '\0'))
-        return (ft_putstr_fd("export: Not an identifier: ", 2), ft_putendl_fd(args, 2));
-    var = ft_substr(args, 0, i);
-    if (args[i] == '=')
-    {
-        var = append_char(var, '=');
-        i++;
-        while (args[i])
-            var = append_char(var, args[i++]);
-    }
+void	create_var(t_env **new_var, char *args, t_data *data)
+{
+	char	*var;
+	int		i;
+
+	i = 0;
+	while (args[i] && (ft_isalnum(args[i]) || args[i] == '_'))
+		i++;
+	if ((!ft_isalpha(args[0]) && args[0] != '_') || (args[i] != '=' && args[i] != '\0'))
+		return (ft_putstr_fd("export: Not an identifier: ", 2), ft_putendl_fd(args, 2));
+	var = ft_substr(args, 0, i);
+	if (args[i] == '=')
+	{
+		var = append_char(var, '=');
+		i++;
+		while (args[i])
+			var = append_char(var, args[i++]);
+	}
 	else
 		var = append_char(var, '=');
-    (*new_var) = new_node_env(var);
-    ft_envadd_back(&data->env, *new_var);
-    free(var);
+	(*new_var) = new_node_env(var);
+	ft_envadd_back(&data->env, *new_var);
+	free(var);
 }
 
-
-
-int check_var(char *arg, t_data *data)
+int	check_var(char *arg, t_data *data)
 {
-	t_env *tmp = data->env;
-	int i;
+	t_env	*tmp;
+	int		i;
 
+	tmp = data->env;
 	i = 0;
 	while (arg[i] && arg[i] != '=')
 		i++;
@@ -126,7 +126,7 @@ int check_var(char *arg, t_data *data)
 	return (0);
 }
 
-int  ft_export(char **args, t_data *data)
+int	ft_export(char **args, t_data *data)
 {
 	t_env	*exports;
 	t_env	*new_var;

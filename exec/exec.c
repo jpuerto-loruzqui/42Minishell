@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 17:00:42 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 13:56:10 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 18:22:25 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	close_unused_pipes(int num_commands, int i, int ***array_pipes)
 void	find_path(t_parser *commands, char **envp)
 {
 	char	*path;
-	
+
 	if (!commands->args)
 		return ;
 	if (ft_strchr(commands->args[0], '/'))
