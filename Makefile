@@ -1,5 +1,5 @@
-NAME = minishell
 
+NAME = minishell
 SRC = main.c lexer/lexer.c parser/parser.c utils/ft_strtok.c built-ins/ft_exit.c\
 	signals.c built-ins/ft_cd.c built-ins/ft_pwd.c built-ins/is_built_in.c\
 	exec/exec_one_command.c exec/exec.c utils/ft_parserlen.c\
@@ -7,13 +7,13 @@ SRC = main.c lexer/lexer.c parser/parser.c utils/ft_strtok.c built-ins/ft_exit.c
 	free_structs.c built-ins/ft_exit_error.c utils/ft_append_char.c parser/expand_cmd.c\
 	built-ins/ft_echo.c built-ins/ft_env.c built-ins/ft_unset.c\
 	heredoc/heredoc.c gnl/get_next_line.c gnl/get_next_line_utils.c\
-  utils/ft_dup_env.c utils/ft_lsttoa.c built-ins/ft_export.c
+  utils/ft_dup_env.c utils/ft_lsttoa.c built-ins/ft_export.c utils/ft_getenv.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LDFLAGS = -L/usr/local/opt/readline -lreadline -L ./libft -lft
 INCLUDES = -I/usr/local/opt/readlineinclude
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:12:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/05 19:12:25 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/10 12:26:02 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	do_expansion(int *i, char *token, char **aux)
+void	do_expansion(int *i, char *token, char **aux, char **env_arr)
 {
 	int		j;
 	char	*cmd;
@@ -27,12 +27,14 @@ void	do_expansion(int *i, char *token, char **aux)
 	cmd = ft_substr(token, *i, j - *i);
 	if (cmd)
 	{
-		env_value = getenv(cmd);
+		env_value = ft_getenv(cmd, env_arr);
 		if (env_value)
 		{
 			expanded_value = ft_strdup(env_value);
 			*aux = ft_strjoin_free(*aux, expanded_value);
 		}
+		else
+			*aux = NULL;
 		free(cmd);
 	}
 	(*i) = j;
@@ -40,7 +42,7 @@ void	do_expansion(int *i, char *token, char **aux)
 		i++;
 }
 
-char	*expand_cmd(char *token)
+char	*expand_cmd(char *token, char **env_arr)
 {
 	char	*aux;
 	int		i;
@@ -52,7 +54,7 @@ char	*expand_cmd(char *token)
 		if (token[i] == '$')
 		{
 			i++;
-			do_expansion(&i, token, &aux);
+			do_expansion(&i, token, &aux, env_arr);
 		}
 		else
 		{
