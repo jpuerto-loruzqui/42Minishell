@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 13:05:21 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 19:22:50 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct s_data
 	int			last_exit_code;
 }	t_data;
 
+
 /****************************************************/
 //LEXER
 /****************************************************/
@@ -136,12 +137,14 @@ bool		is_built_in(t_parser *commands, t_data *data);
 void		ft_exit(t_parser *parser);
 void		exit_error(char *message);
 void		unrecognized_error(char *command);
-int			ft_cd(char **args);
+int			ft_cd(char **args, t_data *data);
 int			ft_pwd(char **args);
 int			ft_echo(char **arg);
 int			ft_env(char **args, t_env *envp);
 t_env		*ft_unset(char **args, t_env *envp);
 int 		ft_export(char **args, t_data *data);
+void create_var(t_env **new_var, char *args, t_data *data);
+
 
 /****************************************************/
 //SIGNALS

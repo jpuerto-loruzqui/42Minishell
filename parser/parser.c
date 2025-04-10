@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 12:27:19 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 14:52:53 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	**add_arg(char **args, const char *arg)
 		new = malloc(sizeof(char *) * 2);
 		new[0] = ft_strdup(arg);
 		new[1] = NULL;
-		return (new); //changed
+		return (new);
 	}
 	while (args[i])
 		i++;

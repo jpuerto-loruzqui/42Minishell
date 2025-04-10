@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:50 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 12:24:40 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 20:11:52 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,11 @@ int  ft_export(char **args, t_data *data)
 	t_env	*new_var;
 
 	exports = ft_dup_env(data->env_arr);
-	ft_export_sort(exports);
 	if (args[0] && !args[1])
+	{
+		ft_export_sort(exports);
 		return (print_export(exports), free_exports(exports), 1);
+	}
 	args++;
 	while (*args)
 	{

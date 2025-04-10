@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 12:25:09 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 19:42:42 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool is_built_in(t_parser *commands, t_data *data)
     if (ft_strncmp(commands->args[0], "exit", 5) == 0)
         return (ft_exit(commands), unset_std(stdinout), true);
     else if (ft_strncmp(commands->args[0], "cd", 3) == 0)
-        return (ft_cd(commands->args), unset_std(stdinout), true);
+        return (ft_cd(commands->args, data), unset_std(stdinout), true);
     else if (ft_strncmp(commands->args[0], "pwd", 4) == 0)
         return (ft_pwd(commands->args), unset_std(stdinout), true);
     else if (ft_strncmp(commands->args[0], "echo", 5) == 0)

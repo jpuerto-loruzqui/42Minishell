@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 13:05:58 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 14:31:22 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ int	main(int argc, char **argv, char **envp)
 	data.num_commands = 0;
 	while (1)
 	{
-		data.input = readline(COLOR_BANNER "bash> " COLOR_RESET);
+		if (isatty(STDIN_FILENO))
+			data.input = readline(COLOR_BANNER "bash> " COLOR_RESET);
+		else
+			data.input = get_next_line(STDIN_FILENO); 
 		data.error = false;
-		if (!data.input)
+		if (!data.input )
 		{
-			printf(COLOR_USERS "\nSaliendo de la shell...\n" COLOR_RESET);
+			// printf(COLOR_USERS "\nSaliendo de la shell...\n" COLOR_RESET);
 			free(data.input);
 			break ;
 		}

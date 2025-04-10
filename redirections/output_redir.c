@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 13:01:45 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/09 20:15:40 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ void	output_redir(t_parser *commands)
 		if (fd_out < 0)
 		{
 			free_parser(commands);
-			exit_error("Error opening file output"); // EXIT ??
+			exit_error("Error opening file output");
 		}
 		if (dup2(fd_out, STDOUT_FILENO) == -1)
 		{
 			close(fd_out);
 			free_parser(commands);
-			exit_error("Error in dup2"); // EXIT ??
+			exit_error("Error in dup2");
 		}
 		close(fd_out);
 	}
