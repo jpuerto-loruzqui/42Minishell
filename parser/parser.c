@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 16:52:48 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/10 12:27:19 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	**add_arg(char **args, const char *arg)
 		new = malloc(sizeof(char *) * 2);
 		new[0] = ft_strdup(arg);
 		new[1] = NULL;
-		return (new);
+		return (new); //changed
 	}
 	while (args[i])
 		i++;
@@ -78,7 +78,6 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 
 	head = NULL;
 	curr = NULL;
-	(void)data;
 	while (lexer)
 	{
 		if (lexer->mode != SIMPLE_MODE && ft_strncmp("$?", lexer->data, 3) == 0)
@@ -86,10 +85,18 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 			free(lexer->data);
 			lexer->data = ft_itoa(data.last_exit_code);
 		}
-		if ((lexer->mode == DOUBLE_MODE && ft_strchr(lexer->data, '$'))
+		if ((lexer->mode != SIMPLE_MODE && ft_strchr(lexer->data, '$'))
 			&& (ft_isalnum(*(ft_strchr(lexer->data, '$') + 1))
 				|| !ft_strncmp(ft_strchr(lexer->data, '$') + 1, "{", 1)))
-			lexer->data = expand_cmd(lexer->data);
+		{
+			lexer->data = expand_cmd(lexer->data, data.env_arr);
+			if (lexer->data == NULL)
+			{
+				free(lexer->data);
+				lexer = lexer->next;
+				continue ;
+			}
+		}
 		if (lexer->type_token == T_PIPE)
 		{
 			curr = NULL;
@@ -103,7 +110,7 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 		}
 		if (lexer->prev != NULL && lexer->prev->type_token == T_HEREDOC)
 			lexer->type_token = T_LIMITER;
-		if (lexer->type_token == T_GENERAL)
+		if (lexer->type_token == T_GENERAL && lexer->data)
 			curr->args = add_arg(curr->args, lexer->data);
 		else if (lexer->type_token == T_REDIR_IN && lexer->next)
 		{
@@ -114,11 +121,10 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 				|| lexer->type_token == T_APPEND)
 			&& lexer->next)
 		{
-			curr->outfile = ft_strdup(lexer->next->data);
+			curr->outfile = ft_strdup(lexer->next->data); // LEAK
 			curr->append = (lexer->type_token == T_APPEND);
 			lexer = lexer->next;
-		}
-		// else if (lexer->prev->type_token == T_HEREDOC)
+		}		
 		lexer = lexer->next;
 	}
 	return (head);

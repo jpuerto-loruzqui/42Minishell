@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 17:09:05 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/10 13:05:21 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define DOUBLE_MODE 1
 # define SIMPLE_MODE 2
 
-# define VALID_CHARS "?=_/-.0123456789abcdefghijklmn\
+# define VALID_CHARS "+*?=_/-.0123456789abcdefghijklmn\
 	ñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ<>\\ \"\'|$"
 
 # define COLOR_USERS "\033[38;2;84;222;253m"
@@ -112,7 +112,7 @@ void		print_tokens(t_lexer *lexer);
 //PARSER
 /****************************************************/
 t_parser	*parser(t_lexer *lexer, t_data data);
-char		*expand_cmd(char *token);
+char		*expand_cmd(char *token, char **env_arr);
 
 /****************************************************/
 //UTILS
@@ -125,6 +125,8 @@ char		**ft_lsttoa(t_data data);
 t_env		*ft_dup_env(char **envp);
 t_env		*new_node_env(void *content);
 void		ft_envadd_back(t_env **lst, t_env *new);
+char		*ft_getenv(const char *cmd, char **env_arr);
+
 
 /****************************************************/
 //BUILT-INS

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 17:00:42 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 17:11:37 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/10 13:03:17 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,25 @@ void	close_unused_pipes(int num_commands, int i, int ***array_pipes)
 void	find_path(t_parser *commands, char **envp)
 {
 	char	*path;
-
+	
+	if (!commands->args)
+		return ;
+	if (ft_strchr(commands->args[0], '/'))
+	{
+		if (access(commands->args[0], X_OK) == 0)
+			execve(commands->args[0], commands->args, envp);
+		else
+		{
+			free_parser(commands);
+			exit_error("comand not found");
+			exit(127);
+		}
+	}
 	path = ft_find_executable(commands->args[0], envp);
 	if (!path || execve(path, commands->args, envp) == -1)
 	{
 		free_parser(commands);
-		exit_error("Error execve");
-		exit(EXIT_FAILURE);
+		exit_error("comand not found");
+		exit(127); // 127?
 	}
 }

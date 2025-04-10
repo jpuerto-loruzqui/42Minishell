@@ -6,19 +6,35 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:54:41 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 19:33:50 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/10 12:23:05 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_echo(char **arg) // no saca al > outfile
+int check_all_n(char *arg)
+{
+	int i;
+
+	i = 1;
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	ft_echo(char **arg)
 {
 	bool	newline;
 
 	newline = true;
+	if (arg[1] == NULL)
+		return (ft_putchar_fd('\n', STDOUT_FILENO), 1);
 	arg++;
-	if (ft_strncmp(*arg, "-n", 2) == 0)
+	if (ft_strncmp(*arg, "-n", 2) == 0 && check_all_n(*arg))
 	{
 		newline = false;
 		arg++;
@@ -30,6 +46,6 @@ int	ft_echo(char **arg) // no saca al > outfile
 		arg++;
 	}
 	if (newline == true)
-		ft_putchar_fd('\n', STDERR_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (1);
 }
