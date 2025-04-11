@@ -3,19 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   exec_one_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 11:40:58 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/11 10:20:22 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+void	manage_status(pid_t pid, t_data *data)
+{
+	int	status;
+
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		data->last_exit_code = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		data->last_exit_code = 128 + WTERMSIG(status);
+	else
+		data->last_exit_code = 1;
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		write(1, "\n", 1);
+}
+
 void	exec_one_command(t_data *data)
 {
 	pid_t	pid;
-	int		status;
 
 	pid = fork();
 	if (pid < 0)
@@ -37,15 +51,7 @@ void	exec_one_command(t_data *data)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, SIG_IGN);
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			data->last_exit_code = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			data->last_exit_code = 128 + WTERMSIG(status);
-		else
-			data->last_exit_code = 1;
-		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-			write(1, "\n", 1);
+		manage_status(pid, data);
 		signal(SIGINT, sigint_handler);
 	}
 }

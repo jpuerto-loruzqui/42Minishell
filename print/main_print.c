@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/11 10:30:16 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/04/11 10:31:45 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "print.h"
 
 void	control_args(int argc)
 {
@@ -38,6 +38,8 @@ int	lexer_parser_and_exec(t_data *data)
 		return (1);
 	}
 	data->commands = parser(data->tokens, *data);
+	print_tokens(data->tokens);
+	print_commands(data->commands);
 	free_lexer(data->tokens);
 	data->num_commands = ft_parserlen(data->commands);
 	if (data->num_commands == 1 && !is_built_in(data->commands, data))

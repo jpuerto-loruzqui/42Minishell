@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 14:10:12 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/11 10:36:47 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,22 @@ void	close_all_pipes(t_data *data, int **array_pipes)
 		close(array_pipes[i][0]);
 		close(array_pipes[i][1]);
 		i++;
+	}
+}
+
+void	close_unused_pipes(int num_commands, int i, int ***array_pipes)
+{
+	int	j;
+
+	j = 0;
+	while (j < num_commands - 1)
+	{
+		if (j != i && j != i - 1)
+		{
+			close((*array_pipes)[j][0]);
+			close((*array_pipes)[j][1]);
+		}
+		j++;
 	}
 }
 

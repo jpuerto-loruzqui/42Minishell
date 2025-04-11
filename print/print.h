@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   print.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/21 15:40:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/11 09:57:21 by loruzqui         ###   ########.fr       */
+/*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
+/*   Updated: 2025/04/11 10:06:35 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#ifndef PRINT_H
+# define PRINT_H
 
-void	ft_exit(t_parser *parser)
-{
-	int		exit_code;
-	int		exit_atoi;
+# include "../minishell.h"
 
-	exit_code = EXIT_SUCCESS;
-	exit_atoi = 0;
-	if (parser->args[1])
-		exit_atoi = ft_atoi(parser->args[1]);
-	if (exit_atoi != 0)
-		exit_code = exit_atoi;
-	free_parser(parser);
-	exit(exit_code);
-}
+void	print_commands(t_parser *head);
+void	print_tokens(t_lexer *lexer);
+
+#endif

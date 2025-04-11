@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 13:17:10 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:04:50 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,4 @@ t_lexer	*lexer(t_data *data)
 			return (free_lexer(lexer_list), NULL);
 	}
 	return (lexer_list);
-}
-
-/**
- * @brief Imprime la lista de tokens.
- */
-void	print_tokens(t_lexer *lexer)
-{
-	while (lexer)
-	{
-		printf("Token %d: [%s] -> Tipo %d\n", lexer->index,
-			lexer->data, lexer->type_token);
-		lexer = lexer->next;
-	}
 }

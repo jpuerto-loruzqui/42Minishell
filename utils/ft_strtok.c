@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 13:15:46 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/11 09:54:56 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,10 @@ void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
 			(*save_ptr) += 2;
 		}
 		else
-			(*token) = append_char((*token), **save_ptr), (*save_ptr)++;
+		{
+			(*token) = append_char((*token), **save_ptr);
+			(*save_ptr)++;
+		}
 	}
 	if (**save_ptr != delim)
 	{
