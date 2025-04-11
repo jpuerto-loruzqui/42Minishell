@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 18:20:51 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:07:20 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ int	main(int argc, char **argv, char **envp)
 		free(data.input);
 		free_parser(data.commands);
 	}
+	// if (data.commands->args[0])
+	// 	ft_free_split(data.commands->args);
 	free_env(&data);
 	return (0);
 }

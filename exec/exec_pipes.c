@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 19:36:18 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/11 10:23:25 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	exec_pipes(t_data *data)
 	int			i;
 	int			status;
 	int			interrupted;
+	t_parser *cmd = data->commands;
 
 	interrupted = 0;
 	init_pipes(data->num_commands, &array_pipes, &array_pids);
@@ -29,19 +30,19 @@ void	exec_pipes(t_data *data)
 		pid = fork();
 		if (pid < 0)
 		{
-			free_parser(data->commands);
+			free_parser(cmd);
 			exit_error("Error fork pipes"); // aqui no deberia haber tambien un exit?
 		}
 		else if (pid == 0)
 		{
 			signal(SIGINT, SIG_DFL);
-			exec_child(i, &array_pipes, data);
+			exec_child(i, &array_pipes, cmd, data);
 		}
 		else
 		{
 			array_pids[i] = pid;
 		}
-		data->commands = data->commands->next;
+		cmd = cmd->next;;
 		i++;
 	}
 	i = 0;

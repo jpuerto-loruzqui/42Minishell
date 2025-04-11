@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 17:00:42 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 18:22:25 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/11 10:17:52 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	find_path(t_parser *commands, char **envp)
 		else
 		{
 			free_parser(commands);
-			exit_error("comand not found");
+			exit_error("command not found");
 			exit(127);
 		}
 	}
@@ -149,7 +149,7 @@ void	find_path(t_parser *commands, char **envp)
 	if (!path || execve(path, commands->args, envp) == -1)
 	{
 		free_parser(commands);
-		exit_error("comand not found");
+		exit_error("command not found");
 		exit(127); // 127?
 	}
 }

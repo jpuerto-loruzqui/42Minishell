@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:10:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 13:25:40 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/11 10:15:28 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,15 @@ void	free_env(t_data *data)
 
 void	free_parser(t_parser *parser)
 {
-	t_parser	*tmp;
+	t_parser *tmp;
 
 	while (parser)
 	{
 		tmp = parser->next;
+		if (parser->args)
+			ft_free_split(parser->args);
 		free(parser->infile);
 		free(parser->outfile);
-		ft_free_split(parser->args);
 		free(parser);
 		parser = tmp;
 	}
