@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/11 10:23:25 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/11 13:09:30 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	exec_pipes(t_data *data)
 		if (pid < 0)
 		{
 			free_parser(cmd);
-			exit_error("Error fork pipes"); // aqui no deberia haber tambien un exit?
+			exit_error("Error fork pipes");
 		}
 		else if (pid == 0)
 		{
 			signal(SIGINT, SIG_DFL);
-			exec_child(i, &array_pipes, cmd, data);
+			exec_child(i, &array_pipes, cmd,  data);
 		}
 		else
 		{

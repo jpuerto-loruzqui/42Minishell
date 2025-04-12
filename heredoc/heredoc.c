@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:42:14 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/09 17:11:17 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/12 09:46:43 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_heredoc(char *delim, t_parser *commands)
 	char	*line;
 	char	*temp_filename;
 
-	temp_filename = "/tmp/.heredoc_temp";
+	temp_filename = "heredoc.txt";
 	fd = open(temp_filename, O_RDWR | O_CREAT | O_TRUNC, 0600);
 	if (fd < 0)
 	{

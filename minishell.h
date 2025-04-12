@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/11 10:31:16 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 08:26:49 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ typedef enum e_token
  * @brief Nodo en la lista de análisis léxico.
  */
 
- typedef struct s_infile
+ typedef struct s_outfile
  {
 	char				*data;
-	struct s_infile 	*next;
+	struct s_outfile	*next;
 	bool				append;
- }	t_infile;
+ }	t_outfile;
  
 typedef struct s_lexer
 {
@@ -82,11 +82,11 @@ typedef struct s_lexer
  */
 typedef struct s_parser
 {
-	char			**args;		// comando + sus flags
-	char			*infile;	// nombre de fichero de entrada (<)
-	char			*outfile;	// nombre de fichero de salida (>, >>)
-	bool			append;		// false si “>”, true si “>>”
-	struct s_parser	*next;		// siguiente comando (pipe)
+	char				**args;		// comando + sus flags
+	char				*infile;	// nombre de fichero de entrada (<)
+	struct s_outfile 	*outfiles;
+	struct s_parser		*next;		// siguiente comando (pipe)
+	struct s_outfile 	*last_outfile;
 }	t_parser;
 
 typedef struct s_env
@@ -108,6 +108,7 @@ typedef struct s_data
 	bool		error;
 	char		*delim;
 	int			last_exit_code;
+	char		*term_log;
 }	t_data;
 
 /****************************************************/
@@ -121,6 +122,7 @@ void		print_tokens(t_lexer *lexer);
 /****************************************************/
 t_parser	*parser(t_lexer *lexer, t_data data);
 char		*expand_cmd(char *token, char **env_arr);
+t_parser	*new_node(void);
 
 /****************************************************/
 //UTILS
@@ -155,6 +157,7 @@ void		create_var(t_env **new_var, char *args, t_data *data);
 //SIGNALS
 /****************************************************/
 void		sigint_handler(int sig);
+void		sigint_visualizer(int sig);
 
 /****************************************************/
 //EXEC
@@ -176,6 +179,9 @@ void		exec_child(int i, int ***array_pipes, t_parser *cmd, t_data *data);
 /****************************************************/
 void		input_redir(t_parser *commands);
 void		output_redir(t_parser *commands);
+void		input_redir_last(t_parser *commands);
+void 		check_redirs(t_parser *cmd, t_data *data);
+
 
 /****************************************************/
 //FREES

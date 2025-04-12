@@ -1,0 +1,50 @@
+8. Funciones de la biblioteca string.h (Para manejar cadenas de texto)
+strerror(): Devuelve una cadena descriptiva del error basado en el código de error proporcionado.
+
+perror(): Imprime un mensaje de error, junto con una descripción asociada a la última llamada al sistema fallida.
+
+9. Funciones relacionadas con la terminal (termios.h)
+isatty(): Verifica si el descriptor de archivo hace referencia a una terminal (tty).
+q
+ttyname(): Devuelve el nombre del dispositivo asociado con una terminal.
+
+ttyslot(): Devuelve el número de terminal del sistema.
+
+ioctl(): Realiza una operación de control de entrada/salida en un descriptor de archivo (usado para configuraciones de terminal y otras operaciones a bajo nivel).
+
+tcsetattr(): Establece los atributos de la terminal (por ejemplo, para modificar la forma en que los datos son leídos desde la terminal).
+
+tcgetattr(): Obtiene los atributos actuales de la terminal
+8. Funciones de la biblioteca string.h (Para manejar cadenas de texto)
+strerror(): Devuelve una cadena descriptiva del error basado en el código de error proporcionado.
+
+perror(): Imprime un mensaje de error, junto con una descripción asociada a la última llamada al sistema fallida.
+
+9. Funciones relacionadas con la terminal (termios.h)
+isatty(): Verifica si el descriptor de archivo hace referencia a una terminal (tty).
+
+ttyname(): Devuelve el nombre del dispositivo asociado con una terminal.
+
+ttyslot(): Devuelve el número de terminal del sistema.
+
+ioctl(): Realiza una operación de control de entrada/salida en un descriptor de archivo (usado para configuraciones de terminal y otras operaciones a bajo nivel).
+
+tcsetattr(): Establece los atributos de la terminal (por ejemplo, para modificar la forma en que los datos son leídos desde la terminal).
+
+tcgetattr(): Obtiene los atributos actuales de la terminal8. Funciones de la biblioteca string.h (Para manejar cadenas de texto)
+strerror(): Devuelve una cadena descriptiva del error basado en el código de error proporcionado.
+
+perror(): Imprime un mensaje de error, junto con una descripción asociada a la última llamada al sistema fallida.
+
+9. Funciones relacionadas con la terminal (termios.h)
+isatty(): Verifica si el descriptor de archivo hace referencia a una terminal (tty).
+
+ttyname(): Devuelve el nombre del dispositivo asociado con una terminal.
+
+ttyslot(): Devuelve el número de terminal del sistema.
+
+ioctl(): Realiza una operación de control de entrada/salida en un descriptor de archivo (usado para configuraciones de terminal y otras operaciones a bajo nivel).
+
+tcsetattr(): Establece los atributos de la terminal (por ejemplo, para modificar la forma en que los datos son leídos desde la terminal).
+
+tcgetattr(): Obtiene los atributos actuales de la terminal
