@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:10:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 11:33:13 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 13:16:12 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	free_env(t_data *data)
 
 void	free_outfiles(t_outfile *outfiles)
 {
-	t_outfile *tmp;
-	
+	t_outfile	*tmp;
+
 	while (outfiles)
 	{
 		tmp = outfiles->next;
@@ -57,7 +57,7 @@ void	free_outfiles(t_outfile *outfiles)
 
 void	free_parser(t_parser *parser)
 {
-	t_parser *tmp;
+	t_parser	*tmp;
 
 	while (parser)
 	{

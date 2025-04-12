@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:22 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/11 15:55:22 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 13:34:59 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	input_redir_last(t_parser *commands)
 		close(fd_in);
 	}
 }
-
 
 void	input_redir(t_parser *commands)
 {

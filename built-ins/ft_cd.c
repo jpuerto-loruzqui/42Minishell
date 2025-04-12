@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:50:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 18:19:11 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/12 13:40:21 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,41 @@ static void	free_cd(t_data *data, char *export_str, char *newpwd)
 	free(newpwd);
 }
 
+int	ft_control_cd(char **path, char **args)
+{
+	if (args[2])
+	{
+		printf("cd: usage: cd <path>\n");
+		return (1);
+	}
+	if (!args[1])
+	{
+		*path = getenv("HOME");
+		if (!*path)
+		{
+			printf("minishell: cd: HOME variable not set\n");
+			return (1);
+		}
+	}
+	else
+		*path = args[1];
+	return (0);
+}
+
 int	ft_cd(char **args, t_data *data)
 {
 	char	*oldpwd;
 	char	*newpwd;
 	char	*export_str;
 	int		dir_res;
+	char	*path;
 
-	if (!args[1] || args[2])
-		return (printf("cd: usage: cd <path>\n"), 1);
+	if (ft_control_cd(&path, args))
+		return (1);
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 		return (perror("minishell: getcwd"), 1);
-	dir_res = chdir(args[1]);
+	dir_res = chdir(path);
 	if (dir_res == -1)
 		return (perror("minishell: cd"), free(oldpwd), 1);
 	export_str = ft_strjoin("OLDPWD=", oldpwd);

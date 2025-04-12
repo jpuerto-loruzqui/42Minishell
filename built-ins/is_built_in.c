@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_built_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/11 20:54:57 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 12:58:34 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,22 @@ void	unset_std(int *std_inout)
 {
 	if (!std_inout)
 		return ;
-	dup2(std_inout[0], STDIN_FILENO);
-	dup2(std_inout[1], STDOUT_FILENO);
+	if (dup2(std_inout[0], STDIN_FILENO) == -1)
+	{
+		close(std_inout[0]);
+		close(std_inout[1]);
+		free(std_inout);
+		exit_error("Error in dup2");
+		exit(EXIT_FAILURE);
+	}
+	if (dup2(std_inout[1], STDOUT_FILENO) == -1)
+	{
+		close(std_inout[0]);
+		close(std_inout[1]);
+		free(std_inout);
+		exit_error("Error in dup2");
+		exit(EXIT_FAILURE);
+	}
 	close(std_inout[0]);
 	close(std_inout[1]);
 	free(std_inout);

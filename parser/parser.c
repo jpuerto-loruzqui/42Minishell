@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 11:40:28 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 13:13:52 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 	t_parser	*head;
 	t_parser	*curr;
 	t_outfile	*last_out;
-	
+
 	last_out = NULL;
 	head = NULL;
 	curr = NULL;
 	while (lexer)
-	{			
+	{
 		if (lexer->mode != SIMPLE_MODE && ft_strncmp("$?", lexer->data, 3) == 0)
 		{
 			free(lexer->data);
@@ -145,9 +145,10 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 			if (last_out != NULL)
 				curr->last_outfile = last_out;
 		}
-		if (lexer->prev != NULL && lexer->prev->type_token == T_HEREDOC && lexer->type_token == T_GENERAL)
+		if (lexer->prev != NULL && lexer->prev->type_token == T_HEREDOC
+			&& lexer->type_token == T_GENERAL)
 		{
-			curr->delim =  ft_strdup(lexer->data);
+			curr->delim = ft_strdup(lexer->data);
 			lexer = lexer->next;
 			continue ;
 		}

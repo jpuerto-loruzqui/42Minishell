@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 11:32:33 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 13:42:46 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ typedef enum e_token
  * @brief Nodo en la lista de análisis léxico.
  */
 
- typedef struct s_outfile
- {
+typedef struct s_outfile
+{
 	char				*data;
 	struct s_outfile	*next;
 	bool				append;
- }	t_outfile;
- 
+}	t_outfile;
+
 typedef struct s_lexer
 {
 	int				index;		// indice token
@@ -84,10 +84,10 @@ typedef struct s_parser
 {
 	char				**args;		// comando + sus flags
 	char				*infile;	// nombre de fichero de entrada (<)
-	struct s_outfile 	*outfiles;
+	struct s_outfile	*outfiles;
 	struct s_parser		*next;		// siguiente comando (pipe)
-	struct s_outfile 	*last_outfile;
-	char			*delim;
+	struct s_outfile	*last_outfile;
+	char				*delim;
 }	t_parser;
 
 typedef struct s_env
@@ -152,6 +152,7 @@ int			ft_env(char **args, t_env *envp);
 t_env		*ft_unset(char **args, t_env *envp);
 int			ft_export(char **args, t_data *data);
 void		create_var(t_env **new_var, char *args, t_data *data);
+int			check_var(char *arg, t_data *data);
 
 /****************************************************/
 //SIGNALS
@@ -180,8 +181,7 @@ void		exec_child(int i, int ***array_pipes, t_parser *cmd, t_data *data);
 void		input_redir(t_parser *commands);
 void		output_redir(t_parser *commands);
 void		input_redir_last(t_parser *commands);
-void 		check_redirs(t_parser *cmd, t_data *data);
-
+void		check_redirs(t_parser *cmd, t_data *data);
 
 /****************************************************/
 //FREES

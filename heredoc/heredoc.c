@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:42:14 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 12:40:49 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 14:12:18 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,10 @@ void	print_prompt(void)
 	write(STDOUT_FILENO, COLOR_RESET, strlen(COLOR_RESET));
 }
 
-int	ft_heredoc(char *delim, t_parser *commands)
+void	read_heredoc(int fd, char *delim)
 {
-	int		fd;
 	char	*line;
-	char	*temp_filename;
 
-	temp_filename = "/tmp/.heredoc_temp";
-	fd = open(temp_filename, O_RDWR | O_CREAT | O_TRUNC, 0600);
-	if (fd < 0)
-	{
-		perror("open");
-		return (-1);
-	}
 	while (1)
 	{
 		print_prompt();
@@ -70,6 +61,21 @@ int	ft_heredoc(char *delim, t_parser *commands)
 		write(fd, "\n", 1);
 		free(line);
 	}
+}
+
+int	ft_heredoc(char *delim, t_parser *commands)
+{
+	int		fd;
+	char	*temp_filename;
+
+	temp_filename = "/tmp/.heredoc_temp";
+	fd = open(temp_filename, O_RDWR | O_CREAT | O_TRUNC, 0600);
+	if (fd < 0)
+	{
+		perror("open");
+		return (-1);
+	}
+	read_heredoc(fd, delim);
 	lseek(fd, 0, SEEK_SET);
 	commands->infile = ft_strdup(temp_filename);
 	return (fd);
