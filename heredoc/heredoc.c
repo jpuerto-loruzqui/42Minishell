@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:42:14 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 17:24:10 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 17:28:31 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	read_heredoc(int fd, char *delim)
 			break ;
 		if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
-		if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
+		if (ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0)
 		{
 			free(line);
 			break ;
