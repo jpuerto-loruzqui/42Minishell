@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 18:15:43 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/12 11:40:28 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static t_parser	*new_node(void)
+t_parser	*new_node(void)
 {
 	t_parser	*node;
 
@@ -21,9 +21,10 @@ static t_parser	*new_node(void)
 		return (NULL);
 	node->args = NULL;
 	node->infile = NULL;
-	node->outfile = NULL;
-	node->append = false;
+	node->outfiles = NULL;
 	node->next = NULL;
+	node->last_outfile = NULL;
+	node->delim = NULL;
 	return (node);
 }
 
@@ -71,15 +72,49 @@ static char	**add_arg(char **args, const char *arg)
 	return (new);
 }
 
+t_outfile	*append_outfile(t_outfile **head, t_outfile *new)
+{
+	t_outfile	*tmp;
+
+	if (!*head)
+		*head = new;
+	else
+	{
+		tmp = *head;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	return (new);
+}
+
+t_outfile	*new_outfile(t_lexer *lexer)
+{
+	t_outfile	*node;
+
+	node = malloc(sizeof(t_outfile));
+	if (!node)
+		return (NULL);
+	node->append = (lexer->type_token == T_APPEND);
+	if (lexer->next->data)
+		node->data = ft_strdup(lexer->next->data);
+	else
+		node->data = NULL;
+	node->next = NULL;
+	return (node);
+}
+
 t_parser	*parser(t_lexer *lexer, t_data data)
 {
 	t_parser	*head;
 	t_parser	*curr;
-
+	t_outfile	*last_out;
+	
+	last_out = NULL;
 	head = NULL;
 	curr = NULL;
 	while (lexer)
-	{
+	{			
 		if (lexer->mode != SIMPLE_MODE && ft_strncmp("$?", lexer->data, 3) == 0)
 		{
 			free(lexer->data);
@@ -107,9 +142,15 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 		{
 			curr = new_node();
 			add_node(&head, curr);
+			if (last_out != NULL)
+				curr->last_outfile = last_out;
 		}
-		if (lexer->prev != NULL && lexer->prev->type_token == T_HEREDOC)
-			lexer->type_token = T_LIMITER;
+		if (lexer->prev != NULL && lexer->prev->type_token == T_HEREDOC && lexer->type_token == T_GENERAL)
+		{
+			curr->delim =  ft_strdup(lexer->data);
+			lexer = lexer->next;
+			continue ;
+		}
 		if (lexer->type_token == T_GENERAL && lexer->data)
 			curr->args = add_arg(curr->args, lexer->data);
 		else if (lexer->type_token == T_REDIR_IN && lexer->next)
@@ -121,8 +162,7 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 				|| lexer->type_token == T_APPEND)
 			&& lexer->next)
 		{
-			curr->outfile = ft_strdup(lexer->next->data); // LEAK
-			curr->append = (lexer->type_token == T_APPEND);
+			last_out = append_outfile(&curr->outfiles, new_outfile(lexer));
 			lexer = lexer->next;
 		}
 		lexer = lexer->next;

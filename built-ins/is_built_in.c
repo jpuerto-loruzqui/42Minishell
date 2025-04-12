@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_built_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 18:17:24 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:54:57 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	*redir_builtin(t_parser *commands)
 	std_inout[1] = dup(STDOUT_FILENO);
 	if (commands->infile)
 		input_redir(commands);
-	if (commands->outfile)
+	if (commands->outfiles)
 		output_redir(commands);
 	return (std_inout);
 }

@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/11 10:07:20 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 11:40:05 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	print_commands(t_parser *head)
 	int			i;
 	int			j;
 	t_parser	*curr;
+	t_outfile	*file;
 
 	i = 0;
 	curr = head;
@@ -32,8 +33,17 @@ static void	print_commands(t_parser *head)
 			j++;
 		}
 		printf("  infile: %s\n", curr->infile ? curr->infile : "NULL");
-		printf("  outfile: %s\n", curr->outfile ? curr->outfile : "NULL");
-		printf("  append: %d\n", curr->append);
+		printf("  outfiles:\n");
+		file = curr->outfiles;
+		while (file)
+		{
+			printf("    - %s (append: %d)\n", file->data, file->append);
+			file = file->next;
+		}
+		if (curr->delim)
+			printf("  heredoc: %s\n", curr->delim);
+		else
+			printf("  heredoc: NULL\n");
 		curr = curr->next;
 		i++;
 	}
@@ -42,10 +52,10 @@ static void	print_commands(t_parser *head)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
-	char	*temp;
 
 	(void)argc;
 	(void)argv;
+	
 	data.env = ft_dup_env(envp);
 	data.env_arr = ft_strdup_matrix(envp);
 	data.last_exit_code = 0;
@@ -73,15 +83,10 @@ int	main(int argc, char **argv, char **envp)
 			free(data.input);
 			continue ;
 		}
-		print_tokens(data.tokens);
 		data.commands = parser(data.tokens, data);
-		temp = get_heredoc_delimiter(data.tokens);
-		if (temp)
-			data.delim = ft_strdup(temp);
-		else
-			data.delim = NULL;
-		free_lexer(data.tokens);
+		print_tokens(data.tokens);
 		print_commands(data.commands);
+		free_lexer(data.tokens);
 		data.num_commands = ft_parserlen(data.commands);
 		if (data.num_commands == 1 && !is_built_in(data.commands, &data))
 			exec_one_command(&data);
@@ -90,8 +95,6 @@ int	main(int argc, char **argv, char **envp)
 		free(data.input);
 		free_parser(data.commands);
 	}
-	// if (data.commands->args[0])
-	// 	ft_free_split(data.commands->args);
 	free_env(&data);
 	return (0);
 }
