@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_childs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:01:51 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 13:08:28 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/12 17:21:22 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	pipes_middle_child(int i, int ***array_pipes, t_parser *cmd)
 {
 	close((*array_pipes)[i][0]);
 	close((*array_pipes)[i - 1][1]);
-	if (!cmd->infile)
+	if (!cmd->infile && !cmd->here_fd)
 	{
 		if (dup2((*array_pipes)[i - 1][0], STDIN_FILENO) == -1)
 		{
@@ -58,7 +58,7 @@ static void	pipes_middle_child(int i, int ***array_pipes, t_parser *cmd)
 static void	pipes_last_child(int i, int ***array_pipes, t_parser *cmd)
 {
 	close((*array_pipes)[i - 1][1]);
-	if (!cmd->infile)
+	if (!cmd->infile && !cmd->here_fd)
 	{
 		if (dup2((*array_pipes)[i - 1][0], STDIN_FILENO) == -1)
 		{
