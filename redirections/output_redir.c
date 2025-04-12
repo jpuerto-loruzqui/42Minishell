@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 09:57:13 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 10:55:02 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void check_redirs(t_parser *cmd, t_data *data)
     
     argv[0] = "true";
     argv[1] = NULL;
+    
     if ((cmd->outfiles && cmd->outfiles->data&& !cmd->args)
     || (cmd->outfiles && cmd->outfiles->data
     && !cmd->args && cmd->infile && !cmd->args))

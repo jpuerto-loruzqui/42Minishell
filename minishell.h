@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 08:26:49 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 11:32:33 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_parser
 	struct s_outfile 	*outfiles;
 	struct s_parser		*next;		// siguiente comando (pipe)
 	struct s_outfile 	*last_outfile;
+	char			*delim;
 }	t_parser;
 
 typedef struct s_env
@@ -106,7 +107,6 @@ typedef struct s_data
 	t_env		*env;
 	char		**env_arr;
 	bool		error;
-	char		*delim;
 	int			last_exit_code;
 	char		*term_log;
 }	t_data;

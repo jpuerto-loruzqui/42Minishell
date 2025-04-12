@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/11 15:27:41 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 11:40:28 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_parser	*new_node(void)
 	node->outfiles = NULL;
 	node->next = NULL;
 	node->last_outfile = NULL;
+	node->delim = NULL;
 	return (node);
 }
 
@@ -144,8 +145,12 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 			if (last_out != NULL)
 				curr->last_outfile = last_out;
 		}
-		if (lexer->prev != NULL && lexer->prev->type_token == T_HEREDOC)
-			lexer->type_token = T_LIMITER;
+		if (lexer->prev != NULL && lexer->prev->type_token == T_HEREDOC && lexer->type_token == T_GENERAL)
+		{
+			curr->delim =  ft_strdup(lexer->data);
+			lexer = lexer->next;
+			continue ;
+		}
 		if (lexer->type_token == T_GENERAL && lexer->data)
 			curr->args = add_arg(curr->args, lexer->data);
 		else if (lexer->type_token == T_REDIR_IN && lexer->next)

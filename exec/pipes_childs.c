@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:01:51 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 10:02:49 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 11:59:12 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static void pipes_first_child(int i, int ***array_pipes, t_parser *cmd, t_data *
     }
     else
 	{
+        if (cmd->infile)
+            input_redir(cmd);
         if (dup2((*array_pipes)[i][1], STDOUT_FILENO) == -1)
 		{
             close((*array_pipes)[i][1]);
@@ -112,7 +114,7 @@ static void pipes_last_child(int i, int ***array_pipes, t_parser *cmd, t_data *d
             if (dup2((*array_pipes)[i - 1][0], STDIN_FILENO) == -1)
             {
                 close((*array_pipes)[i - 1][0]);
-                exit_error("Error in dup2 (stdin)");
+                perror("Error in dup2 (stdin)");
                 exit(EXIT_FAILURE);
             }
         }
@@ -124,18 +126,10 @@ static void pipes_last_child(int i, int ***array_pipes, t_parser *cmd, t_data *d
 void    exec_child(int i, int ***array_pipes, t_parser *cmd, t_data *data)
 {
     close_unused_pipes(data->num_commands, i, array_pipes);
+    input_redir(cmd);
     if (i == 0)
     {
-        if (data->delim)
-		{
-            signal(SIGINT, SIG_DFL);
-			ft_heredoc(data->delim, cmd);
-			input_redir(cmd);
-			pipes_first_child(i, array_pipes, cmd, data);
-		}
-        else
-            check_redirs(cmd, data);
-		input_redir(cmd);
+        check_redirs(cmd, data);
 		pipes_first_child(i, array_pipes, cmd, data);
     }
     else if (i == data->num_commands - 1)

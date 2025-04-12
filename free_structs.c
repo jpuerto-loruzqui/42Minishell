@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:10:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/11 10:51:20 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 11:33:13 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	free_parser(t_parser *parser)
 		tmp = parser->next;
 		if (parser->args)
 			ft_free_split(parser->args);
+		if (parser->delim)
+			free(parser->delim);
 		free(parser->infile);
 		free_outfiles(parser->outfiles);
 		free(parser);

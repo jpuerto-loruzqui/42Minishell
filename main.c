@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 09:40:05 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 11:40:05 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ static void	print_commands(t_parser *head)
 			printf("    - %s (append: %d)\n", file->data, file->append);
 			file = file->next;
 		}
-		if (curr->last_outfile)
-			printf("  last_outfile: %s\n", curr->last_outfile->data);
+		if (curr->delim)
+			printf("  heredoc: %s\n", curr->delim);
 		else
-			printf("  last_outfile: NULL\n");
+			printf("  heredoc: NULL\n");
 		curr = curr->next;
 		i++;
 	}
@@ -52,7 +52,6 @@ static void	print_commands(t_parser *head)
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
-	char	*temp;
 
 	(void)argc;
 	(void)argv;
@@ -84,22 +83,15 @@ int	main(int argc, char **argv, char **envp)
 			free(data.input);
 			continue ;
 		}
-		print_tokens(data.tokens);
 		data.commands = parser(data.tokens, data);
-		temp = get_heredoc_delimiter(data.tokens);
-		if (temp)
-			data.delim = ft_strdup(temp);
-		else
-			data.delim = NULL;
-		free_lexer(data.tokens);
+		print_tokens(data.tokens);
 		print_commands(data.commands);
+		free_lexer(data.tokens);
 		data.num_commands = ft_parserlen(data.commands);
 		if (data.num_commands == 1 && !is_built_in(data.commands, &data))
 			exec_one_command(&data);
 		else if (data.num_commands > 1)
 			exec_pipes(&data);
-		if (data.delim != NULL)
-				free(data.delim);
 		free(data.input);
 		free_parser(data.commands);
 	}
