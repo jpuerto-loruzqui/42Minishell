@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:42:14 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 11:42:11 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/12 12:40:49 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_heredoc(char *delim, t_parser *commands)
 	char	*line;
 	char	*temp_filename;
 
-	temp_filename = "heredoc.txt";
+	temp_filename = "/tmp/.heredoc_temp";
 	fd = open(temp_filename, O_RDWR | O_CREAT | O_TRUNC, 0600);
 	if (fd < 0)
 	{
