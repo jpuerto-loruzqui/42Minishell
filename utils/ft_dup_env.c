@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dup_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:10:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 11:21:49 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 21:17:53 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_env	*ft_envlast(t_env *lst)
+static t_env	*ft_envlast(t_env *lst)
 {
 	if (lst == NULL)
 		return (NULL);

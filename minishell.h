@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 16:17:51 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:51:15 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ char		*ft_getenv(const char *cmd, char **env_arr);
 /****************************************************/
 //BUILT-INS
 /****************************************************/
-
 bool		is_built_in(t_parser *commands, t_data *data);
+void		unset_std(int *std_inout);
 void		ft_exit(t_parser *parser);
 void		exit_error(char *message);
 int			ft_cd(char **args, t_data *data);
@@ -157,6 +157,18 @@ t_env		*ft_unset(char **args, t_env *envp);
 int			ft_export(char **args, t_data *data);
 void		create_var(t_env **new_var, char *args, t_data *data);
 int			check_var(char *arg, t_data *data);
+
+/****************************************************/
+//EXEC BUILT-INS
+/****************************************************/
+bool		exec_jp(t_parser *cmd, int *stdinout);
+bool		exec_exit(t_parser *cmd, int *stdinout);
+bool		exec_cd(t_parser *cmd, t_data *data, int *stdinout);
+bool		exec_pwd(t_parser *cmd, int *stdinout);
+bool		exec_echo(t_parser *cmd, int *stdinout);
+bool		exec_env(t_parser *cmd, t_data *data, int *stdinout);
+bool		exec_unset(t_parser *cmd, t_data *data, int *stdinout);
+bool		exec_export(t_parser *cmd, t_data *data, int *stdinout);
 
 /****************************************************/
 //SIGNALS

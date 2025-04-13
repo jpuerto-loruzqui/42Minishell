@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 16:01:05 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:51:17 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	*redir_builtin(t_parser *commands)
 	return (std_inout);
 }
 
-static void	unset_std(int *std_inout)
+void	unset_std(int *std_inout)
 {
 	if (!std_inout)
 		return ;
@@ -61,30 +61,20 @@ bool	is_built_in(t_parser *commands, t_data *data)
 		return (false);
 	stdinout = redir_builtin(commands);
 	if (ft_strncmp(commands->args[0], "jp", 3) == 0)
-		return (show_visualizer(commands->args[1]), unset_std(stdinout), true);
+		return (exec_jp(commands, stdinout));
 	if (ft_strncmp(commands->args[0], "exit", 5) == 0)
-		return (ft_exit(commands), unset_std(stdinout), true);
+		return (exec_exit(commands, stdinout));
 	else if (ft_strncmp(commands->args[0], "cd", 3) == 0)
-		return (ft_cd(commands->args, data), unset_std(stdinout), true);
+		return (exec_cd(commands, data, stdinout));
 	else if (ft_strncmp(commands->args[0], "pwd", 4) == 0)
-		return (ft_pwd(commands->args), unset_std(stdinout), true);
+		return (exec_pwd(commands, stdinout));
 	else if (ft_strncmp(commands->args[0], "echo", 5) == 0)
-		return (ft_echo(commands->args), unset_std(stdinout), true);
+		return (exec_echo(commands, stdinout));
 	else if (ft_strncmp(commands->args[0], "env", 4) == 0)
-		return (ft_env(commands->args, data->env), unset_std(stdinout), true);
+		return (exec_env(commands, data, stdinout));
 	else if (ft_strncmp(commands->args[0], "unset", 6) == 0)
-	{
-		ft_unset(commands->args, data->env);
-		ft_free_split(data->env_arr);
-		data->env_arr = ft_lsttoa(*data);
-		return (unset_std(stdinout), true);
-	}
+		return (exec_unset(commands, data, stdinout));
 	else if (ft_strncmp(commands->args[0], "export", 7) == 0)
-	{
-		ft_export(commands->args, data);
-		ft_free_split(data->env_arr);
-		data->env_arr = ft_lsttoa(*data);
-		return (unset_std(stdinout), true);
-	}
+		return (exec_export(commands, data, stdinout));
 	return (unset_std(stdinout), false);
 }
