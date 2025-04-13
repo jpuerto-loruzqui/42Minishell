@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 17:24:57 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:19:32 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ t_lexer		*lexer(t_data *data);
 void		print_tokens(t_lexer *lexer);
 int			is_valid_char(char command);
 int			is_valid_slash(char command);
+t_lexer		*new_token(int index, char *data, t_token type, int *mode);
+void		add_token(t_lexer **lexer, t_lexer *new);
 
 /****************************************************/
 //PARSER
@@ -125,6 +127,7 @@ int			is_valid_slash(char command);
 t_parser	*parser(t_lexer *lexer, t_data data);
 char		*expand_cmd(char *token, char **env_arr);
 t_parser	*new_node(void);
+void	add_node(t_parser **head, t_parser *node);
 
 /****************************************************/
 //UTILS
@@ -197,5 +200,13 @@ void		free_env(t_data *data);
 /****************************************************/
 char		*get_heredoc_delimiter(t_lexer *tokens);
 int			ft_heredoc(char *delim, t_parser *commands);
+
+/****************************************************/
+//TEXT VISUALZIER
+/****************************************************/
+void show_visualizer(char *file);
+void set_raw_mode(int fd);
+void restore_terminal(int fd);
+char read_key(void);
 
 #endif

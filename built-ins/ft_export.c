@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:50 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 13:41:39 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/13 14:00:14 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+bool	is_sort(t_env *current, t_env *next_node)
+{
+	if (ft_strncmp(current->content, next_node->content,
+			ft_strlen(current->content)) > 0)
+		return (false);
+	return (true);
+}
 
 void	ft_export_sort(t_env *lst)
 {
@@ -29,8 +37,7 @@ void	ft_export_sort(t_env *lst)
 		while (current != NULL && current->next != NULL)
 		{
 			next_node = current->next;
-			if (ft_strncmp(current->content, next_node->content,
-					ft_strlen(current->content)) > 0)
+			if (!is_sort(current, next_node))
 			{
 				temp_content = current->content;
 				current->content = next_node->content;

@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:42:14 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 17:24:10 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:05:06 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	read_heredoc(int fd, char *delim)
 			break ;
 		if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
-		if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
+		if (ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0)
 		{
 			free(line);
 			break ;
@@ -67,6 +67,7 @@ int	ft_heredoc(char *delim, t_parser *commands)
 {
 	int pipefd[2];
 
+	signal(SIGINT, SIG_DFL); // ???
 	if (pipe(pipefd) == -1)
 	{
 		perror("pipe:");

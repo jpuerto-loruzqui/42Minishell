@@ -8,12 +8,27 @@ SRC = main.c lexer/lexer.c parser/parser.c utils/ft_strtok.c built-ins/ft_exit.c
 	built-ins/ft_echo.c built-ins/ft_env.c built-ins/ft_unset.c\
 	heredoc/heredoc.c gnl/get_next_line.c gnl/get_next_line_utils.c built-ins/ft_export_utils.c\
 	utils/ft_dup_env.c utils/ft_lsttoa.c built-ins/ft_export.c utils/ft_getenv.c\
+	lexer/manage_list_lexer.c parser/manage_list_parser.c text_visualizer/ft_jp.c\
+	text_visualizer/ft_jp_utils.c\
+
+SRC_PRINT = print/main_print.c lexer/lexer.c parser/parser.c utils/ft_strtok.c built-ins/ft_exit.c\
+	signals.c built-ins/ft_cd.c built-ins/ft_pwd.c built-ins/is_built_in.c\
+	exec/exec_one_command.c exec/exec.c utils/ft_parserlen.c\
+	exec/exec_pipes.c exec/pipes_childs.c redirections/input_redir.c redirections/output_redir.c\
+	free_structs.c built-ins/ft_exit_error.c utils/ft_append_char.c parser/expand_cmd.c\
+	built-ins/ft_echo.c built-ins/ft_env.c built-ins/ft_unset.c\
+	heredoc/heredoc.c gnl/get_next_line.c gnl/get_next_line_utils.c built-ins/ft_export_utils.c\
+	utils/ft_dup_env.c utils/ft_lsttoa.c built-ins/ft_export.c utils/ft_getenv.c print/print.c\
+	lexer/manage_list_lexer.c parser/manage_list_parser.c text_visualizer/ft_jp.c\
+	text_visualizer/ft_jp_utils.c\
 
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)
+OBJ_PRINT = $(SRC_PRINT:%.c=$(OBJ_DIR)/%.o)
+NAME_PRINT = minishell_print
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 LDFLAGS = -L/usr/local/opt/readline -lreadline -L ./libft -lft
 INCLUDES = -I/usr/local/opt/readlineinclude
 
@@ -47,11 +62,18 @@ clean:
 fclean:
 	@$(MAKE) fclean --no-print-directory -C libft
 	@rm -rf $(OBJ_DIR)
+	@rm -rf $(OBJ_PRINT)
 	@rm -f $(NAME)
+	@rm -f $(NAME_PRINT)
 	@printf "$(COLOR_CLEAN)Full clean complete!$(RESET)\n"
+
+print: $(OBJ_PRINT)
+	@$(MAKE) --no-print-directory -C libft
+	@$(CC) $(CFLAGS) $(OBJ_PRINT) $(LDFLAGS) -o $(NAME_PRINT)
+	./minishell_print
 
 all: $(NAME)
 
 re: fclean all
 
-.PHONY: clean fclean all re
+.PHONY: clean fclean all re print
