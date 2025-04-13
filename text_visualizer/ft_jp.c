@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_jp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:00:02 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/04/13 14:11:57 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 15:48:17 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ void	show_file(char *file, int fd, char *line)
 	{
 		clear_and_welcome(file);
 		line_count = 0;
-		while (line_count++ < 20 && (line = get_next_line(fd)) != NULL)
+		while (line_count++ < 20 && line != NULL)
 		{
+			line = get_next_line(fd);
 			printf("\033[93m - %i :\033[0m   %s", i++, line);
 			free(line);
 		}
