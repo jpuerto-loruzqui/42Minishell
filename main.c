@@ -6,19 +6,19 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:07:56 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 16:10:34 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	control_args(int argc)
+static void	control_args(int argc)
 {
 	if (argc != 1)
 		exit(EXIT_FAILURE);
 }
 
-void	init_minishell(int argc, char **envp, t_data *data)
+static void	init_minishell(int argc, char **envp, t_data *data)
 {
 	control_args(argc);
 	data->env = ft_dup_env(envp);
@@ -29,7 +29,7 @@ void	init_minishell(int argc, char **envp, t_data *data)
 	data->num_commands = 0;
 }
 
-int	lexer_parser_and_exec(t_data *data)
+static int	lexer_parser_and_exec(t_data *data)
 {
 	data->tokens = lexer(data);
 	if (data->error)

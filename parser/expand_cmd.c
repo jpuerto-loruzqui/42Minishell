@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expand_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:12:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 12:26:02 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 16:06:04 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	do_expansion(int *i, char *token, char **aux, char **env_arr)
+static void	do_expansion(int *i, char *token, char **aux, char **env_arr)
 {
 	int		j;
 	char	*cmd;

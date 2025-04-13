@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:08:25 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 16:17:51 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ typedef struct s_lexer
 	char			*data;		// contenido del token
 	int				mode;
 	int				type_token;	// tipo de token -> t_token
-	struct s_lexer	*next;
-	struct s_lexer	*prev;		// siguiente token
+	struct s_lexer	*next;		// siguiente token
+	struct s_lexer	*prev;		// anterior token
 }	t_lexer;
 
 /**
@@ -84,9 +84,9 @@ typedef struct s_parser
 	char				**args;		// comando + sus flags
 	char				*infile;	// nombre de fichero de entrada (<)
 	struct s_outfile	*outfiles;
-	struct s_parser		*next;		// siguiente comando (pipe)
+	struct s_parser		*next;		// siguiente comando
 	struct s_outfile	*last_outfile;
-	char				*delim;
+	char				*delim;		// delimitador del heredoc
 	int					here_fd;
 }	t_parser;
 
@@ -149,7 +149,6 @@ char		*ft_getenv(const char *cmd, char **env_arr);
 bool		is_built_in(t_parser *commands, t_data *data);
 void		ft_exit(t_parser *parser);
 void		exit_error(char *message);
-void		unrecognized_error(char *command);
 int			ft_cd(char **args, t_data *data);
 int			ft_pwd(char **args);
 int			ft_echo(char **arg);
@@ -168,8 +167,6 @@ void		sigint_visualizer(int sig);
 /****************************************************/
 //EXEC
 /****************************************************/
-char		*ft_get_path_from_env(char **envp);
-char		*ft_find_executable(char *command, char **envp);
 void		exec_one_command(t_data *data);
 void		exec_pipes(t_data *data);
 void		init_pipes(int num_commands, int ***array_pipes,
@@ -198,7 +195,6 @@ void		free_env(t_data *data);
 /****************************************************/
 //HEREDOC
 /****************************************************/
-char		*get_heredoc_delimiter(t_lexer *tokens);
 int			ft_heredoc(char *delim, t_parser *commands);
 
 /****************************************************/

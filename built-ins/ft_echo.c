@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:54:41 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 18:16:07 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 15:59:03 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_all_n(char *arg)
+static int	check_all_n(char *arg)
 {
 	int	i;
 

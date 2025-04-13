@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:10:43 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 16:05:32 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	get_type_of_delimiter(char *token, t_token *type)
+static void	get_type_of_delimiter(char *token, t_token *type)
 {
 	if (ft_strncmp(token, "|", 1) == 0)
 		*type = T_PIPE;
@@ -26,9 +26,6 @@ void	get_type_of_delimiter(char *token, t_token *type)
 		*type = T_REDIR_OUT;
 }
 
-/**
- * @brief Divide la entrada en tokens.
- */
 t_lexer	*lexer(t_data *data)
 {
 	t_lexer	*lexer_list;

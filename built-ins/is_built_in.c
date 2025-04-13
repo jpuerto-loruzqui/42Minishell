@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   is_built_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 10:46:52 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 16:01:05 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	*redir_builtin(t_parser *commands)
+static int	*redir_builtin(t_parser *commands)
 {
 	int	*std_inout;
 
@@ -28,7 +28,7 @@ int	*redir_builtin(t_parser *commands)
 	return (std_inout);
 }
 
-void	unset_std(int *std_inout)
+static void	unset_std(int *std_inout)
 {
 	if (!std_inout)
 		return ;

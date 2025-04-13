@@ -6,32 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:42:14 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:13:15 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 16:05:05 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*get_heredoc_delimiter(t_lexer *tokens)
-{
-	t_lexer	*tok;
-
-	if (!tokens || !tokens->data)
-		return (NULL);
-	tok = tokens;
-	while (tok)
-	{
-		if (tok->data && ft_strncmp(tok->data, "<<", 2) == 0)
-		{
-			if (tok->next)
-				return (tok->next->data);
-			else
-				return (NULL);
-		}
-		tok = tok->next;
-	}
-	return (NULL);
-}
 
 void	print_prompt(void)
 {
@@ -40,7 +19,7 @@ void	print_prompt(void)
 	write(STDOUT_FILENO, COLOR_RESET, strlen(COLOR_RESET));
 }
 
-void	read_heredoc(int fd, char *delim)
+static void	read_heredoc(int fd, char *delim)
 {
 	char	*line;
 

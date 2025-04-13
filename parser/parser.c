@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:12:57 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 16:06:37 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	**add_arg(char **args, const char *arg)
 	return (new);
 }
 
-t_outfile	*append_outfile(t_outfile **head, t_outfile *new)
+static t_outfile	*append_outfile(t_outfile **head, t_outfile *new)
 {
 	t_outfile	*tmp;
 
@@ -57,7 +57,7 @@ t_outfile	*append_outfile(t_outfile **head, t_outfile *new)
 	return (new);
 }
 
-t_outfile	*new_outfile(t_lexer *lexer)
+static t_outfile	*new_outfile(t_lexer *lexer)
 {
 	t_outfile	*node;
 

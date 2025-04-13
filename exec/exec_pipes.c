@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:09:04 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 16:01:55 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	close_unused_pipes(int num_commands, int i, int ***array_pipes)
 	}
 }
 
-void	close_all_pipes(t_data *data, int **array_pipes)
+static void	close_all_pipes(t_data *data, int **array_pipes)
 {
 	int	i;
 
@@ -41,7 +41,7 @@ void	close_all_pipes(t_data *data, int **array_pipes)
 	}
 }
 
-void	manage_signals(t_data *data, int status, pid_t *array_pids)
+static void	manage_signals(t_data *data, int status, pid_t *array_pids)
 {
 	int	i;
 	int	interrupted;
@@ -71,7 +71,7 @@ void	manage_signals(t_data *data, int status, pid_t *array_pids)
 	signal(SIGINT, sigint_handler);
 }
 
-void	manage_commands(t_data *data, t_parser *cmd, int **array_pipes,
+static void	manage_commands(t_data *data, t_parser *cmd, int **array_pipes,
 	pid_t *array_pids)
 {
 	int		i;

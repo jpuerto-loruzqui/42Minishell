@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 14:42:28 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 16:09:57 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	check_mode(char c, int mode)
+static int	check_mode(char c, int mode)
 {
 	if (c == '"' && mode == NORMAL_MODE)
 		mode = DOUBLE_MODE;
@@ -21,14 +21,14 @@ int	check_mode(char c, int mode)
 	return (mode);
 }
 
-char	check_quote(char c)
+static char	check_quote(char c)
 {
 	if (c == '"' || c == '\'')
 		return (c);
 	return ('\0');
 }
 
-void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
+static void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
 {
 	char	delim;
 
@@ -57,7 +57,7 @@ void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
 	(*save_ptr)++;
 }
 
-char	*check_separator(char *sep)
+static char	*check_separator(char *sep)
 {
 	if (ft_strncmp(sep, "<<", 2) == 0)
 		return ("<<");

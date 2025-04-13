@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 18:15:03 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 18:15:05 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 15:58:16 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,7 @@ char	*ft_getenv(const char *cmd, char **env_arr)
 	{
 		if (ft_strncmp(env_arr[i], cmd, cmd_len) == 0
 			&& env_arr[i][cmd_len] == '=')
-		{
-			printf("%s\n", env_arr[i]);
-			printf("%s\n", cmd);
 			return (env_arr[i] + cmd_len + 1);
-		}
 		i++;
 	}
 	return (NULL);

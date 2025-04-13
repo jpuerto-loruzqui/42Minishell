@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 17:00:42 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:09:14 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 16:03:29 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_get_path_from_env(char **envp)
+static char	*ft_get_path_from_env(char **envp)
 {
 	int		i;
 	char	*path_env;
@@ -32,7 +32,7 @@ char	*ft_get_path_from_env(char **envp)
 	return (NULL);
 }
 
-char	*ft_find_executable(char *command, char **envp)
+static char	*ft_find_executable(char *command, char **envp)
 {
 	char	**paths;
 	char	*path_env;

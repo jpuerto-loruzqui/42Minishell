@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_jp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:00:02 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/04/13 15:51:13 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 16:08:16 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	clear_and_welcome(char *file)
+static void	clear_and_welcome(char *file)
 {
 	printf("\033[2J\033[H");
 	printf("\033[96m        __  ____  ____  ____  _  _  ____  \n\033[0m");
@@ -24,7 +24,7 @@ void	clear_and_welcome(char *file)
 	printf(", reassding: \"%s\"   ---\n\n\033[0m", file);
 }
 
-void	show_file(char *file, int fd, char *line)
+static void	show_file(char *file, int fd, char *line)
 {
 	int		line_count;
 	char	key;
@@ -53,7 +53,7 @@ void	show_file(char *file, int fd, char *line)
 	}
 }
 
-char	*get_file(void)
+static char	*get_file(void)
 {
 	char	*input;
 	char	*newline_pos;

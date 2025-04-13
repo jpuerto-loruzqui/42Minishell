@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:50 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:00:14 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 16:00:40 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-bool	is_sort(t_env *current, t_env *next_node)
+static bool	is_sort(t_env *current, t_env *next_node)
 {
 	if (ft_strncmp(current->content, next_node->content,
 			ft_strlen(current->content)) > 0)
@@ -20,7 +20,7 @@ bool	is_sort(t_env *current, t_env *next_node)
 	return (true);
 }
 
-void	ft_export_sort(t_env *lst)
+static void	ft_export_sort(t_env *lst)
 {
 	t_env	*current;
 	t_env	*next_node;
@@ -49,7 +49,7 @@ void	ft_export_sort(t_env *lst)
 	}
 }
 
-void	print_export(t_env *exports)
+static void	print_export(t_env *exports)
 {
 	t_env	*lst;
 	char	*value;
@@ -70,7 +70,7 @@ void	print_export(t_env *exports)
 	}
 }
 
-void	free_exports(t_env *env)
+static void	free_exports(t_env *env)
 {
 	t_env	*tmp;
 
