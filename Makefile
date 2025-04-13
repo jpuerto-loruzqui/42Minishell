@@ -8,6 +8,7 @@ SRC = main.c lexer/lexer.c parser/parser.c utils/ft_strtok.c built-ins/ft_exit.c
 	built-ins/ft_echo.c built-ins/ft_env.c built-ins/ft_unset.c\
 	heredoc/heredoc.c gnl/get_next_line.c gnl/get_next_line_utils.c built-ins/ft_export_utils.c\
 	utils/ft_dup_env.c utils/ft_lsttoa.c built-ins/ft_export.c utils/ft_getenv.c\
+	text_visualizer/ft_jp.c text_visualizer/ft_jp_utils.c
 
 OBJ_DIR = obj
 OBJ = $(SRC:%.c=$(OBJ_DIR)/%.o)

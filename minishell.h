@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 17:24:57 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 10:47:39 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,5 +197,13 @@ void		free_env(t_data *data);
 /****************************************************/
 char		*get_heredoc_delimiter(t_lexer *tokens);
 int			ft_heredoc(char *delim, t_parser *commands);
+
+/****************************************************/
+//TEXT VISUALZIER
+/****************************************************/
+void show_visualizer(char *file);
+void set_raw_mode(int fd);
+void restore_terminal(int fd);
+char read_key(void);
 
 #endif
