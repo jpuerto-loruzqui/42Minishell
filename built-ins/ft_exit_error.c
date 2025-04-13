@@ -3,34 +3,57 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:53:08 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/04/09 16:57:35 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/12 14:39:12 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	unrecognized_error(char *command)
+int	is_valid_char(char command)
 {
-	char	*str_cmd;
-
-	str_cmd = command;
-	while (*str_cmd)
+	static int flag;
+	
+	if (ft_strchr(INVALID_CHARS, command))
+		return 0;
+	if (flag == 0 && command == '\\' && !command + 1)
+		flag = 0;
+	if (command == '\\' && flag == 1)
 	{
-		if (!ft_isprint(*str_cmd))
-		{
-			ft_putstr_fd("Unrecognized command", 2);
-			ft_putchar_fd('\n', 2);
-			return ;
-		}
-		str_cmd++;
+		flag = 0;
+		return 1;
 	}
-	ft_putstr_fd("Unrecognized command: ", 2);
-	ft_putstr_fd(command, 2);
-	ft_putchar_fd('\n', 2);
+	if (command == '\\')
+	{
+		flag = 1;
+		return 0;
+	}
+	flag = 0;
+	return 1;
 }
+
+int	is_valid_slash(char command)
+{
+	static int flag;
+
+	if (flag == 0 && command == '\\' && !command + 1)
+		flag = 0;
+	if (command == '\\' && flag == 1)
+	{
+		flag = 0;
+		return 1;
+	}
+	if (command == '\\')
+	{
+		flag = 1;
+		return 0;
+	}
+	flag = 0;
+	return 1;
+}
+
 
 void	exit_error(char *message)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 13:15:46 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/12 14:42:28 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
 			(*save_ptr) += 2;
 		}
 		else
-			(*token) = append_char((*token), **save_ptr), (*save_ptr)++;
+		{
+			if (is_valid_slash(**save_ptr) == 1)
+				(*token) = append_char((*token), **save_ptr);
+			(*save_ptr)++;
+		}
 	}
 	if (**save_ptr != delim)
 	{
@@ -91,7 +95,11 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 		if (check_quote(*save_ptr))
 			get_command(mode, &save_ptr, &token, data);
 		else
-			token = append_char(token, *save_ptr++);
+		{
+			if (is_valid_char(*save_ptr) == 1)
+				token = append_char(token, *save_ptr);
+			save_ptr++;
+		}
 	}
 	return (token);
 }

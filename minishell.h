@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 13:42:46 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/13 10:47:39 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@
 # define DOUBLE_MODE 1
 # define SIMPLE_MODE 2
 
-# define VALID_CHARS "+*?=_/-.0123456789abcdefghijklmn\
-	ñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ<>\\ \"\'|$"
+# define INVALID_CHARS ";"
 
 # define COLOR_USERS "\033[38;2;84;222;253m"
 # define COLOR_RESET "\033[0m"
@@ -88,6 +87,7 @@ typedef struct s_parser
 	struct s_parser		*next;		// siguiente comando (pipe)
 	struct s_outfile	*last_outfile;
 	char				*delim;
+	int					here_fd;
 }	t_parser;
 
 typedef struct s_env
@@ -116,6 +116,8 @@ typedef struct s_data
 /****************************************************/
 t_lexer		*lexer(t_data *data);
 void		print_tokens(t_lexer *lexer);
+int			is_valid_char(char command);
+int			is_valid_slash(char command);
 
 /****************************************************/
 //PARSER
@@ -180,7 +182,6 @@ void		exec_child(int i, int ***array_pipes, t_parser *cmd, t_data *data);
 /****************************************************/
 void		input_redir(t_parser *commands);
 void		output_redir(t_parser *commands);
-void		input_redir_last(t_parser *commands);
 void		check_redirs(t_parser *cmd, t_data *data);
 
 /****************************************************/
@@ -196,5 +197,13 @@ void		free_env(t_data *data);
 /****************************************************/
 char		*get_heredoc_delimiter(t_lexer *tokens);
 int			ft_heredoc(char *delim, t_parser *commands);
+
+/****************************************************/
+//TEXT VISUALZIER
+/****************************************************/
+void show_visualizer(char *file);
+void set_raw_mode(int fd);
+void restore_terminal(int fd);
+char read_key(void);
 
 #endif
