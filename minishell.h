@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/11 10:08:05 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 11:32:40 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,15 @@ typedef struct s_data
 //LEXER
 /****************************************************/
 t_lexer		*lexer(t_data *data);
+t_lexer		*new_token(int index, char *data, t_token type, int *mode);
+void		add_token(t_lexer **lexer, t_lexer *new);
 
 /****************************************************/
 //PARSER
 /****************************************************/
 t_parser	*parser(t_lexer *lexer, t_data data);
+t_parser	*new_node(void);
+void		add_node(t_parser **head, t_parser *node);
 char		*expand_cmd(char *token, char **env_arr);
 t_parser	*new_node(void);
 

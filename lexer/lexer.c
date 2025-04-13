@@ -6,50 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/11 10:04:50 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 11:29:55 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/**
- * @brief Crea un nuevo nodo de la lista del léxico.
- */
-static t_lexer	*new_token(int index, char *data, t_token type, int *mode)
-{
-	t_lexer	*token;
-
-	token = malloc(sizeof(t_lexer));
-	if (!token)
-		return (NULL);
-	token->index = index;
-	token->data = ft_strdup(data);
-	token->mode = *mode;
-	token->type_token = type;
-	token->next = NULL;
-	token->prev = NULL;
-	(*mode) = NORMAL_MODE;
-	return (token);
-}
-
-/**
- * @brief Añade un nodo a la lista de tokens.
- */
-static void	add_token(t_lexer **lexer, t_lexer *new)
-{
-	t_lexer	*tmp;
-
-	if (!*lexer)
-		*lexer = new;
-	else
-	{
-		tmp = *lexer;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-		new->prev = tmp;
-	}
-}
 
 void	get_type_of_delimiter(char *token, t_token *type)
 {
