@@ -39,9 +39,11 @@ void	exec_one_command(t_data *data)
 	}
 	else if (pid == 0)
 	{
-		signal(SIGINT, SIG_DFL);
 		if (data->commands->delim)
+		{
+			signal(SIGINT, SIG_DFL);
 			ft_heredoc(data->commands->delim, data->commands);
+		}
 		check_redirs(data->commands, data);
 		input_redir(data->commands);
 		output_redir(data->commands);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:42:14 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 14:12:18 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/12 17:28:31 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	read_heredoc(int fd, char *delim)
 			break ;
 		if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
-		if (ft_strncmp(line, delim, ft_strlen(delim)) == 0)
+		if (ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0)
 		{
 			free(line);
 			break ;
@@ -65,18 +65,16 @@ void	read_heredoc(int fd, char *delim)
 
 int	ft_heredoc(char *delim, t_parser *commands)
 {
-	int		fd;
-	char	*temp_filename;
+	int pipefd[2];
 
-	temp_filename = "/tmp/.heredoc_temp";
-	fd = open(temp_filename, O_RDWR | O_CREAT | O_TRUNC, 0600);
-	if (fd < 0)
+	if (pipe(pipefd) == -1)
 	{
-		perror("open");
-		return (-1);
+		perror("pipe:");
+		exit(EXIT_FAILURE);
 	}
-	read_heredoc(fd, delim);
-	lseek(fd, 0, SEEK_SET);
-	commands->infile = ft_strdup(temp_filename);
-	return (fd);
+	read_heredoc(pipefd[1], delim);
+	close(pipefd[1]);
+	commands->here_fd = pipefd[0];
+	return pipefd[0];
 }
+

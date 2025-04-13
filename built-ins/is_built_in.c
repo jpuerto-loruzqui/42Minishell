@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_built_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 12:58:34 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/13 10:46:52 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ bool	is_built_in(t_parser *commands, t_data *data)
 	if (commands->args == NULL)
 		return (false);
 	stdinout = redir_builtin(commands);
+	if (ft_strncmp(commands->args[0], "jp", 3) == 0)
+		return (show_visualizer(commands->args[1]), unset_std(stdinout), true);
 	if (ft_strncmp(commands->args[0], "exit", 5) == 0)
 		return (ft_exit(commands), unset_std(stdinout), true);
 	else if (ft_strncmp(commands->args[0], "cd", 3) == 0)

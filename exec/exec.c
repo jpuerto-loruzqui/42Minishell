@@ -125,8 +125,7 @@ void	find_path(t_parser *commands, char **envp)
 		else
 		{
 			free_parser(commands);
-			exit_error("command not found");
-			exit(127);
+			exit(1);
 		}
 	}
 	path = ft_find_executable(commands->args[0], envp);
@@ -134,6 +133,6 @@ void	find_path(t_parser *commands, char **envp)
 	{
 		free_parser(commands);
 		exit_error("command not found");
-		exit(127);
+		exit(127); //revisar si es 127 o 1
 	}
 }

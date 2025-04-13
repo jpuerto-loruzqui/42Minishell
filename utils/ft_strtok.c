@@ -44,7 +44,8 @@ void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
 		}
 		else
 		{
-			(*token) = append_char((*token), **save_ptr);
+			if (is_valid_slash(**save_ptr) == 1)
+				(*token) = append_char((*token), **save_ptr);
 			(*save_ptr)++;
 		}
 	}
@@ -94,7 +95,11 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 		if (check_quote(*save_ptr))
 			get_command(mode, &save_ptr, &token, data);
 		else
-			token = append_char(token, *save_ptr++);
+		{
+			if (is_valid_char(*save_ptr) == 1)
+				token = append_char(token, *save_ptr);
+			save_ptr++;
+		}
 	}
 	return (token);
 }
