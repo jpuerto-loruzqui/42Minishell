@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:22 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 17:24:50 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:50:09 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	input_redir(t_parser *commands)
 		close(commands->here_fd);
 		return ;
 	}
-
 	if (commands->infile)
 	{
 		fd_in = open(commands->infile, O_RDONLY);
@@ -50,5 +49,3 @@ void	input_redir(t_parser *commands)
 		close(fd_in);
 	}
 }
-
-

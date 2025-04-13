@@ -6,30 +6,16 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:07:05 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:49:03 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	manage_status(pid_t pid, t_data *data)
-{
-	int	status;
-
-	waitpid(pid, &status, 0);
-	if (WIFEXITED(status))
-		data->last_exit_code = WEXITSTATUS(status);
-	else if (WIFSIGNALED(status))
-		data->last_exit_code = 128 + WTERMSIG(status);
-	else
-		data->last_exit_code = 1;
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		write(1, "\n", 1);
-}
-
 void	exec_one_command(t_data *data)
 {
 	pid_t	pid;
+	int		status;
 
 	pid = fork();
 	if (pid < 0)
@@ -40,7 +26,10 @@ void	exec_one_command(t_data *data)
 	else if (pid == 0)
 	{
 		if (data->commands->delim)
+		{
+			signal(SIGINT, SIG_DFL);
 			ft_heredoc(data->commands->delim, data->commands);
+		}
 		check_redirs(data->commands, data);
 		input_redir(data->commands);
 		output_redir(data->commands);
@@ -50,7 +39,15 @@ void	exec_one_command(t_data *data)
 	{
 		signal(SIGQUIT, SIG_IGN);
 		signal(SIGINT, SIG_IGN);
-		manage_status(pid, data);
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			data->last_exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			data->last_exit_code = 128 + WTERMSIG(status);
+		else
+			data->last_exit_code = 1;
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+			write(1, "\n", 1);
 		signal(SIGINT, sigint_handler);
 	}
 }
