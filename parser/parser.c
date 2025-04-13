@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 11:31:36 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/13 12:31:18 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,28 @@ t_outfile	*new_outfile(t_lexer *lexer)
 	return (node);
 }
 
+static int	handle_expansion(t_lexer *lexer, t_data *data)
+{
+	if (lexer->mode != SIMPLE_MODE && ft_strncmp("$?", lexer->data, 3) == 0)
+	{
+		free(lexer->data);
+		lexer->data = ft_itoa(data->last_exit_code);
+	}
+	if ((lexer->mode != SIMPLE_MODE && ft_strchr(lexer->data, '$'))
+		&& (ft_isalnum(*(ft_strchr(lexer->data, '$') + 1))
+			|| !ft_strncmp(ft_strchr(lexer->data, '$') + 1, "{", 1)))
+	{
+		lexer->data = expand_cmd(lexer->data, data->env_arr);
+		if (lexer->data == NULL)
+		{
+			free(lexer->data);
+			lexer = lexer->next;
+			return (1);
+		}
+	}
+	return (0);
+}
+
 t_parser	*parser(t_lexer *lexer, t_data data)
 {
 	t_parser	*head;
@@ -84,23 +106,8 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 	curr = NULL;
 	while (lexer)
 	{
-		if (lexer->mode != SIMPLE_MODE && ft_strncmp("$?", lexer->data, 3) == 0)
-		{
-			free(lexer->data);
-			lexer->data = ft_itoa(data.last_exit_code);
-		}
-		if ((lexer->mode != SIMPLE_MODE && ft_strchr(lexer->data, '$'))
-			&& (ft_isalnum(*(ft_strchr(lexer->data, '$') + 1))
-				|| !ft_strncmp(ft_strchr(lexer->data, '$') + 1, "{", 1)))
-		{
-			lexer->data = expand_cmd(lexer->data, data.env_arr);
-			if (lexer->data == NULL)
-			{
-				free(lexer->data);
-				lexer = lexer->next;
-				continue ;
-			}
-		}
+		if (handle_expansion(lexer, &data) == 1)
+			continue ;
 		if (lexer->type_token == T_PIPE)
 		{
 			curr = NULL;
