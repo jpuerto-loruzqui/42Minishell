@@ -1,4 +1,3 @@
-
 NAME = minishell
 SRC = main.c lexer/lexer.c parser/parser.c utils/ft_strtok.c built-ins/ft_exit.c\
 	signals.c built-ins/ft_cd.c built-ins/ft_pwd.c built-ins/is_built_in.c\

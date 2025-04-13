@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:11:14 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:10:43 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,3 @@ t_lexer	*lexer(t_data *data)
 	}
 	return (lexer_list);
 }
-

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_jp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:00:02 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/04/13 15:08:48 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:11:57 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void clear_and_welcome(char *file)
+void	clear_and_welcome(char *file)
 {
 	printf("\033[2J\033[H");
 	printf("\033[96m        __  ____  ____  ____  _  _  ____  \n\033[0m");
@@ -24,11 +24,11 @@ void clear_and_welcome(char *file)
 	printf(", reassding: \"%s\"   ---\n\n\033[0m", file);
 }
 
-void show_file(char *file, int fd, char *line)
+void	show_file(char *file, int fd, char *line)
 {
-	int line_count;
-	char key;
-	int i;
+	int		line_count;
+	char	key;
+	int		i;
 
 	i = 0;
 	while (line != NULL)
@@ -52,29 +52,29 @@ void show_file(char *file, int fd, char *line)
 	}
 }
 
-char *get_file()
+char	*get_file(void)
 {
-	char *input;
-	char *newline_pos;
-	
+	char	*input;
+	char	*newline_pos;
+
 	ft_putstr_fd("Jp visualizer: write file name\n", 1);
 	input = get_next_line(STDIN_FILENO);
 	if (!input)
 	{
 		ft_putstr_fd("Error reading input\n", 2);
-		return NULL;
+		return (NULL);
 	}
 	newline_pos = ft_strchr(input, '\n');
 	if (newline_pos)
 		*newline_pos = '\0';
-	return input;
+	return (input);
 }
 
-void show_visualizer(char *file)
+void	show_visualizer(char *file)
 {
-	int     fd;
-	int     flag;
-	char *line;
+	int		fd;
+	int		flag;
+	char	*line;
 
 	line = "";
 	if (!file)
@@ -96,4 +96,3 @@ void show_visualizer(char *file)
 		free(file);
 	close(fd);
 }
-

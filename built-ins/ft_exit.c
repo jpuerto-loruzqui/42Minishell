@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:40:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/10 12:24:06 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:16:03 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,5 @@ void	ft_exit(t_parser *parser)
 	if (exit_atoi != 0)
 		exit_code = exit_atoi;
 	free_parser(parser);
-	printf("Saliendo de la shell...\n");
 	exit(exit_code);
 }

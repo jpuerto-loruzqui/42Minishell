@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:19:32 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:08:25 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void		add_token(t_lexer **lexer, t_lexer *new);
 t_parser	*parser(t_lexer *lexer, t_data data);
 char		*expand_cmd(char *token, char **env_arr);
 t_parser	*new_node(void);
-void	add_node(t_parser **head, t_parser *node);
+void		add_node(t_parser **head, t_parser *node);
 
 /****************************************************/
 //UTILS
@@ -204,9 +204,9 @@ int			ft_heredoc(char *delim, t_parser *commands);
 /****************************************************/
 //TEXT VISUALZIER
 /****************************************************/
-void show_visualizer(char *file);
-void set_raw_mode(int fd);
-void restore_terminal(int fd);
-char read_key(void);
+void		show_visualizer(char *file);
+void		set_raw_mode(int fd);
+void		restore_terminal(int fd);
+char		read_key(void);
 
 #endif

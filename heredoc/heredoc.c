@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:42:14 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:48:22 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:13:15 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	read_heredoc(int fd, char *delim)
 
 int	ft_heredoc(char *delim, t_parser *commands)
 {
-	int pipefd[2];
+	int	pipefd[2];
 
 	if (pipe(pipefd) == -1)
 	{
@@ -75,5 +75,5 @@ int	ft_heredoc(char *delim, t_parser *commands)
 	read_heredoc(pipefd[1], delim);
 	close(pipefd[1]);
 	commands->here_fd = pipefd[0];
-	return pipefd[0];
+	return (pipefd[0]);
 }

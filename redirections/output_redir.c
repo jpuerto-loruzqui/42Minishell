@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 16:14:26 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:10:25 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_redirs(t_parser *cmd, t_data *data)
 	}
 	if ((cmd->outfiles && cmd->outfiles->data && !cmd->args)
 		|| (cmd->outfiles && cmd->outfiles->data
-		&& cmd->infile && !cmd->args))
+			&& cmd->infile && !cmd->args))
 	{
 		fd = open(cmd->outfiles->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd >= 0)
