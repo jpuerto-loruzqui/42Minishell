@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:00:02 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/04/13 15:49:40 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 15:51:13 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	show_file(char *file, int fd, char *line)
 			printf("\033[93m - %i :\033[0m   %s", i++, line);
 			free(line);
 		}
-		printf("\n\033[93m\n-- Press ENTER to continue, 'q' to quit --\033[0m\n");
+		printf("\n\033[93m\n- Press ENTER to continue 'q' to quit -\033[0m\n");
 		while (1)
 		{
 			key = read_key();
