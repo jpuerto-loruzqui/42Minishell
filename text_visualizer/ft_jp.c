@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:00:02 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/04/13 12:26:33 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 15:08:48 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,20 @@ void clear_and_welcome(char *file)
 	printf(", reassding: \"%s\"   ---\n\n\033[0m", file);
 }
 
-void show_file(char *file, int fd)
+void show_file(char *file, int fd, char *line)
 {
-	char *line;
 	int line_count;
 	char key;
+	int i;
 
-	line = "";
+	i = 0;
 	while (line != NULL)
 	{
 		clear_and_welcome(file);
 		line_count = 0;
-		while (line_count < 20 && (line = get_next_line(fd)) != NULL)
+		while (line_count++ < 20 && (line = get_next_line(fd)) != NULL)
 		{
-			printf("\033[93m - %i :\033[0m   %s", line_count++, line);
+			printf("\033[93m - %i :\033[0m   %s", i++, line);
 			free(line);
 		}
 		printf("\n\033[93m-- Press ENTER to continue, 'q' to quit --\033[0m\n");
@@ -74,7 +74,9 @@ void show_visualizer(char *file)
 {
 	int     fd;
 	int     flag;
+	char *line;
 
+	line = "";
 	if (!file)
 	{
 		file = get_file();
@@ -86,7 +88,7 @@ void show_visualizer(char *file)
 	write(1, "\033[?1049h", 8);
 	signal(SIGINT, sigint_visualizer);
 	set_raw_mode(STDIN_FILENO);
-	show_file(file, fd);
+	show_file(file, fd, line);
 	write(1, "\033[?1049l", 8);
 	restore_terminal(STDIN_FILENO);
 	signal(SIGINT, sigint_handler);
