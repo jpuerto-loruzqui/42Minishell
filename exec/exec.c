@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 17:00:42 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 16:46:39 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:09:14 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,22 +112,6 @@ void	finish_exec(int num_commands, int ***array_pipes, pid_t **array_pids)
 	free(*array_pids);
 }
 
-void	close_unused_pipes(int num_commands, int i, int ***array_pipes)
-{
-	int	j;
-
-	j = 0;
-	while (j < num_commands - 1)
-	{
-		if (j != i && j != i - 1)
-		{
-			close((*array_pipes)[j][0]);
-			close((*array_pipes)[j][1]);
-		}
-		j++;
-	}
-}
-
 void	find_path(t_parser *commands, char **envp)
 {
 	char	*path;
@@ -141,6 +125,7 @@ void	find_path(t_parser *commands, char **envp)
 		else
 		{
 			free_parser(commands);
+			exit_error("command not found");
 			exit(1);
 		}
 	}

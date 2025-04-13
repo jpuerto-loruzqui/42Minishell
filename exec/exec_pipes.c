@@ -6,11 +6,27 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 17:14:53 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/13 14:09:04 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	close_unused_pipes(int num_commands, int i, int ***array_pipes)
+{
+	int	j;
+
+	j = 0;
+	while (j < num_commands - 1)
+	{
+		if (j != i && j != i - 1)
+		{
+			close((*array_pipes)[j][0]);
+			close((*array_pipes)[j][1]);
+		}
+		j++;
+	}
+}
 
 void	close_all_pipes(t_data *data, int **array_pipes)
 {
