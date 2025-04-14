@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 21:51:15 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:45:12 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ void		init_pipes(int num_commands, int ***array_pipes,
 void		finish_exec(int num_commands, int ***array_pipes,
 				pid_t **array_pids);
 void		close_unused_pipes(int num_commands, int i, int ***array_pipes);
+void		close_all_pipes(t_data *data, int **array_pipes);
 void		find_path(t_parser *commands, char **envp);
 void		exec_child(int i, int ***array_pipes, t_parser *cmd, t_data *data);
 

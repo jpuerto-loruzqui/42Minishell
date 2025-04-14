@@ -6,40 +6,11 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 22:07:47 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/14 09:44:05 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	close_unused_pipes(int num_commands, int i, int ***array_pipes)
-{
-	int	j;
-
-	j = 0;
-	while (j < num_commands - 1)
-	{
-		if (j != i && j != i - 1)
-		{
-			close((*array_pipes)[j][0]);
-			close((*array_pipes)[j][1]);
-		}
-		j++;
-	}
-}
-
-static void	close_all_pipes(t_data *data, int **array_pipes)
-{
-	int	i;
-
-	i = 0;
-	while (i < data->num_commands - 1)
-	{
-		close(array_pipes[i][0]);
-		close(array_pipes[i][1]);
-		i++;
-	}
-}
 
 static void	manage_signals(t_data *data, int status, pid_t *array_pids)
 {
@@ -60,15 +31,21 @@ static void	manage_signals(t_data *data, int status, pid_t *array_pids)
 		else
 			data->last_exit_code = 1;
 		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-		{
 			interrupted = 1;
-			write(1, "\n", 1);
-		}
 		i++;
 	}
 	if (interrupted)
 		write(1, "\n", 1);
 	signal(SIGINT, sigint_handler);
+}
+
+static void	manage_heredoc(t_parser *cmd)
+{
+	if (cmd->delim)
+	{
+		signal(SIGINT, SIG_DFL);
+		ft_heredoc(cmd->delim, cmd);
+	}
 }
 
 static void	manage_commands(t_data *data, t_parser *cmd, int **array_pipes,
@@ -80,11 +57,7 @@ static void	manage_commands(t_data *data, t_parser *cmd, int **array_pipes,
 	i = 0;
 	while (i < data->num_commands)
 	{
-		if (cmd->delim)
-		{
-			signal(SIGINT, SIG_DFL);
-			ft_heredoc(cmd->delim, cmd);
-		}
+		manage_heredoc(cmd);
 		pid = fork();
 		if (pid < 0)
 		{
