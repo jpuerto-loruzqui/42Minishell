@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 21:51:15 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/14 10:18:32 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,13 @@ typedef struct s_outfile
 	bool				append;
 }	t_outfile;
 
+typedef struct s_strtok
+{
+	char			*save_ptr;
+	char			*token;
+	char			*separator;
+}	t_strtok;
+
 typedef struct s_lexer
 {
 	int				index;		// indice token
@@ -120,6 +127,10 @@ int			is_valid_char(char command);
 int			is_valid_slash(char command);
 t_lexer		*new_token(int index, char *data, t_token type, int *mode);
 void		add_token(t_lexer **lexer, t_lexer *new);
+int			check_mode(char c, int mode);
+char		check_quote(char c);
+void		init_strtok_struct(t_strtok *s, char *str);
+char		*check_separator(char *sep);
 
 /****************************************************/
 //PARSER

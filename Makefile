@@ -1,5 +1,5 @@
 NAME = minishell
-SRC = main.c lexer/lexer.c parser/parser.c utils/ft_strtok.c built-ins/ft_exit.c\
+SRC = main.c lexer/lexer.c parser/parser.c utils/ft_strtok.c utils/ft_strtok_utils.c built-ins/ft_exit.c\
 	signals.c built-ins/ft_cd.c built-ins/ft_pwd.c built-ins/is_built_in.c\
 	exec/exec_one_command.c exec/exec.c utils/ft_parserlen.c\
 	exec/exec_pipes.c exec/pipes_childs.c redirections/input_redir.c redirections/output_redir.c\
@@ -10,7 +10,7 @@ SRC = main.c lexer/lexer.c parser/parser.c utils/ft_strtok.c built-ins/ft_exit.c
 	lexer/manage_list_lexer.c parser/manage_list_parser.c text_visualizer/ft_jp.c\
 	text_visualizer/ft_jp_utils.c built-ins/exec_built_ins_1.c built-ins/exec_built_ins_2.c\
 
-SRC_PRINT = print/main_print.c lexer/lexer.c parser/parser.c utils/ft_strtok.c built-ins/ft_exit.c\
+SRC_PRINT = print/main_print.c lexer/lexer.c parser/parser.c utils/ft_strtok.c utils/ft_strtok_utils.c built-ins/ft_exit.c\
 	signals.c built-ins/ft_cd.c built-ins/ft_pwd.c built-ins/is_built_in.c\
 	exec/exec_one_command.c exec/exec.c utils/ft_parserlen.c\
 	exec/exec_pipes.c exec/pipes_childs.c redirections/input_redir.c redirections/output_redir.c\
