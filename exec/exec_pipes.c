@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 09:44:05 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:30:06 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,17 @@ static void	manage_heredoc(t_parser *cmd)
 	}
 }
 
+static void	handle_all_heredocs(t_parser *cmd)
+{
+	t_parser *tmp = cmd;
+
+	while (tmp)
+	{
+		manage_heredoc(tmp);
+		tmp = tmp->next;
+	}
+}
+
 static void	manage_commands(t_data *data, t_parser *cmd, int **array_pipes,
 	pid_t *array_pids)
 {
@@ -57,7 +68,6 @@ static void	manage_commands(t_data *data, t_parser *cmd, int **array_pipes,
 	i = 0;
 	while (i < data->num_commands)
 	{
-		manage_heredoc(cmd);
 		pid = fork();
 		if (pid < 0)
 		{
@@ -86,6 +96,7 @@ void	exec_pipes(t_data *data)
 	status = 0;
 	cmd = data->commands;
 	init_pipes(data->num_commands, &array_pipes, &array_pids);
+	handle_all_heredocs(cmd);
 	manage_commands(data, cmd, array_pipes, array_pids);
 	close_all_pipes(data, array_pipes);
 	manage_signals(data, status, array_pids);

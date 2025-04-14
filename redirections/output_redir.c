@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:10:25 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:48:59 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,10 @@
 void	check_redirs(t_parser *cmd, t_data *data)
 {
 	int		fd;
-	char	*argv[2];
+	(void)data;
 
-	argv[0] = "true";
-	argv[1] = NULL;
 	if (!cmd->args && cmd->delim && !cmd->outfiles)
-	{
-		execve("/bin/true", argv, data->env_arr);
-		perror("execve");
-	}
+		exit(1);
 	if ((cmd->outfiles && cmd->outfiles->data && !cmd->args)
 		|| (cmd->outfiles && cmd->outfiles->data
 			&& cmd->infile && !cmd->args))
@@ -31,13 +26,14 @@ void	check_redirs(t_parser *cmd, t_data *data)
 		fd = open(cmd->outfiles->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd >= 0)
 			close(fd);
-		execve("/bin/true", argv, data->env_arr);
-		perror("execve");
+		exit(1);
 	}
 	if (cmd->infile && !cmd->args)
 	{
-		execve("/bin/true", argv, data->env_arr);
-		perror("execve");
+		fd = open(cmd->infile, O_RDONLY);
+		if (fd < 0)
+			perror("");
+		exit(1);
 	}
 }
 

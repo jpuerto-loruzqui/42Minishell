@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:22 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 10:03:47 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:59:28 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	manage_infile(t_parser *commands)
 	fd_in = open(commands->infile, O_RDONLY);
 	if (fd_in < 0)
 	{
-		perror("fd");
+		perror("");
 		exit(1);
 	}
 	if (dup2(fd_in, STDIN_FILENO) == -1)

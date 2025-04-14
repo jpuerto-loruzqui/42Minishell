@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_types.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 12:54:26 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:19:00 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	parse_heredoc(t_lexer **lexer, t_parser **curr)
 	return (1);
 }
 
-void	check_parser_curr(t_parser **curr, t_outfile **last_out,
-	t_parser **head)
+void	check_parser_curr(t_parser **curr, t_outfile
+		**last_out, t_parser **head)
 {
 	if (!(*curr))
 	{
