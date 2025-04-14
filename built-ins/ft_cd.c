@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:50:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 09:53:49 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:31:21 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ static int	ft_control_cd(char **path, char **args, t_data *data)
 	return (0);
 }
 
+static void	free_old_and_export(char *export_str, char *oldpwd)
+{
+	free(export_str);
+	free(oldpwd);
+}
+
 int	ft_cd(char **args, t_data *data)
 {
 	char	*oldpwd;
@@ -58,8 +64,7 @@ int	ft_cd(char **args, t_data *data)
 		return (perror("minishell: cd"), free(oldpwd), 1);
 	export_str = ft_strjoin("OLDPWD=", oldpwd);
 	ft_export((char *[]){"export", export_str, NULL}, data);
-	free(export_str);
-	free(oldpwd);
+	free_old_and_export(export_str, oldpwd);
 	newpwd = getcwd(NULL, 0);
 	if (!newpwd)
 		return (perror("minishell: getcwd"), 1);

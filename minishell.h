@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 09:45:12 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:13:22 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@
 # define NORMAL_MODE 0
 # define DOUBLE_MODE 1
 # define SIMPLE_MODE 2
-
-# define INVALID_CHARS ";"
 
 # define COLOR_USERS "\033[38;2;84;222;253m"
 # define COLOR_RESET "\033[0m"
@@ -139,6 +137,13 @@ t_parser	*parser(t_lexer *lexer, t_data data);
 char		*expand_cmd(char *token, char **env_arr);
 t_parser	*new_node(void);
 void		add_node(t_parser **head, t_parser *node);
+int			parser_expand(t_lexer **lexer, t_data data);
+void 		parse_redirs(t_lexer **lexer, t_parser **curr, t_outfile **last_out);
+int			parse_heredoc(t_lexer **lexer, t_parser **curr);
+void		check_parser_curr(t_parser **curr, t_outfile **last_out, t_parser **head);
+int			parse_pipes(t_lexer **lexer, t_parser **curr);
+t_outfile	*new_outfile(t_lexer *lexer);
+t_outfile	*append_outfile(t_outfile **head, t_outfile *new);
 
 /****************************************************/
 //UTILS

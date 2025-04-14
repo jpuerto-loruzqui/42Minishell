@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 10:16:55 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/14 11:22:26 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
 		}
 		else
 		{
-			if (is_valid_slash(**save_ptr) == 1)
+			if (is_valid_char(**save_ptr) == 1)
 				(*token) = append_char((*token), **save_ptr);
 			(*save_ptr)++;
 		}

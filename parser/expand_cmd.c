@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:12:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 16:06:04 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:24:04 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ static void	do_expansion(int *i, char *token, char **aux, char **env_arr)
 	char	*env_value;
 	char	*expanded_value;
 
-	if (token[*i] == '{')
-		(*i)++;
 	j = *i;
 	while (token[j] && (ft_isalnum(token[j]) || token[j] == '_'))
 		j++;
@@ -38,8 +36,6 @@ static void	do_expansion(int *i, char *token, char **aux, char **env_arr)
 		free(cmd);
 	}
 	(*i) = j;
-	if (token[*i] == '}')
-		i++;
 }
 
 char	*expand_cmd(char *token, char **env_arr)
