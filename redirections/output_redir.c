@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 13:48:59 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/14 23:21:53 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ void	check_redirs(t_parser *cmd, t_data *data)
 			&& cmd->infile && !cmd->args))
 	{
 		fd = open(cmd->outfiles->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (fd >= 0)
-			close(fd);
+		if (fd < 0)
+			perror("");
+		close(fd);
 		exit(1);
 	}
 	if (cmd->infile && !cmd->args)

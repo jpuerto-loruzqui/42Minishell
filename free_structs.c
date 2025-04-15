@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:10:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 16:10:09 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/15 09:26:59 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	free_lexer(t_lexer *lexer)
 	while (lexer)
 	{
 		tmp = lexer->next;
-		free(lexer->data);
+		if (lexer->data && lexer->data[0])
+			free(lexer->data);
 		free(lexer);
 		lexer = tmp;
 	}

@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 12:13:13 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/14 23:16:03 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_outfile	*append_outfile(t_outfile **head, t_outfile *new)
 	return (new);
 }
 
-t_outfile	*new_outfile(t_lexer *lexer)
+t_outfile	*new_outfile(t_lexer *lexer, t_data data)
 {
 	t_outfile	*node;
 
@@ -66,7 +66,11 @@ t_outfile	*new_outfile(t_lexer *lexer)
 		return (NULL);
 	node->append = (lexer->type_token == T_APPEND);
 	if (lexer->next->data)
+	{
+		if (lexer->next->mode != SIMPLE_MODE)
+			parser_expand(&lexer->next, data);
 		node->data = ft_strdup(lexer->next->data);
+	}
 	else
 		node->data = NULL;
 	node->next = NULL;
@@ -84,16 +88,17 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 	curr = NULL;
 	while (lexer)
 	{
+		if (!parse_heredoc(&lexer, &curr))
+			continue ;
 		if (!parser_expand(&lexer, data))
 			continue ;
 		if (!parse_pipes(&lexer, &curr))
 			continue ;
 		check_parser_curr(&curr, &last_out, &head);
-		if (!parse_heredoc(&lexer, &curr))
-			continue ;
 		if (lexer->type_token == T_GENERAL && lexer->data)
 			curr->args = add_arg(curr->args, lexer->data);
-		parse_redirs(&lexer, &curr, &last_out);
+		if (!parse_redirs(&lexer, &curr, &last_out, data))
+			continue ;
 		lexer = lexer->next;
 	}
 	return (head);

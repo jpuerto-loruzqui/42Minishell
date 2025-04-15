@@ -1,0 +1,5 @@
+>> "$H"OM"E" ❌
+
+echo '' -n ❌
+
+<| echo ok ❌

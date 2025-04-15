@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:12:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 11:24:04 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 10:23:59 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static void	do_expansion(int *i, char *token, char **aux, char **env_arr)
 			expanded_value = ft_strdup(env_value);
 			*aux = ft_strjoin_free(*aux, expanded_value);
 		}
-		else
-			*aux = NULL;
 		free(cmd);
 	}
 	(*i) = j;
@@ -45,6 +43,11 @@ char	*expand_cmd(char *token, char **env_arr)
 
 	i = 0;
 	aux = "";
+	if (!token[i + 1])
+	{	
+		free(token);
+		return (aux);
+	}
 	while (token && token[i])
 	{
 		if (token[i] == '$')

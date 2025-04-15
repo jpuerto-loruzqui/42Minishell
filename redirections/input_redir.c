@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:22 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 13:59:28 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/14 19:44:27 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	manage_infile(t_parser *commands)
 		perror("");
 		exit(1);
 	}
-	if (dup2(fd_in, STDIN_FILENO) == -1)
+	else if (dup2(fd_in, STDIN_FILENO) == -1)
 	{
 		perror("input_redir:");
 		close(fd_in);

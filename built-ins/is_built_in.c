@@ -3,16 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   is_built_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 21:51:17 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/14 20:28:25 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	*redir_builtin(t_parser *commands)
+void	input_redir_builtin(t_parser *commands)
+{
+	int fd_in;
+	
+	if (commands->here_fd)
+	{
+		if (commands->here_fd < 0)
+			perror("here_fd");
+		if (dup2(commands->here_fd, STDIN_FILENO) == -1)
+			perror("dup2 heredoc:");
+		close(commands->here_fd);
+		return ;
+	}
+	if (commands->infile)
+	{
+		fd_in = open(commands->infile, O_RDONLY);
+		if (fd_in < 0)
+			perror("");
+		else if (dup2(fd_in, STDIN_FILENO) == -1)
+			perror("input_redir:");
+		close(fd_in);
+	}
+}
+
+int	*redir_builtin(t_parser *commands)
 {
 	int	*std_inout;
 
@@ -22,7 +46,7 @@ static int	*redir_builtin(t_parser *commands)
 	std_inout[0] = dup(STDIN_FILENO);
 	std_inout[1] = dup(STDOUT_FILENO);
 	if (commands->infile)
-		input_redir(commands);
+		input_redir_builtin(commands);
 	if (commands->outfiles)
 		output_redir(commands);
 	return (std_inout);
@@ -56,10 +80,10 @@ void	unset_std(int *std_inout)
 bool	is_built_in(t_parser *commands, t_data *data)
 {
 	int	*stdinout;
-
+	
+	stdinout = 0;
 	if (commands->args == NULL)
 		return (false);
-	stdinout = redir_builtin(commands);
 	if (ft_strncmp(commands->args[0], "jp", 3) == 0)
 		return (exec_jp(commands, stdinout));
 	if (ft_strncmp(commands->args[0], "exit", 5) == 0)
@@ -76,5 +100,5 @@ bool	is_built_in(t_parser *commands, t_data *data)
 		return (exec_unset(commands, data, stdinout));
 	else if (ft_strncmp(commands->args[0], "export", 7) == 0)
 		return (exec_export(commands, data, stdinout));
-	return (unset_std(stdinout), false);
+	return (false);
 }
