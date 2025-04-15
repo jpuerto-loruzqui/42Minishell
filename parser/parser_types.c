@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   parser_types.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
 /*   Updated: 2025/04/15 16:37:44 by jpuerto          ###   ########.fr       */
@@ -33,7 +33,8 @@ int	parser_expand(t_lexer **lexer, t_data data)
 	return (1);
 }
 
-int	parse_redirs(t_lexer **lexer, t_parser **curr, t_outfile **last_out, t_data data)
+int	parse_redirs(t_lexer **lexer, t_parser **curr, t_outfile **last_out,
+	t_data data)
 {
 	if ((*lexer)->type_token == T_REDIR_IN && (*lexer)->next && (*lexer)->next->type_token == T_GENERAL)
 	{
@@ -43,19 +44,20 @@ int	parse_redirs(t_lexer **lexer, t_parser **curr, t_outfile **last_out, t_data 
 		(*lexer) = (*lexer)->next;
 		if ((*lexer))
 			(*lexer)->type_token = T_INFILE;
-		return 0;
+		return (0);
 	}
 	if (((*lexer)->type_token == T_REDIR_OUT
 			|| (*lexer)->type_token == T_APPEND)
 		&& (*lexer)->next)
 	{
-		*last_out = append_outfile(&(*curr)->outfiles, new_outfile(*lexer, data));
+		*last_out = append_outfile(&(*curr)->outfiles,
+				new_outfile(*lexer, data));
 		(*lexer) = (*lexer)->next;
 		if ((*lexer))
 			(*lexer)->type_token = T_OUTFILE;
-		return 0;
+		return (0);
 	}
-	return 1;
+	return (1);
 }
 
 int	parse_heredoc(t_lexer **lexer, t_parser **curr)
@@ -70,8 +72,8 @@ int	parse_heredoc(t_lexer **lexer, t_parser **curr)
 	return (1);
 }
 
-void	check_parser_curr(t_parser **curr, t_outfile
-		**last_out, t_parser **head)
+void	check_parser_curr(t_parser **curr, t_outfile **last_out,
+	t_parser **head)
 {
 	if (!(*curr))
 	{

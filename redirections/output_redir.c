@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   output_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
 /*   Updated: 2025/04/15 15:55:27 by jpuerto          ###   ########.fr       */

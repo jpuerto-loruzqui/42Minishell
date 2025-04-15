@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
 /*   Updated: 2025/04/15 19:24:39 by jpuerto          ###   ########.fr       */

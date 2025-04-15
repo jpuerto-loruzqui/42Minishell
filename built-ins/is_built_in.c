@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   is_built_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
 /*   Updated: 2025/04/15 15:32:19 by jpuerto          ###   ########.fr       */
@@ -14,8 +14,8 @@
 
 void	input_redir_builtin(t_parser *commands)
 {
-	int fd_in;
-	
+	int	fd_in;
+
 	if (commands->here_fd)
 	{
 		if (commands->here_fd < 0)
@@ -78,7 +78,7 @@ void	unset_std(int *std_inout)
 bool	is_built_in(t_parser *commands, t_data *data)
 {
 	int	*stdinout;
-	
+
 	stdinout = 0;
 	if (commands->args == NULL)
 		return (false);
