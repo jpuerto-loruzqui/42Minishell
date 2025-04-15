@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 19:24:39 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 21:57:35 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*parser_expand_strtok(char *str, t_data *data, char delim)
 {
-	char 		*tmp;
+	char	*tmp;
 
 	tmp = str;
-	if (data->last_token_type != T_HEREDOC )
+	if (data->last_token_type != T_HEREDOC)
 	{
 		if (delim != '\'' && ft_strncmp(str, "$?", 3) == 0)
 		{
@@ -51,7 +51,7 @@ static void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
 		exit_error("Invalid format");
 		return ;
 	}
-	aux = ft_substr(*save_ptr, 0 , i);
+	aux = ft_substr(*save_ptr, 0, i);
 	aux = parser_expand_strtok(aux, data, delim);
 	aux = ft_strjoin_free(*token, aux);
 	*token = aux;
@@ -109,11 +109,11 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 			return (s.save_ptr++, s.token);
 		if (check_quote(*s.save_ptr))
 			get_command(mode, &s.save_ptr, &s.token, data);
-			else
-			{
-				if (is_valid_char(*s.save_ptr) == 1)
-					get_unquoted_token(&s.save_ptr, &s.token, data);
-			}
+		else
+		{
+			if (is_valid_char(*s.save_ptr) == 1)
+				get_unquoted_token(&s.save_ptr, &s.token, data);
+		}
 	}
 	return (s.token);
 }

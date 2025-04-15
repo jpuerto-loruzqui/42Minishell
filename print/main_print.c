@@ -3,24 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   main_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 16:29:41 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 22:15:15 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "print.h"
 
-static void	control_args(int argc)
+char	*get_prompt(t_data *data)
 {
-	if (argc != 1)
-		exit(EXIT_FAILURE);
+	char	*env_prompt[3];
+	char	*cwd;
+	char	*colored;
+	char	*final;
+
+	cwd = getcwd(NULL, 0);
+	colored = ft_strjoin("\001\033[0;32m\002", cwd);
+	final = ft_strjoin(colored, COLOR_USERS " minishell> \001\033[0m\002");
+	free(colored);
+	data->prompt = final;
+	env_prompt[0] = "export";
+	env_prompt[1] = ft_strjoin("PROMPT=", final);
+	env_prompt[2] = NULL;
+	ft_export(env_prompt, data);
+	free(env_prompt[1]);
+	free(cwd);
+	return (data->prompt);
 }
 
 static void	init_minishell(int argc, char **envp, t_data *data)
 {
-	control_args(argc);
+	if (argc != 1)
+		exit(EXIT_FAILURE);
 	data->env = ft_dup_env(envp);
 	data->env_arr = ft_strdup_matrix(envp);
 	data->last_exit_code = 0;
@@ -29,14 +45,15 @@ static void	init_minishell(int argc, char **envp, t_data *data)
 	data->num_commands = 0;
 }
 
-void parse_syntax(t_data *data)
+void	parse_syntax(t_data *data)
 {
-	t_parser  *tmp;
+	t_parser	*tmp;
 
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->last_outfile)
+		if (!tmp->args && !tmp->delim && !tmp->infile
+			&& !tmp->last_outfile && !tmp->outfiles)
 		{
 			exit_error("Syntax error");
 			data->error = true;
@@ -61,7 +78,8 @@ static int	lexer_parser_and_exec(t_data *data)
 	}
 	free_lexer(data->tokens);
 	data->num_commands = ft_parserlen(data->commands);
-	if (data->error == false && data->num_commands == 1 && !is_built_in(data->commands, data))
+	if (data->error == false && data->num_commands == 1
+		&& !is_built_in(data->commands, data))
 		exec_one_command(data);
 	else if (data->error == false && data->num_commands > 1)
 		exec_pipes(data);
@@ -79,13 +97,15 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			data.input = readline(COLOR_BANNER "bash> " COLOR_RESET);
+			data.input = readline(get_prompt(&data));
 		else
 			data.input = get_next_line(STDIN_FILENO);
+		free(data.prompt);
 		data.error = false;
 		if (!data.input)
 		{
 			free(data.input);
+			printf("exit\n");
 			break ;
 		}
 		if (*data.input)
@@ -96,4 +116,3 @@ int	main(int argc, char **argv, char **envp)
 	free_env(&data);
 	return (0);
 }
-

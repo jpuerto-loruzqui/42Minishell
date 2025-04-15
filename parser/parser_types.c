@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 16:37:44 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 21:58:10 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ int	parser_expand(t_lexer **lexer, t_data data)
 int	parse_redirs(t_lexer **lexer, t_parser **curr, t_outfile **last_out,
 	t_data data)
 {
-	if ((*lexer)->type_token == T_REDIR_IN && (*lexer)->next && (*lexer)->next->type_token == T_GENERAL)
+	if ((*lexer)->type_token == T_REDIR_IN && (*lexer)->next
+		&& (*lexer)->next->type_token == T_GENERAL)
 	{
 		if ((*curr)->infile)
 			free((*curr)->infile);

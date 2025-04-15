@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_list_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:31:08 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 13:03:14 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 21:58:00 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,3 @@ void	add_node(t_parser **head, t_parser *node)
 		tmp->next = node;
 	}
 }
-
-

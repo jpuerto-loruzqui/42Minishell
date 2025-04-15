@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 16:17:47 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 21:57:51 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 			continue ;
 		check_parser_curr(&curr, &last_out, &head);
 		if (lexer->type_token == T_GENERAL && lexer->data)
-		curr->args = add_arg(curr->args, lexer->data);
+			curr->args = add_arg(curr->args, lexer->data);
 		if (!parse_redirs(&lexer, &curr, &last_out, data))
 			continue ;
 		lexer = lexer->next;

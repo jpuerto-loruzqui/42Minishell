@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 19:58:09 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 22:12:32 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	control_args(int argc)
-{
-	if (argc != 1)
-		exit(EXIT_FAILURE);
-}
-
-char *get_prompt(t_data *data)
+char	*get_prompt(t_data *data)
 {
 	char	*env_prompt[3];
 	char	*cwd;
@@ -41,7 +35,8 @@ char *get_prompt(t_data *data)
 
 static void	init_minishell(int argc, char **envp, t_data *data)
 {
-	control_args(argc);
+	if (argc != 1)
+		exit(EXIT_FAILURE);
 	data->env = ft_dup_env(envp);
 	data->env_arr = ft_strdup_matrix(envp);
 	data->last_exit_code = 0;
@@ -50,14 +45,15 @@ static void	init_minishell(int argc, char **envp, t_data *data)
 	data->num_commands = 0;
 }
 
-void parse_syntax(t_data *data)
+void	parse_syntax(t_data *data)
 {
-	t_parser  *tmp;
+	t_parser	*tmp;
 
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->last_outfile && !tmp->outfiles)
+		if (!tmp->args && !tmp->delim && !tmp->infile
+			&& !tmp->last_outfile && !tmp->outfiles)
 		{
 			exit_error("Syntax error");
 			data->error = true;
@@ -80,7 +76,8 @@ static int	lexer_parser_and_exec(t_data *data)
 	}
 	free_lexer(data->tokens);
 	data->num_commands = ft_parserlen(data->commands);
-	if (data->error == false && data->num_commands == 1 && !is_built_in(data->commands, data))
+	if (data->error == false && data->num_commands == 1
+		&& !is_built_in(data->commands, data))
 		exec_one_command(data);
 	else if (data->error == false && data->num_commands > 1)
 		exec_pipes(data);
@@ -106,6 +103,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!data.input)
 		{
 			free(data.input);
+			printf("exit\n");
 			break ;
 		}
 		if (*data.input)

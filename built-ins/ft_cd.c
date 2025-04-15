@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:50:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 18:07:48 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 22:10:23 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,16 @@ static void	free_cd(t_data *data, char *export_str, char *newpwd)
 
 static int	ft_control_cd(char **path, char **args, t_data *data)
 {
-	if (!args[1])
+	if (!args[1] || ft_strncmp(args[1], "~", 1) == 0
+		|| ft_strncmp(args[1], "-", 1) == 0)
 	{
-		*path = ft_getenv("HOME", data->env_arr);
+		if (ft_strncmp(args[1], "~", 1) == 0)
+			*path = ft_getenv("HOME", data->env_arr);
+		else if (ft_strncmp(args[1], "-", 1) == 0)
+			*path = ft_getenv("OLDPWD", data->env_arr);
 		if (!*path)
 		{
-			printf("minishell: cd: HOME variable not set\n");
+			printf("minishell: cd: variable not set\n");
 			return (1);
 		}
 	}
