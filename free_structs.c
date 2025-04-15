@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:10:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 18:40:41 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 19:48:47 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	free_env(t_data *data)
 		data->env = tmp;
 	}
 	ft_free_split(data->env_arr);
-	free(data->prompt);
 }
 
 void	free_outfiles(t_outfile *outfiles)

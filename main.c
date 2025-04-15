@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 18:49:11 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 19:58:09 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,13 @@ static void	control_args(int argc)
 		exit(EXIT_FAILURE);
 }
 
-static void	init_minishell(int argc, char **envp, t_data *data)
+char *get_prompt(t_data *data)
 {
 	char	*env_prompt[3];
 	char	*cwd;
 	char	*colored;
 	char	*final;
 
-	control_args(argc);
-	data->env = ft_dup_env(envp);
-	data->env_arr = ft_strdup_matrix(envp);
-	data->last_exit_code = 0;
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, sigint_handler);
-	data->num_commands = 0;
 	cwd = getcwd(NULL, 0);
 	colored = ft_strjoin("\001\033[0;32m\002", cwd);
 	final = ft_strjoin(colored, COLOR_USERS " minishell> \001\033[0m\002");
@@ -43,9 +36,19 @@ static void	init_minishell(int argc, char **envp, t_data *data)
 	ft_export(env_prompt, data);
 	free(env_prompt[1]);
 	free(cwd);
+	return (data->prompt);
 }
 
-
+static void	init_minishell(int argc, char **envp, t_data *data)
+{
+	control_args(argc);
+	data->env = ft_dup_env(envp);
+	data->env_arr = ft_strdup_matrix(envp);
+	data->last_exit_code = 0;
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sigint_handler);
+	data->num_commands = 0;
+}
 
 void parse_syntax(t_data *data)
 {
@@ -95,9 +98,10 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			data.input = readline(data.prompt);
+			data.input = readline(get_prompt(&data));
 		else
 			data.input = get_next_line(STDIN_FILENO);
+		free(data.prompt);
 		data.error = false;
 		if (!data.input)
 		{
