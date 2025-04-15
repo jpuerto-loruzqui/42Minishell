@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:50:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 11:31:21 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 14:30:42 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ static void	free_cd(t_data *data, char *export_str, char *newpwd)
 
 static int	ft_control_cd(char **path, char **args, t_data *data)
 {
-	if (args[2])
-	{
-		printf("cd: usage: cd <path>\n");
-		return (1);
-	}
 	if (!args[1])
 	{
 		*path = ft_getenv("HOME", data->env_arr);
@@ -36,7 +31,14 @@ static int	ft_control_cd(char **path, char **args, t_data *data)
 		}
 	}
 	else
+	{
+		if (args[2])
+		{
+			printf("cd: usage: cd <path>\n");
+			return (1);
+		}
 		*path = args[1];
+	}
 	return (0);
 }
 
