@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 23:16:03 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 14:25:00 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 	while (lexer)
 	{
 		if (!parse_heredoc(&lexer, &curr))
-			continue ;
-		if (!parser_expand(&lexer, data))
 			continue ;
 		if (!parse_pipes(&lexer, &curr))
 			continue ;

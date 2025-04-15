@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_list_lexer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:29:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 11:30:42 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:08:02 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_lexer	*new_token(int index, char *data, t_token type, int *mode)
 	token->type_token = type;
 	token->next = NULL;
 	token->prev = NULL;
-	(*mode) = NORMAL_MODE;
 	return (token);
 }
 
@@ -43,4 +42,13 @@ void	add_token(t_lexer **lexer, t_lexer *new)
 		tmp->next = new;
 		new->prev = tmp;
 	}
+}
+
+t_lexer	*get_last_node(t_lexer *head)
+{
+	if (!head)
+		return (NULL);
+	while (head->next)
+		head = head->next;
+	return (head);
 }

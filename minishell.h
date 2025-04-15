@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 23:09:07 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 13:30:59 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ typedef struct s_data
 	char		**env_arr;
 	bool		error;
 	int			last_exit_code;
-	char		*term_log;
+	int			last_token_type;
 }	t_data;
 
 /****************************************************/
@@ -129,6 +129,7 @@ int			check_mode(char c, int mode);
 char		check_quote(char c);
 void		init_strtok_struct(t_strtok *s, char *str);
 char		*check_separator(char *sep);
+t_lexer		*get_last_node(t_lexer *head);
 
 /****************************************************/
 //PARSER
