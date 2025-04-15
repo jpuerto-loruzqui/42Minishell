@@ -43,14 +43,9 @@ char	*expand_cmd(char *token, char **env_arr)
 
 	i = 0;
 	aux = "";
-	if (!token[i + 1])
-	{
-		free(token);
-		return (aux);
-	}
 	while (token && token[i])
 	{
-		if (token[i] == '$')
+		if (token[i] == '$' && token[i + 1])
 		{
 			i++;
 			do_expansion(&i, token, &aux, env_arr);

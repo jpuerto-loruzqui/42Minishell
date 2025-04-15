@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:31:08 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 14:51:50 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 13:03:14 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,3 +43,5 @@ void	add_node(t_parser **head, t_parser *node)
 		tmp->next = node;
 	}
 }
+
+

@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:50:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 11:31:21 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 18:07:48 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ static void	free_cd(t_data *data, char *export_str, char *newpwd)
 
 static int	ft_control_cd(char **path, char **args, t_data *data)
 {
-	if (args[2])
-	{
-		printf("cd: usage: cd <path>\n");
-		return (1);
-	}
 	if (!args[1])
 	{
 		*path = ft_getenv("HOME", data->env_arr);
@@ -36,7 +31,14 @@ static int	ft_control_cd(char **path, char **args, t_data *data)
 		}
 	}
 	else
+	{
+		if (args[2])
+		{
+			printf("cd: usage: cd <path>\n");
+			return (1);
+		}
 		*path = args[1];
+	}
 	return (0);
 }
 
@@ -61,11 +63,15 @@ int	ft_cd(char **args, t_data *data)
 		return (perror("minishell: getcwd"), 1);
 	dir_res = chdir(path);
 	if (dir_res == -1)
+	{
+		data->last_exit_code = 126;
 		return (perror("minishell: cd"), free(oldpwd), 1);
+	}
 	export_str = ft_strjoin("OLDPWD=", oldpwd);
 	ft_export((char *[]){"export", export_str, NULL}, data);
 	free_old_and_export(export_str, oldpwd);
 	newpwd = getcwd(NULL, 0);
+	data->pwd = newpwd;
 	if (!newpwd)
 		return (perror("minishell: getcwd"), 1);
 	export_str = ft_strjoin("PWD=", newpwd);

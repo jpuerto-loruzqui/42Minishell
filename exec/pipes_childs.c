@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:01:51 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 17:21:22 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 15:56:22 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	pipes_first_child(int i, int ***array_pipes, t_parser *cmd)
 		if (dup2((*array_pipes)[i][1], STDOUT_FILENO) == -1)
 		{
 			close((*array_pipes)[i][1]);
-			exit_error("Error in dup2");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -37,7 +36,6 @@ static void	pipes_middle_child(int i, int ***array_pipes, t_parser *cmd)
 		{
 			close((*array_pipes)[i][1]);
 			close((*array_pipes)[i - 1][0]);
-			exit_error("Error in dup2");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -47,7 +45,6 @@ static void	pipes_middle_child(int i, int ***array_pipes, t_parser *cmd)
 		{
 			close((*array_pipes)[i][1]);
 			close((*array_pipes)[i - 1][0]);
-			exit_error("Error in dup2");
 			exit(EXIT_FAILURE);
 		}
 	}
@@ -63,7 +60,6 @@ static void	pipes_last_child(int i, int ***array_pipes, t_parser *cmd)
 		if (dup2((*array_pipes)[i - 1][0], STDIN_FILENO) == -1)
 		{
 			close((*array_pipes)[i - 1][0]);
-			exit_error("Error in dup2");
 			exit(EXIT_FAILURE);
 		}
 	}

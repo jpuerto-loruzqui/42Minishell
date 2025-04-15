@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:42:05 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/12 13:42:16 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/15 18:32:02 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	create_var(t_env **new_var, char *args, t_data *data)
 	while (args[i] && (ft_isalnum(args[i]) || args[i] == '_'))
 		i++;
 	if ((!ft_isalpha(args[0]) && args[0] != '_')
-		|| (args[i] != '=' && args[i] != '\0'))
+		|| (args[i] != '=' && args[i] != '\0' ))
 		return (ft_putstr_fd("export: Not an identifier: ", 2),
 			ft_putendl_fd(args, 2));
 	var = ft_substr(args, 0, i);

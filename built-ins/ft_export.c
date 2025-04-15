@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:50 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 16:00:40 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/15 18:05:16 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static void	print_export(t_env *exports)
 	while (lst != NULL)
 	{
 		value = ft_strchr(lst->content, '=');
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
 		if (value && *(value + 1) == '\0')
 		{
 			ft_putstr_fd(lst->content, STDOUT_FILENO);

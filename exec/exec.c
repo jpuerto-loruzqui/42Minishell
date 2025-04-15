@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 17:00:42 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 19:49:17 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:19:36 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	find_path(t_parser *commands, char **envp)
 		{
 			exit_error("command not found");
 			free_parser(commands);
-			exit(1);
+			exit(127);
 		}
 	}
 	path = ft_find_executable(commands->args[0], envp);
@@ -134,6 +134,6 @@ void	find_path(t_parser *commands, char **envp)
 	{
 		free_parser(commands);
 		exit_error("command not found");
-		exit(1);
+		exit(127);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 11:26:36 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/15 15:32:19 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	unset_std(int *std_inout)
 		close(std_inout[0]);
 		close(std_inout[1]);
 		free(std_inout);
-		exit_error("Error in dup2");
 		exit(EXIT_FAILURE);
 	}
 	if (dup2(std_inout[1], STDOUT_FILENO) == -1)
@@ -69,7 +68,6 @@ void	unset_std(int *std_inout)
 		close(std_inout[0]);
 		close(std_inout[1]);
 		free(std_inout);
-		exit_error("Error in dup2");
 		exit(EXIT_FAILURE);
 	}
 	close(std_inout[0]);

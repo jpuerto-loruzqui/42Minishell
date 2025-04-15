@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 20:28:42 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 18:49:11 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ static void	control_args(int argc)
 
 static void	init_minishell(int argc, char **envp, t_data *data)
 {
+	char	*env_prompt[3];
+	char	*cwd;
+	char	*colored;
+	char	*final;
+
 	control_args(argc);
 	data->env = ft_dup_env(envp);
 	data->env_arr = ft_strdup_matrix(envp);
@@ -27,22 +32,54 @@ static void	init_minishell(int argc, char **envp, t_data *data)
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sigint_handler);
 	data->num_commands = 0;
+	cwd = getcwd(NULL, 0);
+	colored = ft_strjoin("\001\033[0;32m\002", cwd);
+	final = ft_strjoin(colored, COLOR_USERS " minishell> \001\033[0m\002");
+	free(colored);
+	data->prompt = final;
+	env_prompt[0] = "export";
+	env_prompt[1] = ft_strjoin("PROMPT=", final);
+	env_prompt[2] = NULL;
+	ft_export(env_prompt, data);
+	free(env_prompt[1]);
+	free(cwd);
+}
+
+
+
+void parse_syntax(t_data *data)
+{
+	t_parser  *tmp;
+
+	tmp = data->commands;
+	while (tmp)
+	{
+		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->last_outfile && !tmp->outfiles)
+		{
+			exit_error("Syntax error");
+			data->error = true;
+		}
+		tmp = tmp->next;
+	}
 }
 
 static int	lexer_parser_and_exec(t_data *data)
 {
 	data->tokens = lexer(data);
+	data->commands = parser(data->tokens, *data);
+	parse_syntax(data);
 	if (data->error)
 	{
+		free_lexer(data->tokens);
+		free_parser(data->commands);
 		free(data->input);
 		return (1);
 	}
-	data->commands = parser(data->tokens, *data);
 	free_lexer(data->tokens);
 	data->num_commands = ft_parserlen(data->commands);
-	if (data->num_commands == 1 && !is_built_in(data->commands, data))
+	if (data->error == false && data->num_commands == 1 && !is_built_in(data->commands, data))
 		exec_one_command(data);
-	else if (data->num_commands > 1)
+	else if (data->error == false && data->num_commands > 1)
 		exec_pipes(data);
 	free(data->input);
 	free_parser(data->commands);
@@ -58,7 +95,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			data.input = readline(COLOR_BANNER "bash> " COLOR_RESET);
+			data.input = readline(data.prompt);
 		else
 			data.input = get_next_line(STDIN_FILENO);
 		data.error = false;

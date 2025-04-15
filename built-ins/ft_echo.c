@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:54:41 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 10:30:33 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:41:12 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_echo(char **arg)
 	if (arg[1] == NULL)
 		return (ft_putchar_fd('\n', STDOUT_FILENO), 1);
 	arg++;
-	if (ft_strncmp(*arg, "-n", 2) == 0 && check_all_n(*arg))
+	while (*arg && ft_strncmp(*arg, "-n", 2) == 0 && check_all_n(*arg))
 	{
 		newline = false;
 		arg++;
@@ -42,8 +42,9 @@ int	ft_echo(char **arg)
 	while (*arg)
 	{
 		ft_putstr_fd(*arg, STDOUT_FILENO);
-		ft_putchar_fd(' ', STDOUT_FILENO);
 		arg++;
+		if (*arg)
+			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
 	if (newline == true)
 		ft_putchar_fd('\n', STDOUT_FILENO);
