@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:12:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 10:23:59 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 11:28:14 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*expand_cmd(char *token, char **env_arr)
 	i = 0;
 	aux = "";
 	if (!token[i + 1])
-	{	
+	{
 		free(token);
 		return (aux);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 23:21:53 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 11:28:30 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	check_redirs(t_parser *cmd, t_data *data)
 {
-	int		fd;
-	(void)data;
+	int	fd;
 
+	(void)data;
 	if (!cmd->args && cmd->delim && !cmd->outfiles)
 		exit(1);
 	if ((cmd->outfiles && cmd->outfiles->data && !cmd->args)

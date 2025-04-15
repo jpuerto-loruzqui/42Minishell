@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 10:06:32 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 11:28:45 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
 		(*mode) = NORMAL_MODE;
 		(*save_ptr)++;
 	}
-	
 }
 
 char	*check_separator(char *sep)

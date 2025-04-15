@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 14:30:06 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 11:25:53 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ static void	manage_heredoc(t_parser *cmd)
 
 static void	handle_all_heredocs(t_parser *cmd)
 {
-	t_parser *tmp = cmd;
+	t_parser	*tmp;
 
+	tmp = cmd;
 	while (tmp)
 	{
 		manage_heredoc(tmp);
