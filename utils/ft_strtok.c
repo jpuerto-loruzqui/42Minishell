@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 14:23:14 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 19:24:39 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*parser_expand_strtok(char *str, t_data *data, char delim)
 	char 		*tmp;
 
 	tmp = str;
-	if (data->last_token_type != T_HEREDOC)
+	if (data->last_token_type != T_HEREDOC )
 	{
 		if (delim != '\'' && ft_strncmp(str, "$?", 3) == 0)
 		{

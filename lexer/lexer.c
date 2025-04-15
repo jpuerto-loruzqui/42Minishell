@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 14:10:26 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 19:27:18 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,10 @@ t_lexer	*lexer(t_data *data)
 	{
 		type = T_GENERAL;
 		get_type_of_delimiter(token, &type, data);
-		if (token[0])
+		if (token)
 		{
-			add_token(&lexer_list, new_token(index++, token, type, &mode));
+			if (token[0])
+				add_token(&lexer_list, new_token(index++, token, type, &mode));
 			free(token);
 		}
 		token = ft_strtok(NULL, &mode, data);

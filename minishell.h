@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 13:30:59 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 18:10:22 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ typedef struct s_data
 	bool		error;
 	int			last_exit_code;
 	int			last_token_type;
+	char		*pwd;
+	char		*prompt;
 }	t_data;
 
 /****************************************************/

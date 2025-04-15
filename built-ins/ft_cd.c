@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:50:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 14:30:42 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 18:07:48 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,15 @@ int	ft_cd(char **args, t_data *data)
 		return (perror("minishell: getcwd"), 1);
 	dir_res = chdir(path);
 	if (dir_res == -1)
+	{
+		data->last_exit_code = 126;
 		return (perror("minishell: cd"), free(oldpwd), 1);
+	}
 	export_str = ft_strjoin("OLDPWD=", oldpwd);
 	ft_export((char *[]){"export", export_str, NULL}, data);
 	free_old_and_export(export_str, oldpwd);
 	newpwd = getcwd(NULL, 0);
+	data->pwd = newpwd;
 	if (!newpwd)
 		return (perror("minishell: getcwd"), 1);
 	export_str = ft_strjoin("PWD=", newpwd);

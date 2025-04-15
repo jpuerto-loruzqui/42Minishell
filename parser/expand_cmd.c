@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:12:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 13:10:35 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 17:14:12 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,9 @@ char	*expand_cmd(char *token, char **env_arr)
 
 	i = 0;
 	aux = "";
-	if (!token[i + 1])
-	{	
-		free(token);
-		return (aux);
-	}
 	while (token && token[i])
 	{
-		if (token[i] == '$')
+		if (token[i] == '$' && token[i + 1])
 		{
 			i++;
 			do_expansion(&i, token, &aux, env_arr);

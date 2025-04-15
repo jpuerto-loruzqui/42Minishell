@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 23:21:53 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/15 15:55:27 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 void	check_redirs(t_parser *cmd, t_data *data)
 {
 	int		fd;
-	(void)data;
 
+	if (!cmd->args && !cmd->delim && !cmd->outfiles)
+	{
+		data->error = true;
+		exit(1);
+	}
 	if (!cmd->args && cmd->delim && !cmd->outfiles)
 		exit(1);
 	if ((cmd->outfiles && cmd->outfiles->data && !cmd->args)
@@ -59,7 +63,7 @@ void	output_redir(t_parser *commands)
 		{
 			close(fd_out);
 			free_parser(commands);
-			exit_error("Error in dup2");
+			exit(1);
 		}
 		close(fd_out);
 		tmp = tmp->next;

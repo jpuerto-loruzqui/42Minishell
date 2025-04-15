@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 16:06:54 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/15 16:29:41 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,41 @@ static void	init_minishell(int argc, char **envp, t_data *data)
 	data->num_commands = 0;
 }
 
+void parse_syntax(t_data *data)
+{
+	t_parser  *tmp;
+
+	tmp = data->commands;
+	while (tmp)
+	{
+		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->last_outfile)
+		{
+			exit_error("Syntax error");
+			data->error = true;
+		}
+		tmp = tmp->next;
+	}
+}
+
 static int	lexer_parser_and_exec(t_data *data)
 {
 	data->tokens = lexer(data);
+	data->commands = parser(data->tokens, *data);
+	parse_syntax(data);
+	print_tokens(data->tokens);
+	print_commands(data->commands);
 	if (data->error)
 	{
+		free_lexer(data->tokens);
+		free_parser(data->commands);
 		free(data->input);
 		return (1);
 	}
-	data->commands = parser(data->tokens, *data);
-	print_tokens(data->tokens);
-	print_commands(data->commands);
 	free_lexer(data->tokens);
 	data->num_commands = ft_parserlen(data->commands);
-	if (data->num_commands == 1 && !is_built_in(data->commands, data))
+	if (data->error == false && data->num_commands == 1 && !is_built_in(data->commands, data))
 		exec_one_command(data);
-	else if (data->num_commands > 1)
+	else if (data->error == false && data->num_commands > 1)
 		exec_pipes(data);
 	free(data->input);
 	free_parser(data->commands);
@@ -77,3 +96,4 @@ int	main(int argc, char **argv, char **envp)
 	free_env(&data);
 	return (0);
 }
+
