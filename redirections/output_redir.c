@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:54:30 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:34:15 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ void	ft_check_redirs(t_parser *cmd, t_data *data)
 	}
 	if (!cmd->args && cmd->delim && !cmd->outfiles)
 		exit(1);
-	if ((cmd->outfiles && cmd->outfiles->data && !cmd->args)
-		|| (cmd->outfiles && cmd->outfiles->data
-			&& cmd->infile && !cmd->args))
+	if ((cmd->outfiles && cmd->outfiles->data && !cmd->args) || (cmd->outfiles
+			&& cmd->outfiles->data && cmd->infile && !cmd->args))
 	{
 		fd = open(cmd->outfiles->data, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd < 0)

@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 15:50:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 10:03:40 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:47:49 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	ft_cd(char **args, t_data *data)
 	char	*oldpwd;
 	char	*newpwd;
 	char	*export_str;
-	int		dir_res;
 	char	*path;
 
 	if (ft_control_cd(&path, args, data))
@@ -65,12 +64,9 @@ int	ft_cd(char **args, t_data *data)
 	oldpwd = getcwd(NULL, 0);
 	if (!oldpwd)
 		return (perror("minishell: getcwd"), 1);
-	dir_res = chdir(path);
-	if (dir_res == -1)
-	{
-		data->last_exit_code = 126;
-		return (perror("minishell: cd"), free(oldpwd), 1);
-	}
+	if (chdir(path) == -1)
+		return (perror("minishell: cd"), free(oldpwd),
+			data->last_exit_code = 126, 1);
 	export_str = ft_strjoin("OLDPWD=", oldpwd);
 	ft_export((char *[]){"export", export_str, NULL}, data);
 	ft_free_old_and_export(export_str, oldpwd);
