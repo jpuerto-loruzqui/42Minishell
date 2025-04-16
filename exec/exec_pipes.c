@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 11:25:53 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:02:07 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	manage_signals(t_data *data, int status, pid_t *array_pids)
+static void	ft_manage_signals(t_data *data, int status, pid_t *array_pids)
 {
 	int	i;
 	int	interrupted;
@@ -36,10 +36,10 @@ static void	manage_signals(t_data *data, int status, pid_t *array_pids)
 	}
 	if (interrupted)
 		write(1, "\n", 1);
-	signal(SIGINT, sigint_handler);
+	signal(SIGINT, ft_sigint_handler);
 }
 
-static void	manage_heredoc(t_parser *cmd)
+static void	ft_manage_heredoc(t_parser *cmd)
 {
 	if (cmd->delim)
 	{
@@ -48,19 +48,19 @@ static void	manage_heredoc(t_parser *cmd)
 	}
 }
 
-static void	handle_all_heredocs(t_parser *cmd)
+static void	ft_handle_all_heredocs(t_parser *cmd)
 {
 	t_parser	*tmp;
 
 	tmp = cmd;
 	while (tmp)
 	{
-		manage_heredoc(tmp);
+		ft_manage_heredoc(tmp);
 		tmp = tmp->next;
 	}
 }
 
-static void	manage_commands(t_data *data, t_parser *cmd, int **array_pipes,
+static void	ft_manage_commands(t_data *data, t_parser *cmd, int **array_pipes,
 	pid_t *array_pids)
 {
 	int		i;
@@ -72,13 +72,13 @@ static void	manage_commands(t_data *data, t_parser *cmd, int **array_pipes,
 		pid = fork();
 		if (pid < 0)
 		{
-			free_parser(cmd);
-			exit_error("Error fork pipes");
+			ft_free_parser(cmd);
+			ft_exit_error("Error fork pipes");
 		}
 		else if (pid == 0)
 		{
 			signal(SIGINT, SIG_DFL);
-			exec_child(i, &array_pipes, cmd, data);
+			ft_exec_child(i, &array_pipes, cmd, data);
 		}
 		else
 			array_pids[i] = pid;
@@ -87,7 +87,7 @@ static void	manage_commands(t_data *data, t_parser *cmd, int **array_pipes,
 	}
 }
 
-void	exec_pipes(t_data *data)
+void	ft_exec_pipes(t_data *data)
 {
 	int			**array_pipes;
 	pid_t		*array_pids;
@@ -96,10 +96,10 @@ void	exec_pipes(t_data *data)
 
 	status = 0;
 	cmd = data->commands;
-	init_pipes(data->num_commands, &array_pipes, &array_pids);
-	handle_all_heredocs(cmd);
-	manage_commands(data, cmd, array_pipes, array_pids);
-	close_all_pipes(data, array_pipes);
-	manage_signals(data, status, array_pids);
-	finish_exec(data->num_commands, &array_pipes, &array_pids);
+	ft_init_pipes(data->num_commands, &array_pipes, &array_pids);
+	ft_handle_all_heredocs(cmd);
+	ft_manage_commands(data, cmd, array_pipes, array_pids);
+	ft_close_all_pipes(data, array_pipes);
+	ft_manage_signals(data, status, array_pids);
+	ft_finish_exec(data->num_commands, &array_pipes, &array_pids);
 }

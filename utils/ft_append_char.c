@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_append_char.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:58:07 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/04/01 14:13:42 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:56:18 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*append_char(char *str, char c)
+char	*ft_append_char(char *str, char c)
 {
 	size_t	len;
 	char	*new_str;

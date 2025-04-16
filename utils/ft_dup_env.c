@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:10:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/13 21:17:53 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:56:15 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_envadd_back(t_env **lst, t_env *new)
 	ultimo->next = new;
 }
 
-t_env	*new_node_env(void *content)
+t_env	*ft_new_node_env(void *content)
 {
 	t_env	*toreturn;
 
@@ -56,7 +56,7 @@ t_env	*ft_dup_env(char **envp)
 	new_node = NULL;
 	while (*envp)
 	{
-		new_node = new_node_env(*envp);
+		new_node = ft_new_node_env(*envp);
 		if (!new_node)
 			return (NULL);
 		ft_envadd_back(&new_env, new_node);

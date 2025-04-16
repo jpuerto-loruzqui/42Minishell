@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   manage_list_lexer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:29:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 14:08:02 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 09:47:41 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_lexer	*new_token(int index, char *data, t_token type, int *mode)
+t_lexer	*ft_new_token(int index, char *data, t_token type, int *mode)
 {
 	t_lexer	*token;
 
@@ -28,7 +28,7 @@ t_lexer	*new_token(int index, char *data, t_token type, int *mode)
 	return (token);
 }
 
-void	add_token(t_lexer **lexer, t_lexer *new)
+void	ft_add_token(t_lexer **lexer, t_lexer *new)
 {
 	t_lexer	*tmp;
 
@@ -44,7 +44,7 @@ void	add_token(t_lexer **lexer, t_lexer *new)
 	}
 }
 
-t_lexer	*get_last_node(t_lexer *head)
+t_lexer	*ft_get_last_node(t_lexer *head)
 {
 	if (!head)
 		return (NULL);

@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 21:57:35 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:57:37 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*parser_expand_strtok(char *str, t_data *data, char delim)
+char	*ft_parser_expand_strtok(char *str, t_data *data, char delim)
 {
 	char	*tmp;
 
@@ -26,21 +26,21 @@ char	*parser_expand_strtok(char *str, t_data *data, char delim)
 		}
 		else if (delim != '\'' && ft_strchr(str, '$'))
 		{
-			tmp = expand_cmd(str, data->env_arr);
+			tmp = ft_expand_cmd(str, data->env_arr);
 		}
 	}
 	return (tmp);
 }
 
-static void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
+static void	ft_get_command(int *mode, char **save_ptr, char **token, t_data *data)
 {
 	char	delim;
 	char	*aux;
 	int		i;
 
 	aux = "";
-	delim = check_quote(**save_ptr);
-	*mode = check_mode(**save_ptr, *mode);
+	delim = ft_check_quote(**save_ptr);
+	*mode = ft_check_mode(**save_ptr, *mode);
 	(*save_ptr)++;
 	i = 0;
 	while ((*save_ptr)[i] && (*save_ptr)[i] != delim)
@@ -48,17 +48,17 @@ static void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
 	if (!(*save_ptr)[i])
 	{
 		data->error = true;
-		exit_error("Invalid format");
+		ft_exit_error("Invalid format");
 		return ;
 	}
 	aux = ft_substr(*save_ptr, 0, i);
-	aux = parser_expand_strtok(aux, data, delim);
+	aux = ft_parser_expand_strtok(aux, data, delim);
 	aux = ft_strjoin_free(*token, aux);
 	*token = aux;
 	*save_ptr += i + 1;
 }
 
-static void	get_unquoted_token(char **save_ptr, char **token, t_data *data)
+static void	ft_get_unquoted_token(char **save_ptr, char **token, t_data *data)
 {
 	char	*aux;
 	int		i;
@@ -67,17 +67,17 @@ static void	get_unquoted_token(char **save_ptr, char **token, t_data *data)
 	aux = "";
 	while ((*save_ptr)[i]
 		&& (*save_ptr)[i] != ' '
-		&& !check_separator(&(*save_ptr)[i])
-		&& !check_quote((*save_ptr)[i]))
+		&& !ft_check_separator(&(*save_ptr)[i])
+		&& !ft_check_quote((*save_ptr)[i]))
 		i++;
 	aux = ft_substr(*save_ptr, 0, i);
-	aux = parser_expand_strtok(aux, data, 0);
+	aux = ft_parser_expand_strtok(aux, data, 0);
 	aux = ft_strjoin_free(*token, aux);
 	*token = aux;
 	*save_ptr += i;
 }
 
-char	*check_separator(char *sep)
+char	*ft_check_separator(char *sep)
 {
 	if (ft_strncmp(sep, "<<", 2) == 0)
 		return ("<<");
@@ -96,23 +96,23 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 {
 	static t_strtok	s;
 
-	init_strtok_struct(&s, str);
+	ft_init_strtok_struct(&s, str);
 	if (!s.save_ptr || *s.save_ptr == '\0')
 		return (NULL);
 	if (s.separator)
 		return (s.save_ptr += ft_strlen(s.separator), ft_strdup(s.separator));
 	while (*s.save_ptr)
 	{
-		if (check_separator(s.save_ptr))
+		if (ft_check_separator(s.save_ptr))
 			return (s.token);
 		else if (*s.save_ptr == ' ')
 			return (s.save_ptr++, s.token);
-		if (check_quote(*s.save_ptr))
-			get_command(mode, &s.save_ptr, &s.token, data);
+		if (ft_check_quote(*s.save_ptr))
+			ft_get_command(mode, &s.save_ptr, &s.token, data);
 		else
 		{
-			if (is_valid_char(*s.save_ptr) == 1)
-				get_unquoted_token(&s.save_ptr, &s.token, data);
+			if (ft_is_valid_char(*s.save_ptr) == 1)
+				ft_get_unquoted_token(&s.save_ptr, &s.token, data);
 		}
 	}
 	return (s.token);

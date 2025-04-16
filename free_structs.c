@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:10:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 19:48:47 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 09:58:00 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_lexer(t_lexer *lexer)
+void	ft_free_lexer(t_lexer *lexer)
 {
 	t_lexer	*tmp;
 
@@ -26,7 +26,7 @@ void	free_lexer(t_lexer *lexer)
 	}
 }
 
-void	free_env(t_data *data)
+void	ft_free_env(t_data *data)
 {
 	t_env	*tmp;
 
@@ -42,7 +42,7 @@ void	free_env(t_data *data)
 	ft_free_split(data->env_arr);
 }
 
-void	free_outfiles(t_outfile *outfiles)
+void	ft_free_outfiles(t_outfile *outfiles)
 {
 	t_outfile	*tmp;
 
@@ -56,7 +56,7 @@ void	free_outfiles(t_outfile *outfiles)
 	}
 }
 
-void	free_parser(t_parser *parser)
+void	ft_free_parser(t_parser *parser)
 {
 	t_parser	*tmp;
 
@@ -68,7 +68,7 @@ void	free_parser(t_parser *parser)
 		if (parser->delim)
 			free(parser->delim);
 		free(parser->infile);
-		free_outfiles(parser->outfiles);
+		ft_free_outfiles(parser->outfiles);
 		free(parser);
 		parser = tmp;
 	}

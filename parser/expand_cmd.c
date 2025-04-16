@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:12:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 11:28:14 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:49:50 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	do_expansion(int *i, char *token, char **aux, char **env_arr)
+static void	ft_do_expansion(int *i, char *token, char **aux, char **env_arr)
 {
 	int		j;
 	char	*cmd;
@@ -36,7 +36,7 @@ static void	do_expansion(int *i, char *token, char **aux, char **env_arr)
 	(*i) = j;
 }
 
-char	*expand_cmd(char *token, char **env_arr)
+char	*ft_expand_cmd(char *token, char **env_arr)
 {
 	char	*aux;
 	int		i;
@@ -48,11 +48,11 @@ char	*expand_cmd(char *token, char **env_arr)
 		if (token[i] == '$' && token[i + 1])
 		{
 			i++;
-			do_expansion(&i, token, &aux, env_arr);
+			ft_do_expansion(&i, token, &aux, env_arr);
 		}
 		else
 		{
-			aux = append_char(aux, token[i]);
+			aux = ft_append_char(aux, token[i]);
 			i++;
 		}
 	}

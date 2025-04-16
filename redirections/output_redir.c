@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 15:55:27 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 09:54:30 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	check_redirs(t_parser *cmd, t_data *data)
+void	ft_check_redirs(t_parser *cmd, t_data *data)
 {
 	int		fd;
 
@@ -42,7 +42,7 @@ void	check_redirs(t_parser *cmd, t_data *data)
 	}
 }
 
-void	output_redir(t_parser *commands)
+void	ft_output_redir(t_parser *commands)
 {
 	t_outfile	*tmp;
 	int			fd_out;
@@ -56,13 +56,13 @@ void	output_redir(t_parser *commands)
 			fd_out = open(tmp->data, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		if (fd_out < 0)
 		{
-			free_parser(commands);
-			exit_error("Error opening file output");
+			ft_free_parser(commands);
+			ft_exit_error("Error opening file output");
 		}
 		if (dup2(fd_out, STDOUT_FILENO) == -1)
 		{
 			close(fd_out);
-			free_parser(commands);
+			ft_free_parser(commands);
 			exit(1);
 		}
 		close(fd_out);

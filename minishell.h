@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 18:10:22 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 10:01:38 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,111 +121,111 @@ typedef struct s_data
 /****************************************************/
 //LEXER
 /****************************************************/
-t_lexer		*lexer(t_data *data);
-void		print_tokens(t_lexer *lexer);
-int			is_valid_char(char command);
-int			is_valid_slash(char command);
-t_lexer		*new_token(int index, char *data, t_token type, int *mode);
-void		add_token(t_lexer **lexer, t_lexer *new);
-int			check_mode(char c, int mode);
-char		check_quote(char c);
-void		init_strtok_struct(t_strtok *s, char *str);
-char		*check_separator(char *sep);
-t_lexer		*get_last_node(t_lexer *head);
+t_lexer		*ft_lexer(t_data *data);
+void		ft_print_tokens(t_lexer *lexer);
+int			ft_is_valid_char(char command);
+int			ft_is_valid_slash(char command);
+t_lexer		*ft_new_token(int index, char *data, t_token type, int *mode);
+void		ft_add_token(t_lexer **lexer, t_lexer *new);
+int			ft_check_mode(char c, int mode);
+char		ft_check_quote(char c);
+void		ft_init_strtok_struct(t_strtok *s, char *str);
+char		*ft_check_separator(char *sep);
+t_lexer		*ft_get_last_node(t_lexer *head);
 
 /****************************************************/
 //PARSER
 /****************************************************/
-t_parser	*parser(t_lexer *lexer, t_data data);
-char		*expand_cmd(char *token, char **env_arr);
-t_parser	*new_node(void);
-void		add_node(t_parser **head, t_parser *node);
-int			parser_expand(t_lexer **lexer, t_data data);
-int			parse_redirs(t_lexer **lexer, t_parser **curr, t_outfile **last_out,
+t_parser	*ft_parser(t_lexer *lexer, t_data data);
+char		*ft_expand_cmd(char *token, char **env_arr);
+t_parser	*ft_new_node(void);
+void		ft_add_node(t_parser **head, t_parser *node);
+int			ft_parser_expand(t_lexer **lexer, t_data data);
+int			ft_parse_redirs(t_lexer **lexer, t_parser **curr, t_outfile **last_out,
 				t_data data);
-int			parse_heredoc(t_lexer **lexer, t_parser **curr);
-void		check_parser_curr(t_parser **curr, t_outfile **last_out,
+int			ft_parse_heredoc(t_lexer **lexer, t_parser **curr);
+void		ft_check_parser_curr(t_parser **curr, t_outfile **last_out,
 				t_parser **head);
-int			parse_pipes(t_lexer **lexer, t_parser **curr);
-t_outfile	*new_outfile(t_lexer *lexer, t_data data);
-t_outfile	*append_outfile(t_outfile **head, t_outfile *new);
+int			ft_parse_pipes(t_lexer **lexer, t_parser **curr);
+t_outfile	*ft_new_outfile(t_lexer *lexer, t_data data);
+t_outfile	*ft_append_outfile(t_outfile **head, t_outfile *new);
 
 /****************************************************/
 //UTILS
 /****************************************************/
 char		*ft_strtok(char *str, int *mode, t_data *data);
-char		*append_char(char *str, char c);
+char		*ft_append_char(char *str, char c);
 int			ft_parserlen(t_parser *parser);
 void		ft_free_split(char **split);
 char		**ft_lsttoa(t_data data);
 t_env		*ft_dup_env(char **envp);
-t_env		*new_node_env(void *content);
+t_env		*ft_new_node_env(void *content);
 void		ft_envadd_back(t_env **lst, t_env *new);
 char		*ft_getenv(const char *cmd, char **env_arr);
 
 /****************************************************/
 //BUILT-INS
 /****************************************************/
-bool		is_built_in(t_parser *commands, t_data *data);
-void		unset_std(int *std_inout);
+bool		ft_is_built_in(t_parser *commands, t_data *data);
+void		ft_unset_std(int *std_inout);
 void		ft_exit(t_parser *parser);
-void		exit_error(char *message);
+void		ft_exit_error(char *message);
 int			ft_cd(char **args, t_data *data);
 int			ft_pwd(char **args);
 int			ft_echo(char **arg);
 int			ft_env(char **args, t_env *envp);
 t_env		*ft_unset(char **args, t_env *envp);
 int			ft_export(char **args, t_data *data);
-void		create_var(t_env **new_var, char *args, t_data *data);
-int			check_var(char *arg, t_data *data);
-int			*redir_builtin(t_parser *commands);
+void		ft_create_var(t_env **new_var, char *args, t_data *data);
+int			ft_check_var(char *arg, t_data *data);
+int			*ft_redir_builtin(t_parser *commands);
 
 /****************************************************/
 //EXEC BUILT-INS
 /****************************************************/
-bool		exec_jp(t_parser *cmd, int *stdinout);
-bool		exec_exit(t_parser *cmd, int *stdinout);
-bool		exec_cd(t_parser *cmd, t_data *data, int *stdinout);
-bool		exec_pwd(t_parser *cmd, int *stdinout);
-bool		exec_echo(t_parser *cmd, int *stdinout);
-bool		exec_env(t_parser *cmd, t_data *data, int *stdinout);
-bool		exec_unset(t_parser *cmd, t_data *data, int *stdinout);
-bool		exec_export(t_parser *cmd, t_data *data, int *stdinout);
+bool		ft_exec_jp(t_parser *cmd, int *stdinout);
+bool		ft_exec_exit(t_parser *cmd, int *stdinout);
+bool		ft_exec_cd(t_parser *cmd, t_data *data, int *stdinout);
+bool		ft_exec_pwd(t_parser *cmd, int *stdinout);
+bool		ft_exec_echo(t_parser *cmd, int *stdinout);
+bool		ft_exec_env(t_parser *cmd, t_data *data, int *stdinout);
+bool		ft_exec_unset(t_parser *cmd, t_data *data, int *stdinout);
+bool		ft_exec_export(t_parser *cmd, t_data *data, int *stdinout);
 
 /****************************************************/
 //SIGNALS
 /****************************************************/
-void		sigint_handler(int sig);
-void		sigint_visualizer(int sig);
+void		ft_sigint_handler(int sig);
+void		ft_sigint_visualizer(int sig);
 
 /****************************************************/
 //EXEC
 /****************************************************/
-void		exec_one_command(t_data *data);
-void		exec_pipes(t_data *data);
-void		init_pipes(int num_commands, int ***array_pipes,
+void		ft_exec_one_command(t_data *data);
+void		ft_exec_pipes(t_data *data);
+void		ft_init_pipes(int num_commands, int ***array_pipes,
 				pid_t **array_pids);
-void		finish_exec(int num_commands, int ***array_pipes,
+void		ft_finish_exec(int num_commands, int ***array_pipes,
 				pid_t **array_pids);
-void		close_unused_pipes(int num_commands, int i, int ***array_pipes);
-void		close_all_pipes(t_data *data, int **array_pipes);
-void		find_path(t_parser *commands, char **envp);
-void		exec_child(int i, int ***array_pipes, t_parser *cmd, t_data *data);
+void		ft_close_unused_pipes(int num_commands, int i, int ***array_pipes);
+void		ft_close_all_pipes(t_data *data, int **array_pipes);
+void		ft_find_path(t_parser *commands, char **envp);
+void		ft_exec_child(int i, int ***array_pipes, t_parser *cmd, t_data *data);
 
 /****************************************************/
 //REDIRECTIONS
 /****************************************************/
-void		input_redir(t_parser *commands);
-void		output_redir(t_parser *commands);
-void		check_redirs(t_parser *cmd, t_data *data);
+void		ft_input_redir(t_parser *commands);
+void		ft_output_redir(t_parser *commands);
+void		ft_check_redirs(t_parser *cmd, t_data *data);
 
 /****************************************************/
 //FREES
 /****************************************************/
-void		free_lexer(t_lexer *lexer);
-void		free_parser(t_parser *parser);
-void		free_data(t_data data);
-void		free_env(t_data *data);
+void		ft_free_lexer(t_lexer *lexer);
+void		ft_free_parser(t_parser *parser);
+void		ft_free_data(t_data data);
+void		ft_free_env(t_data *data);
 
 /****************************************************/
 //HEREDOC
@@ -235,9 +235,9 @@ int			ft_heredoc(char *delim, t_parser *commands);
 /****************************************************/
 //TEXT VISUALZIER
 /****************************************************/
-void		show_visualizer(char *file);
-void		set_raw_mode(int fd);
-void		restore_terminal(int fd);
-char		read_key(void);
+void		ft_show_visualizer(char *file);
+void		ft_set_raw_mode(int fd);
+void		ft_restore_terminal(int fd);
+char		ft_read_key(void);
 
 #endif

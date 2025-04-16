@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:59:48 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/04/13 14:12:50 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:54:58 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <sys/ioctl.h>
 #include <termios.h>
 
-void	set_raw_mode(int fd)
+void	ft_set_raw_mode(int fd)
 {
 	struct termios	term;
 
@@ -23,7 +23,7 @@ void	set_raw_mode(int fd)
 	tcsetattr(fd, TCSANOW, &term);
 }
 
-void	restore_terminal(int fd)
+void	ft_restore_terminal(int fd)
 {
 	struct termios	term;
 
@@ -32,7 +32,7 @@ void	restore_terminal(int fd)
 	tcsetattr(fd, TCSANOW, &term);
 }
 
-char	read_key(void)
+char	ft_read_key(void)
 {
 	char	c;
 

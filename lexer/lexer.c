@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 19:27:18 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 10:06:14 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	get_type_of_delimiter(char *token, t_token *type, t_data *data)
+static void	ft_get_type_of_delimiter(char *token, t_token *type, t_data *data)
 {
 	if (ft_strncmp(token, "|", 1) == 0)
 		*type = T_PIPE;
@@ -29,7 +29,7 @@ static void	get_type_of_delimiter(char *token, t_token *type, t_data *data)
 		*type = T_REDIR_OUT;
 }
 
-t_lexer	*lexer(t_data *data)
+t_lexer	*ft_lexer(t_data *data)
 {
 	t_lexer	*lexer_list;
 	char	*token;
@@ -44,16 +44,16 @@ t_lexer	*lexer(t_data *data)
 	while (token)
 	{
 		type = T_GENERAL;
-		get_type_of_delimiter(token, &type, data);
+		ft_get_type_of_delimiter(token, &type, data);
 		if (token)
 		{
 			if (token[0])
-				add_token(&lexer_list, new_token(index++, token, type, &mode));
+				ft_add_token(&lexer_list, ft_new_token(index++, token, type, &mode));
 			free(token);
 		}
 		token = ft_strtok(NULL, &mode, data);
 		if (data->error)
-			return (free_lexer(lexer_list), NULL);
+			return (ft_free_lexer(lexer_list), NULL);
 	}
 	return (lexer_list);
 }

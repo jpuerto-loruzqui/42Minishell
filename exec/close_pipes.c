@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 09:44:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 09:44:55 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:41:12 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	close_unused_pipes(int num_commands, int i, int ***array_pipes)
+void	ft_close_unused_pipes(int num_commands, int i, int ***array_pipes)
 {
 	int	j;
 
@@ -28,7 +28,7 @@ void	close_unused_pipes(int num_commands, int i, int ***array_pipes)
 	}
 }
 
-void	close_all_pipes(t_data *data, int **array_pipes)
+void	ft_close_all_pipes(t_data *data, int **array_pipes)
 {
 	int	i;
 

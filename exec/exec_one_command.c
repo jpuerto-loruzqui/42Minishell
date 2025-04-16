@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 11:26:11 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:02:03 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	manage_signals(t_data *data, pid_t pid)
+static void	ft_manage_signals(t_data *data, pid_t pid)
 {
 	int	status;
 
@@ -27,18 +27,18 @@ static void	manage_signals(t_data *data, pid_t pid)
 		data->last_exit_code = 1;
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 		write(1, "\n", 1);
-	signal(SIGINT, sigint_handler);
+	signal(SIGINT, ft_sigint_handler);
 }
 
-void	exec_one_command(t_data *data)
+void	ft_exec_one_command(t_data *data)
 {
 	pid_t	pid;
 
 	pid = fork();
 	if (pid < 0)
 	{
-		free_parser(data->commands);
-		exit_error("Error fork one command");
+		ft_free_parser(data->commands);
+		ft_exit_error("Error fork one command");
 	}
 	else if (pid == 0)
 	{
@@ -47,11 +47,11 @@ void	exec_one_command(t_data *data)
 			signal(SIGINT, SIG_DFL);
 			ft_heredoc(data->commands->delim, data->commands);
 		}
-		check_redirs(data->commands, data);
-		input_redir(data->commands);
-		output_redir(data->commands);
-		find_path(data->commands, data->env_arr);
+		ft_check_redirs(data->commands, data);
+		ft_input_redir(data->commands);
+		ft_output_redir(data->commands);
+		ft_find_path(data->commands, data->env_arr);
 	}
 	else
-		manage_signals(data, pid);
+	ft_manage_signals(data, pid);
 }

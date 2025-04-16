@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 11:31:08 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 21:58:00 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 09:49:59 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_parser	*new_node(void)
+t_parser	*ft_new_node(void)
 {
 	t_parser	*node;
 
@@ -29,7 +29,7 @@ t_parser	*new_node(void)
 	return (node);
 }
 
-void	add_node(t_parser **head, t_parser *node)
+void	ft_add_node(t_parser **head, t_parser *node)
 {
 	t_parser	*tmp;
 

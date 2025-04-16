@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 17:00:42 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 17:19:36 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 09:43:10 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*ft_find_executable(char *command, char **envp)
 	return (ft_free_split(paths), NULL);
 }
 
-void	init_pipes(int num_commands, int ***array_pipes, pid_t **array_pids)
+void	ft_init_pipes(int num_commands, int ***array_pipes, pid_t **array_pids)
 {
 	int	i;
 
@@ -79,12 +79,12 @@ void	init_pipes(int num_commands, int ***array_pipes, pid_t **array_pids)
 	while (i < num_commands - 1)
 	{
 		if (pipe((*array_pipes)[i]) == -1)
-			exit_error("Error init pipes");
+			ft_exit_error("Error init pipes");
 		i++;
 	}
 }
 
-void	finish_exec(int num_commands, int ***array_pipes, pid_t **array_pids)
+void	ft_finish_exec(int num_commands, int ***array_pipes, pid_t **array_pids)
 {
 	int	i;
 	int	status;
@@ -112,7 +112,7 @@ void	finish_exec(int num_commands, int ***array_pipes, pid_t **array_pids)
 	free(*array_pids);
 }
 
-void	find_path(t_parser *commands, char **envp)
+void	ft_find_path(t_parser *commands, char **envp)
 {
 	char	*path;
 
@@ -124,16 +124,16 @@ void	find_path(t_parser *commands, char **envp)
 			execve(commands->args[0], commands->args, envp);
 		else
 		{
-			exit_error("command not found");
-			free_parser(commands);
+			ft_exit_error("command not found");
+			ft_free_parser(commands);
 			exit(127);
 		}
 	}
 	path = ft_find_executable(commands->args[0], envp);
 	if (!path || execve(path, commands->args, envp) == -1)
 	{
-		free_parser(commands);
-		exit_error("command not found");
+		ft_free_parser(commands);
+		ft_exit_error("command not found");
 		exit(127);
 	}
 }

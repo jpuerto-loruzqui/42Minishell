@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 18:54:41 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 17:41:12 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 09:37:44 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	check_all_n(char *arg)
+static int	ft_check_all_n(char *arg)
 {
 	int	i;
 
@@ -34,7 +34,7 @@ int	ft_echo(char **arg)
 	if (arg[1] == NULL)
 		return (ft_putchar_fd('\n', STDOUT_FILENO), 1);
 	arg++;
-	while (*arg && ft_strncmp(*arg, "-n", 2) == 0 && check_all_n(*arg))
+	while (*arg && ft_strncmp(*arg, "-n", 2) == 0 && ft_check_all_n(*arg))
 	{
 		newline = false;
 		arg++;
