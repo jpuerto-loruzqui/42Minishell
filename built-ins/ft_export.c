@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:50 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 10:03:54 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:21:28 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	ft_export(char **args, t_data *data)
 	while (*args)
 	{
 		if (!ft_check_var(*args, data))
-		ft_create_var(&new_var, *args, data);
+			ft_create_var(&new_var, *args, data);
 		args++;
 	}
 	ft_free_exports(exports);

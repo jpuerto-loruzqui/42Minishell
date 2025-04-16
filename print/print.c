@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:04:08 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:53:06 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:21:45 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_print_commands(t_parser *head)
 			printf("  infile: %s\n", curr->infile);
 		else
 			printf("  infile: %s\n", "NULL");
-			ft_print_outfiles(curr);
+		ft_print_outfiles(curr);
 		if (curr->delim)
 			printf("  heredoc: %s\n", curr->delim);
 		else

@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:50:32 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:22:13 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_parse_redirs(t_lexer **lexer, t_parser **curr, t_outfile **last_out,
 		&& (*lexer)->next)
 	{
 		*last_out = ft_append_outfile(&(*curr)->outfiles,
-			ft_new_outfile(*lexer, data));
+				ft_new_outfile(*lexer, data));
 		(*lexer) = (*lexer)->next;
 		if ((*lexer))
 			(*lexer)->type_token = T_OUTFILE;

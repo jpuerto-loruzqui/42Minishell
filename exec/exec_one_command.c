@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 10:02:03 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:21:13 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,5 @@ void	ft_exec_one_command(t_data *data)
 		ft_find_path(data->commands, data->env_arr);
 	}
 	else
-	ft_manage_signals(data, pid);
+		ft_manage_signals(data, pid);
 }

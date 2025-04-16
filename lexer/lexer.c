@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 10:06:14 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:24:48 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ static void	ft_get_type_of_delimiter(char *token, t_token *type, t_data *data)
 
 t_lexer	*ft_lexer(t_data *data)
 {
-	t_lexer	*lexer_list;
+	t_lexer	*lexer_lst;
 	char	*token;
 	int		index;
 	int		mode;
 	t_token	type;
 
 	mode = NORMAL_MODE;
-	lexer_list = NULL;
+	lexer_lst = NULL;
 	index = 0;
 	token = ft_strtok(data->input, &mode, data);
 	while (token)
@@ -48,12 +48,12 @@ t_lexer	*ft_lexer(t_data *data)
 		if (token)
 		{
 			if (token[0])
-				ft_add_token(&lexer_list, ft_new_token(index++, token, type, &mode));
+				ft_add_tok(&lexer_lst, ft_new_tok(index++, token, type, &mode));
 			free(token);
 		}
 		token = ft_strtok(NULL, &mode, data);
 		if (data->error)
-			return (ft_free_lexer(lexer_list), NULL);
+			return (ft_free_lexer(lexer_lst), NULL);
 	}
-	return (lexer_list);
+	return (lexer_lst);
 }

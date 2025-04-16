@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:57:37 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:22:44 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ char	*ft_parser_expand_strtok(char *str, t_data *data, char delim)
 	return (tmp);
 }
 
-static void	ft_get_command(int *mode, char **save_ptr, char **token, t_data *data)
+static void	ft_get_command(int *mode, char **save_ptr, char **token,
+	t_data *data)
 {
 	char	delim;
 	char	*aux;

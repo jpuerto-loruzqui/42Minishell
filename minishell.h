@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 10:01:38 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:25:20 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ t_lexer		*ft_lexer(t_data *data);
 void		ft_print_tokens(t_lexer *lexer);
 int			ft_is_valid_char(char command);
 int			ft_is_valid_slash(char command);
-t_lexer		*ft_new_token(int index, char *data, t_token type, int *mode);
-void		ft_add_token(t_lexer **lexer, t_lexer *new);
+t_lexer		*ft_new_tok(int index, char *data, t_token type, int *mode);
+void		ft_add_tok(t_lexer **lexer, t_lexer *new);
 int			ft_check_mode(char c, int mode);
 char		ft_check_quote(char c);
 void		ft_init_strtok_struct(t_strtok *s, char *str);
@@ -141,8 +141,8 @@ char		*ft_expand_cmd(char *token, char **env_arr);
 t_parser	*ft_new_node(void);
 void		ft_add_node(t_parser **head, t_parser *node);
 int			ft_parser_expand(t_lexer **lexer, t_data data);
-int			ft_parse_redirs(t_lexer **lexer, t_parser **curr, t_outfile **last_out,
-				t_data data);
+int			ft_parse_redirs(t_lexer **lexer, t_parser **curr,
+				t_outfile **last_out, t_data data);
 int			ft_parse_heredoc(t_lexer **lexer, t_parser **curr);
 void		ft_check_parser_curr(t_parser **curr, t_outfile **last_out,
 				t_parser **head);
@@ -210,7 +210,8 @@ void		ft_finish_exec(int num_commands, int ***array_pipes,
 void		ft_close_unused_pipes(int num_commands, int i, int ***array_pipes);
 void		ft_close_all_pipes(t_data *data, int **array_pipes);
 void		ft_find_path(t_parser *commands, char **envp);
-void		ft_exec_child(int i, int ***array_pipes, t_parser *cmd, t_data *data);
+void		ft_exec_child(int i, int ***array_pipes, t_parser *cmd,
+				t_data *data);
 
 /****************************************************/
 //REDIRECTIONS
