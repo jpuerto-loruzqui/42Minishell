@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 12:53:53 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 13:00:06 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 	static t_strtok	s;
 	
 	init_strtok_struct(&s, str);
+	s.flag = 0;
 	if (!s.save_ptr || *s.save_ptr == '\0')
 		return (NULL);
 	if (s.separator)
@@ -112,8 +113,13 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 		{
 			if (s.token && s.flag)
 				return (s.save_ptr++, s.token);
-			else	
-				return(s.save_ptr++, s.token);	
+			else
+			{
+				s.save_ptr++;
+				free(s.token);
+				s.token = ft_strdup(" ");
+				return(s.token);	
+			}
 		}
 		if (check_quote(*s.save_ptr))
 		{
