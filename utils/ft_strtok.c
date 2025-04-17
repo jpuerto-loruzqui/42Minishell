@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 14:35:38 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 16:57:09 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ char	*ft_parser_expand_strtok(char *str, t_data *data, char delim)
 		if (delim != '\'' && ft_strncmp(str, "$?", 3) == 0)
 			return ft_itoa(data->last_exit_code);
 		else if (delim != '\'' && ft_strchr(str, '$'))
-			return expand_cmd(str, data->env_arr);
+			return ft_expand_cmd(str, data->env_arr);
 	}
 	return ft_strdup(str);
 }
 
-void manage_slash(char **str, char delim)
+void ft_manage_slash(char **str, char delim)
 {
 	char *tmp;
 	char *start;
@@ -41,8 +41,8 @@ void manage_slash(char **str, char delim)
 			tmp = ft_append_char(tmp, delim);
 			(*str) += 2;
 		}
-		if (is_valid_char(**str) == 1)
-			tmp = append_char(tmp, **str);
+		if (ft_is_valid_char(**str) == 1)
+			tmp = ft_append_char(tmp, **str);
 		(*str)++;
 	}
 	free(start);
@@ -60,7 +60,7 @@ int ft_check_format(char **save_ptr, char delim, int *i, t_data *data)
 	if (!(*save_ptr)[*i])
 	{
 		data->error = true;
-		exit_error("Invalid format");
+		ft_exit_error("Invalid format");
 		return (0);
 	}
 	return (1);
@@ -152,7 +152,7 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 			{
 				free(s.token);
 				s.token = ft_strdup(" ");
-				return(s.save_ptr++, s.token);	
+				return(s.save_ptr++, s.token);
 			}
 		}
 		if (ft_check_quote(*s.save_ptr))
