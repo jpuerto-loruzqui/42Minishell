@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 14:15:28 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:50:08 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void parse_syntax(t_data *data)
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->last_outfile && !tmp->outfiles)
+		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles && !tmp->outfiles->data)
 		{
 			exit_error("Syntax error");
 			data->error = true;

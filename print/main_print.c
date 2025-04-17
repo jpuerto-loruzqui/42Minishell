@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 12:12:12 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:50:34 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void parse_syntax(t_data *data)
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->last_outfile)
+		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles && !tmp->outfiles->data)
 		{
 			exit_error("Syntax error");
 			data->error = true;
@@ -48,6 +48,11 @@ void parse_syntax(t_data *data)
 
 static int	lexer_parser_and_exec(t_data *data)
 {
+	char *aux;
+
+	aux = data->input;
+	data->input = ft_strtrim(data->input, " ");
+	free(aux);
 	data->tokens = lexer(data);
 	data->commands = parser(data->tokens, *data);
 	parse_syntax(data);

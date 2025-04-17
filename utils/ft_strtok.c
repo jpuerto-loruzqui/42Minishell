@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 14:34:10 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:35:38 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 	static t_strtok	s;
 	
 	init_strtok_struct(&s, str);
-	s.flag = 0;
 	if (!s.save_ptr || *s.save_ptr == '\0')
 		return (NULL);
 	if (s.separator)

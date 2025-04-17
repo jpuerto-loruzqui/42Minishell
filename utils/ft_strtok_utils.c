@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 12:57:09 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:34:47 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@ void	init_strtok_struct(t_strtok *s, char *str)
 		s->token = NULL;
 	}
 	s->token = ft_strdup("");
+	s->flag = 0;
 }
 
