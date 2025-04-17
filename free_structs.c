@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:10:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 19:48:47 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 10:28:19 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_lexer(t_lexer *lexer)
 	while (lexer)
 	{
 		tmp = lexer->next;
-		if (lexer->data && lexer->data[0])
+		if (lexer->data)
 			free(lexer->data);
 		free(lexer);
 		lexer = tmp;

@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 16:29:41 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 12:12:12 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void parse_syntax(t_data *data)
 		{
 			exit_error("Syntax error");
 			data->error = true;
+			break ;
 		}
 		tmp = tmp->next;
 	}

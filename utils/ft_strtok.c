@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 19:35:30 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 12:53:53 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char	*check_separator(char *sep)
 char	*ft_strtok(char *str, int *mode, t_data *data)
 {
 	static t_strtok	s;
-
+	
 	init_strtok_struct(&s, str);
 	if (!s.save_ptr || *s.save_ptr == '\0')
 		return (NULL);
@@ -110,16 +110,16 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 			return (s.token);
 		if (*s.save_ptr == ' ')
 		{
-			if (s.token[0])
+			if (s.token && s.flag)
 				return (s.save_ptr++, s.token);
-			else
-			{
-				s.save_ptr++;
-				continue ;	
-			}
+			else	
+				return(s.save_ptr++, s.token);	
 		}
 		if (check_quote(*s.save_ptr))
+		{
 			get_command(mode, &s.save_ptr, &s.token, data);
+			s.flag = 1;
+		}
 		else
 		{
 			if (is_valid_char(*s.save_ptr) == 1)
