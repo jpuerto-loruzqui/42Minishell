@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 16:10:13 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:58:00 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/17 10:28:19 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_free_lexer(t_lexer *lexer)
 	while (lexer)
 	{
 		tmp = lexer->next;
-		if (lexer->data && lexer->data[0])
+		if (lexer->data)
 			free(lexer->data);
 		free(lexer);
 		lexer = tmp;

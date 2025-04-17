@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:56:44 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:34:47 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ void	ft_init_strtok_struct(t_strtok *s, char *str)
 {
 	if (str)
 		s->save_ptr = str;
-	s->token = "";
 	s->separator = ft_check_separator(s->save_ptr);
+	if (s->token)
+	{
+		free(s->token);
+		s->token = NULL;
+	}
+	s->token = ft_strdup("");
+	s->flag = 0;
 }
+

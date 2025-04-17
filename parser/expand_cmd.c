@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   expand_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:12:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:49:50 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 19:54:11 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	ft_do_expansion(int *i, char *token, char **aux, char **env_arr)
+static char	*ft_do_expansion(int *i, char *token, char **env_arr)
 {
 	int		j;
 	char	*cmd;
 	char	*env_value;
 	char	*expanded_value;
+	char	*aux;
 
+	aux = "";
 	j = *i;
 	while (token[j] && (ft_isalnum(token[j]) || token[j] == '_'))
 		j++;
@@ -29,26 +31,30 @@ static void	ft_do_expansion(int *i, char *token, char **aux, char **env_arr)
 		if (env_value)
 		{
 			expanded_value = ft_strdup(env_value);
-			*aux = ft_strjoin_free(*aux, expanded_value);
+			aux = ft_strjoin_free(aux, expanded_value);
 		}
 		free(cmd);
 	}
 	(*i) = j;
+	if (!aux[0])
+		aux = ft_strdup("");
+	return aux;
 }
 
 char	*ft_expand_cmd(char *token, char **env_arr)
 {
-	char	*aux;
 	int		i;
-
+	char	*aux;
+	
+	aux = ft_strdup("");
 	i = 0;
-	aux = "";
 	while (token && token[i])
 	{
 		if (token[i] == '$' && token[i + 1])
 		{
 			i++;
-			ft_do_expansion(&i, token, &aux, env_arr);
+			free(aux);
+			aux = ft_do_expansion(&i, token, env_arr);
 		}
 		else
 		{
@@ -56,6 +62,5 @@ char	*ft_expand_cmd(char *token, char **env_arr)
 			i++;
 		}
 	}
-	free(token);
 	return (aux);
 }

@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 10:03:06 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:50:08 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	ft_init_minishell(int argc, char **envp, t_data *data)
 	data->env = ft_dup_env(envp);
 	data->env_arr = ft_strdup_matrix(envp);
 	data->last_exit_code = 0;
+	data->last_token_type = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sigint_handler);
 	data->num_commands = 0;
@@ -52,11 +53,11 @@ void	ft_parse_syntax(t_data *data)
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (!tmp->args && !tmp->delim && !tmp->infile
-			&& !tmp->last_outfile && !tmp->outfiles)
+		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles && !tmp->outfiles->data)
 		{
 			ft_exit_error("Syntax error");
 			data->error = true;
+			break ;
 		}
 		tmp = tmp->next;
 	}
@@ -64,6 +65,11 @@ void	ft_parse_syntax(t_data *data)
 
 static int	ft_lexer_parser_and_exec(t_data *data)
 {
+	char *aux;
+
+	aux = data->input;
+	data->input = ft_strtrim(data->input, " ");
+	free(aux);
 	data->tokens = ft_lexer(data);
 	data->commands = ft_parser(data->tokens, *data);
 	ft_parse_syntax(data);

@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 10:02:11 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:50:34 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ void	ft_parse_syntax(t_data *data)
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (!tmp->args && !tmp->delim && !tmp->infile
-			&& !tmp->last_outfile && !tmp->outfiles)
+		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles && !tmp->outfiles->data)
 		{
 			ft_exit_error("Syntax error");
 			data->error = true;
+			break ;
 		}
 		tmp = tmp->next;
 	}
@@ -64,6 +64,11 @@ void	ft_parse_syntax(t_data *data)
 
 static int	ft_lexer_parser_and_exec(t_data *data)
 {
+	char *aux;
+
+	aux = data->input;
+	data->input = ft_strtrim(data->input, " ");
+	free(aux);
 	data->tokens = ft_lexer(data);
 	data->commands = ft_parser(data->tokens, *data);
 	ft_parse_syntax(data);
