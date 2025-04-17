@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 19:58:09 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 18:10:15 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	init_minishell(int argc, char **envp, t_data *data)
 	data->env = ft_dup_env(envp);
 	data->env_arr = ft_strdup_matrix(envp);
 	data->last_exit_code = 0;
+	data->last_token_type = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, sigint_handler);
 	data->num_commands = 0;
@@ -68,6 +69,11 @@ void parse_syntax(t_data *data)
 
 static int	lexer_parser_and_exec(t_data *data)
 {
+	char *aux;
+
+	aux = data->input;
+	data->input = ft_strtrim(data->input, " ");
+	free(aux);
 	data->tokens = lexer(data);
 	data->commands = parser(data->tokens, *data);
 	parse_syntax(data);

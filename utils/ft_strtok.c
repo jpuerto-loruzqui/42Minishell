@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 19:24:39 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 19:35:30 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,27 @@
 
 char	*parser_expand_strtok(char *str, t_data *data, char delim)
 {
-	char 		*tmp;
-
-	tmp = str;
-	if (data->last_token_type != T_HEREDOC )
+	
+	if (data->last_token_type != T_HEREDOC)
 	{
 		if (delim != '\'' && ft_strncmp(str, "$?", 3) == 0)
-		{
-			free(str);
-			tmp = ft_itoa(data->last_exit_code);
-		}
+			return ft_itoa(data->last_exit_code);
 		else if (delim != '\'' && ft_strchr(str, '$'))
-		{
-			tmp = expand_cmd(str, data->env_arr);
-		}
+			return expand_cmd(str, data->env_arr);
 	}
-	return (tmp);
+	return ft_strdup(str);
 }
 
-static void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
+static void	get_command(int *mode, char **save_ptr, char **token,
+	t_data *data)
 {
 	char	delim;
 	char	*aux;
 	int		i;
+	char 	*tmp;
 
 	aux = "";
+
 	delim = check_quote(**save_ptr);
 	*mode = check_mode(**save_ptr, *mode);
 	(*save_ptr)++;
@@ -51,9 +47,12 @@ static void	get_command(int *mode, char **save_ptr, char **token, t_data *data)
 		exit_error("Invalid format");
 		return ;
 	}
-	aux = ft_substr(*save_ptr, 0 , i);
-	aux = parser_expand_strtok(aux, data, delim);
-	aux = ft_strjoin_free(*token, aux);
+	aux = ft_substr(*save_ptr, 0, i);
+	tmp = parser_expand_strtok(aux, data, delim);
+	free(aux);
+	aux = ft_strjoin(*token, tmp);
+	free(tmp);
+	free(*token);
 	*token = aux;
 	*save_ptr += i + 1;
 }
@@ -62,6 +61,7 @@ static void	get_unquoted_token(char **save_ptr, char **token, t_data *data)
 {
 	char	*aux;
 	int		i;
+	char	*tmp;
 
 	i = 0;
 	aux = "";
@@ -71,8 +71,11 @@ static void	get_unquoted_token(char **save_ptr, char **token, t_data *data)
 		&& !check_quote((*save_ptr)[i]))
 		i++;
 	aux = ft_substr(*save_ptr, 0, i);
-	aux = parser_expand_strtok(aux, data, 0);
-	aux = ft_strjoin_free(*token, aux);
+	tmp = parser_expand_strtok(aux, data, 0);
+	free(aux);
+	aux = ft_strjoin(*token, tmp);
+	free(*token);
+	free(tmp);
 	*token = aux;
 	*save_ptr += i;
 }
@@ -100,20 +103,28 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 	if (!s.save_ptr || *s.save_ptr == '\0')
 		return (NULL);
 	if (s.separator)
-		return (s.save_ptr += ft_strlen(s.separator), ft_strdup(s.separator));
+		return (s.save_ptr += ft_strlen(s.separator), s.separator);
 	while (*s.save_ptr)
 	{
 		if (check_separator(s.save_ptr))
 			return (s.token);
-		else if (*s.save_ptr == ' ')
-			return (s.save_ptr++, s.token);
-		if (check_quote(*s.save_ptr))
-			get_command(mode, &s.save_ptr, &s.token, data);
+		if (*s.save_ptr == ' ')
+		{
+			if (s.token[0])
+				return (s.save_ptr++, s.token);
 			else
 			{
-				if (is_valid_char(*s.save_ptr) == 1)
-					get_unquoted_token(&s.save_ptr, &s.token, data);
+				s.save_ptr++;
+				continue ;	
 			}
+		}
+		if (check_quote(*s.save_ptr))
+			get_command(mode, &s.save_ptr, &s.token, data);
+		else
+		{
+			if (is_valid_char(*s.save_ptr) == 1)
+				get_unquoted_token(&s.save_ptr, &s.token, data);
+		}
 	}
 	return (s.token);
 }

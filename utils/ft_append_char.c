@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_append_char.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:58:07 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/04/01 14:13:42 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/04/17 10:19:02 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*append_char(char *str, char c)
 	ft_strlcpy(new_str, str, len + 1);
 	new_str[len] = c;
 	new_str[len + 1] = '\0';
-	if (str && str[0])
+	if (str)
 		free(str);
 	return (new_str);
 }

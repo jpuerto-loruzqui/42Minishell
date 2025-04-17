@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 14:09:42 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 18:32:29 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ void	init_strtok_struct(t_strtok *s, char *str)
 {
 	if (str)
 		s->save_ptr = str;
-	s->token = "";
 	s->separator = check_separator(s->save_ptr);
+	if (s->token)
+	{
+		free(s->token);
+		s->token = NULL;
+	}
+	s->token = ft_strdup("");
 }
+
