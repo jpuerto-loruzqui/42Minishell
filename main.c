@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 14:50:08 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 16:58:47 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ void	ft_parse_syntax(t_data *data)
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles && !tmp->outfiles->data)
+		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles
+			&& !tmp->outfiles->data)
 		{
 			ft_exit_error("Syntax error");
 			data->error = true;
@@ -65,7 +66,7 @@ void	ft_parse_syntax(t_data *data)
 
 static int	ft_lexer_parser_and_exec(t_data *data)
 {
-	char *aux;
+	char	*aux;
 
 	aux = data->input;
 	data->input = ft_strtrim(data->input, " ");

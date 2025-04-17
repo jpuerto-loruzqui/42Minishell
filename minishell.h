@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 12:46:21 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 17:31:02 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,8 @@ t_outfile	*ft_append_outfile(t_outfile **head, t_outfile *new);
 //UTILS
 /****************************************************/
 char		*ft_strtok(char *str, int *mode, t_data *data);
+void		ft_manage_slash(char **str, char delim);
+int			ft_check_format(char **save_ptr, char delim, int *i, t_data *data);
 char		*ft_append_char(char *str, char c);
 int			ft_parserlen(t_parser *parser);
 void		ft_free_split(char **split);

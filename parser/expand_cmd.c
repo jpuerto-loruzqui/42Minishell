@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:12:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 19:54:11 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 16:59:08 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ static char	*ft_do_expansion(int *i, char *token, char **env_arr)
 	(*i) = j;
 	if (!aux[0])
 		aux = ft_strdup("");
-	return aux;
+	return (aux);
 }
 
 char	*ft_expand_cmd(char *token, char **env_arr)
 {
 	int		i;
 	char	*aux;
-	
+
 	aux = ft_strdup("");
 	i = 0;
 	while (token && token[i])

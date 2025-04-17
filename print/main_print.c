@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 14:50:34 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 17:29:02 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	ft_init_minishell(int argc, char **envp, t_data *data)
 	data->env = ft_dup_env(envp);
 	data->env_arr = ft_strdup_matrix(envp);
 	data->last_exit_code = 0;
+	data->last_token_type = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sigint_handler);
 	data->num_commands = 0;
@@ -52,7 +53,8 @@ void	ft_parse_syntax(t_data *data)
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles && !tmp->outfiles->data)
+		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles
+			&& !tmp->outfiles->data)
 		{
 			ft_exit_error("Syntax error");
 			data->error = true;
@@ -60,11 +62,13 @@ void	ft_parse_syntax(t_data *data)
 		}
 		tmp = tmp->next;
 	}
+	ft_print_tokens(data->tokens);
+	ft_print_commands(data->commands);
 }
 
 static int	ft_lexer_parser_and_exec(t_data *data)
 {
-	char *aux;
+	char	*aux;
 
 	aux = data->input;
 	data->input = ft_strtrim(data->input, " ");
@@ -72,8 +76,6 @@ static int	ft_lexer_parser_and_exec(t_data *data)
 	data->tokens = ft_lexer(data);
 	data->commands = ft_parser(data->tokens, *data);
 	ft_parse_syntax(data);
-	ft_print_tokens(data->tokens);
-	ft_print_commands(data->commands);
 	if (data->error)
 	{
 		ft_free_lexer(data->tokens);
