@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   input_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:22 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 19:44:27 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 09:53:46 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	manage_heredoc(t_parser *commands)
+static void	ft_manage_heredoc(t_parser *commands)
 {
 	if (commands->here_fd < 0)
 	{
@@ -28,7 +28,7 @@ static void	manage_heredoc(t_parser *commands)
 	close(commands->here_fd);
 }
 
-static void	manage_infile(t_parser *commands)
+static void	ft_manage_infile(t_parser *commands)
 {
 	int	fd_in;
 
@@ -47,15 +47,13 @@ static void	manage_infile(t_parser *commands)
 	close(fd_in);
 }
 
-void	input_redir(t_parser *commands)
+void	ft_input_redir(t_parser *commands)
 {
 	if (commands->here_fd)
 	{
-		manage_heredoc(commands);
+		ft_manage_heredoc(commands);
 		return ;
 	}
 	if (commands->infile)
-	{
-		manage_infile(commands);
-	}
+		ft_manage_infile(commands);
 }

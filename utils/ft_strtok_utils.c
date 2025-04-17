@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
 /*   Updated: 2025/04/17 14:34:47 by jpuerto          ###   ########.fr       */
@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-int	check_mode(char c, int mode)
+int	ft_check_mode(char c, int mode)
 {
 	if (c == '"' && mode == NORMAL_MODE)
 		mode = DOUBLE_MODE;
@@ -21,18 +21,18 @@ int	check_mode(char c, int mode)
 	return (mode);
 }
 
-char	check_quote(char c)
+char	ft_check_quote(char c)
 {
 	if (c == '"' || c == '\'')
 		return (c);
 	return ('\0');
 }
 
-void	init_strtok_struct(t_strtok *s, char *str)
+void	ft_init_strtok_struct(t_strtok *s, char *str)
 {
 	if (str)
 		s->save_ptr = str;
-	s->separator = check_separator(s->save_ptr);
+	s->separator = ft_check_separator(s->save_ptr);
 	if (s->token)
 	{
 		free(s->token);

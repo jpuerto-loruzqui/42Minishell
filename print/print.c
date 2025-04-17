@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:04:08 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/14 20:04:06 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 10:21:45 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	print_com(int i, t_parser *curr)
+void	ft_print_com(int i, t_parser *curr)
 {
 	int	j;
 
@@ -27,7 +27,7 @@ void	print_com(int i, t_parser *curr)
 	}
 }
 
-void	print_outfiles(t_parser *curr)
+void	ft_print_outfiles(t_parser *curr)
 {
 	t_outfile	*file;
 
@@ -40,7 +40,7 @@ void	print_outfiles(t_parser *curr)
 	}
 }
 
-void	print_commands(t_parser *head)
+void	ft_print_commands(t_parser *head)
 {
 	int			i;
 	t_parser	*curr;
@@ -49,12 +49,12 @@ void	print_commands(t_parser *head)
 	curr = head;
 	while (curr)
 	{
-		print_com(i, curr);
+		ft_print_com(i, curr);
 		if (curr->infile)
 			printf("  infile: %s\n", curr->infile);
 		else
 			printf("  infile: %s\n", "NULL");
-		print_outfiles(curr);
+		ft_print_outfiles(curr);
 		if (curr->delim)
 			printf("  heredoc: %s\n", curr->delim);
 		else
@@ -64,7 +64,7 @@ void	print_commands(t_parser *head)
 	}
 }
 
-void	print_tokens(t_lexer *lexer)
+void	ft_print_tokens(t_lexer *lexer)
 {
 	while (lexer)
 	{

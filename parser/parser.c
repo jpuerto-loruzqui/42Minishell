@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 16:17:47 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 10:03:27 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	**add_arg(char **args, const char *arg)
+static char	**ft_add_arg(char **args, const char *arg)
 {
 	int		i;
 	char	**new;
@@ -41,7 +41,7 @@ static char	**add_arg(char **args, const char *arg)
 	return (new);
 }
 
-t_outfile	*append_outfile(t_outfile **head, t_outfile *new)
+t_outfile	*ft_append_outfile(t_outfile **head, t_outfile *new)
 {
 	t_outfile	*tmp;
 
@@ -57,7 +57,7 @@ t_outfile	*append_outfile(t_outfile **head, t_outfile *new)
 	return (new);
 }
 
-t_outfile	*new_outfile(t_lexer *lexer, t_data data)
+t_outfile	*ft_new_outfile(t_lexer *lexer, t_data data)
 {
 	t_outfile	*node;
 
@@ -68,7 +68,7 @@ t_outfile	*new_outfile(t_lexer *lexer, t_data data)
 	if (lexer->next->data)
 	{
 		if (lexer->next->mode != SIMPLE_MODE)
-			parser_expand(&lexer->next, data);
+			ft_parser_expand(&lexer->next, data);
 		node->data = ft_strdup(lexer->next->data);
 	}
 	else
@@ -77,7 +77,7 @@ t_outfile	*new_outfile(t_lexer *lexer, t_data data)
 	return (node);
 }
 
-t_parser	*parser(t_lexer *lexer, t_data data)
+t_parser	*ft_parser(t_lexer *lexer, t_data data)
 {
 	t_parser	*head;
 	t_parser	*curr;
@@ -88,14 +88,14 @@ t_parser	*parser(t_lexer *lexer, t_data data)
 	curr = NULL;
 	while (lexer)
 	{
-		if (!parse_heredoc(&lexer, &curr))
+		if (!ft_parse_heredoc(&lexer, &curr))
 			continue ;
-		if (!parse_pipes(&lexer, &curr))
+		if (!ft_parse_pipes(&lexer, &curr))
 			continue ;
-		check_parser_curr(&curr, &last_out, &head);
+		ft_check_parser_curr(&curr, &last_out, &head);
 		if (lexer->type_token == T_GENERAL && lexer->data)
-		curr->args = add_arg(curr->args, lexer->data);
-		if (!parse_redirs(&lexer, &curr, &last_out, data))
+			curr->args = ft_add_arg(curr->args, lexer->data);
+		if (!ft_parse_redirs(&lexer, &curr, &last_out, data))
 			continue ;
 		lexer = lexer->next;
 	}

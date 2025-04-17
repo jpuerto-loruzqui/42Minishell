@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:00:02 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/04/13 16:08:16 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:02:45 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	clear_and_welcome(char *file)
+static void	ft_clear_and_welcome(char *file)
 {
 	printf("\033[2J\033[H");
 	printf("\033[96m        __  ____  ____  ____  _  _  ____  \n\033[0m");
@@ -24,7 +24,7 @@ static void	clear_and_welcome(char *file)
 	printf(", reassding: \"%s\"   ---\n\n\033[0m", file);
 }
 
-static void	show_file(char *file, int fd, char *line)
+static void	ft_show_file(char *file, int fd, char *line)
 {
 	int		line_count;
 	char	key;
@@ -33,7 +33,7 @@ static void	show_file(char *file, int fd, char *line)
 	i = 0;
 	while (line != NULL)
 	{
-		clear_and_welcome(file);
+		ft_clear_and_welcome(file);
 		line_count = 0;
 		while (line_count++ < 20 && line != NULL)
 		{
@@ -44,7 +44,7 @@ static void	show_file(char *file, int fd, char *line)
 		printf("\n\033[93m\n- Press ENTER to continue 'q' to quit -\033[0m\n");
 		while (1)
 		{
-			key = read_key();
+			key = ft_read_key();
 			if (key == 'q')
 				return ;
 			else if (key == '\n')
@@ -53,7 +53,7 @@ static void	show_file(char *file, int fd, char *line)
 	}
 }
 
-static char	*get_file(void)
+static char	*ft_get_file(void)
 {
 	char	*input;
 	char	*newline_pos;
@@ -71,7 +71,7 @@ static char	*get_file(void)
 	return (input);
 }
 
-void	show_visualizer(char *file)
+void	ft_show_visualizer(char *file)
 {
 	int		fd;
 	int		flag;
@@ -80,19 +80,19 @@ void	show_visualizer(char *file)
 	line = "";
 	if (!file)
 	{
-		file = get_file();
+		file = ft_get_file();
 		flag = 1;
 	}
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (ft_putstr_fd("Jp visualizer: Error opening file\n", 2));
 	write(1, "\033[?1049h", 8);
-	signal(SIGINT, sigint_visualizer);
-	set_raw_mode(STDIN_FILENO);
-	show_file(file, fd, line);
+	signal(SIGINT, ft_sigint_visualizer);
+	ft_set_raw_mode(STDIN_FILENO);
+	ft_show_file(file, fd, line);
 	write(1, "\033[?1049l", 8);
-	restore_terminal(STDIN_FILENO);
-	signal(SIGINT, sigint_handler);
+	ft_restore_terminal(STDIN_FILENO);
+	signal(SIGINT, ft_sigint_handler);
 	if (flag == 1)
 		free(file);
 	close(fd);

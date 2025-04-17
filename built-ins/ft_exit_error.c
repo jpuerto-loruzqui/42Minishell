@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:53:08 by jpuerto-          #+#    #+#             */
-/*   Updated: 2025/04/14 11:21:49 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 09:37:58 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_valid_char(char command)
+int	ft_is_valid_char(char command)
 {
 	static int	flag;
 
@@ -32,7 +32,7 @@ int	is_valid_char(char command)
 	return (1);
 }
 
-void	exit_error(char *message)
+void	ft_exit_error(char *message)
 {
 	ft_putstr_fd(message, 2);
 	ft_putchar_fd('\n', 2);

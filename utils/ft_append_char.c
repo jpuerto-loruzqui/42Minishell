@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-char	*append_char(char *str, char c)
+char	*ft_append_char(char *str, char c)
 {
 	size_t	len;
 	char	*new_str;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:42:05 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 18:32:02 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 09:39:06 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	create_var(t_env **new_var, char *args, t_data *data)
+void	ft_create_var(t_env **new_var, char *args, t_data *data)
 {
 	char	*var;
 	int		i;
@@ -27,19 +27,19 @@ void	create_var(t_env **new_var, char *args, t_data *data)
 	var = ft_substr(args, 0, i);
 	if (args[i] == '=')
 	{
-		var = append_char(var, '=');
+		var = ft_append_char(var, '=');
 		i++;
 		while (args[i])
-			var = append_char(var, args[i++]);
+			var = ft_append_char(var, args[i++]);
 	}
 	else
-		var = append_char(var, '=');
-	(*new_var) = new_node_env(var);
+		var = ft_append_char(var, '=');
+	(*new_var) = ft_new_node_env(var);
 	ft_envadd_back(&data->env, *new_var);
 	free(var);
 }
 
-int	check_var(char *arg, t_data *data)
+int	ft_check_var(char *arg, t_data *data)
 {
 	t_env	*tmp;
 	int		i;

@@ -6,13 +6,13 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 15:32:19 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 09:41:02 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	input_redir_builtin(t_parser *commands)
+void	ft_input_redir_builtin(t_parser *commands)
 {
 	int	fd_in;
 
@@ -36,7 +36,7 @@ void	input_redir_builtin(t_parser *commands)
 	}
 }
 
-int	*redir_builtin(t_parser *commands)
+int	*ft_redir_builtin(t_parser *commands)
 {
 	int	*std_inout;
 
@@ -46,13 +46,13 @@ int	*redir_builtin(t_parser *commands)
 	std_inout[0] = dup(STDIN_FILENO);
 	std_inout[1] = dup(STDOUT_FILENO);
 	if (commands->infile)
-		input_redir_builtin(commands);
+		ft_input_redir_builtin(commands);
 	if (commands->outfiles)
-		output_redir(commands);
+		ft_output_redir(commands);
 	return (std_inout);
 }
 
-void	unset_std(int *std_inout)
+void	ft_unset_std(int *std_inout)
 {
 	if (!std_inout)
 		return ;
@@ -75,7 +75,7 @@ void	unset_std(int *std_inout)
 	free(std_inout);
 }
 
-bool	is_built_in(t_parser *commands, t_data *data)
+bool	ft_is_built_in(t_parser *commands, t_data *data)
 {
 	int	*stdinout;
 
@@ -83,20 +83,20 @@ bool	is_built_in(t_parser *commands, t_data *data)
 	if (commands->args == NULL)
 		return (false);
 	if (ft_strncmp(commands->args[0], "jp", 3) == 0)
-		return (exec_jp(commands, stdinout));
+		return (ft_exec_jp(commands, stdinout));
 	if (ft_strncmp(commands->args[0], "exit", 5) == 0)
-		return (exec_exit(commands, stdinout));
+		return (ft_exec_exit(commands, stdinout));
 	else if (ft_strncmp(commands->args[0], "cd", 3) == 0)
-		return (exec_cd(commands, data, stdinout));
+		return (ft_exec_cd(commands, data, stdinout));
 	else if (ft_strncmp(commands->args[0], "pwd", 4) == 0)
-		return (exec_pwd(commands, stdinout));
+		return (ft_exec_pwd(commands, stdinout));
 	else if (ft_strncmp(commands->args[0], "echo", 5) == 0)
-		return (exec_echo(commands, stdinout));
+		return (ft_exec_echo(commands, stdinout));
 	else if (ft_strncmp(commands->args[0], "env", 4) == 0)
-		return (exec_env(commands, data, stdinout));
+		return (ft_exec_env(commands, data, stdinout));
 	else if (ft_strncmp(commands->args[0], "unset", 6) == 0)
-		return (exec_unset(commands, data, stdinout));
+		return (ft_exec_unset(commands, data, stdinout));
 	else if (ft_strncmp(commands->args[0], "export", 7) == 0)
-		return (exec_export(commands, data, stdinout));
+		return (ft_exec_export(commands, data, stdinout));
 	return (false);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:50 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/15 18:05:16 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/16 10:21:28 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static bool	is_sort(t_env *current, t_env *next_node)
+static bool	ft_is_sort(t_env *current, t_env *next_node)
 {
 	if (ft_strncmp(current->content, next_node->content,
 			ft_strlen(current->content)) > 0)
@@ -37,7 +37,7 @@ static void	ft_export_sort(t_env *lst)
 		while (current != NULL && current->next != NULL)
 		{
 			next_node = current->next;
-			if (!is_sort(current, next_node))
+			if (!ft_is_sort(current, next_node))
 			{
 				temp_content = current->content;
 				current->content = next_node->content;
@@ -49,7 +49,7 @@ static void	ft_export_sort(t_env *lst)
 	}
 }
 
-static void	print_export(t_env *exports)
+static void	ft_print_export(t_env *exports)
 {
 	t_env	*lst;
 	char	*value;
@@ -71,7 +71,7 @@ static void	print_export(t_env *exports)
 	}
 }
 
-static void	free_exports(t_env *env)
+static void	ft_free_exports(t_env *env)
 {
 	t_env	*tmp;
 
@@ -95,15 +95,15 @@ int	ft_export(char **args, t_data *data)
 	if (args[0] && !args[1])
 	{
 		ft_export_sort(exports);
-		return (print_export(exports), free_exports(exports), 1);
+		return (ft_print_export(exports), ft_free_exports(exports), 1);
 	}
 	args++;
 	while (*args)
 	{
-		if (!check_var(*args, data))
-			create_var(&new_var, *args, data);
+		if (!ft_check_var(*args, data))
+			ft_create_var(&new_var, *args, data);
 		args++;
 	}
-	free_exports(exports);
+	ft_free_exports(exports);
 	return (1);
 }

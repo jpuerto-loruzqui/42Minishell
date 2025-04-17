@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-static char	*do_expansion(int *i, char *token, char **env_arr)
+static char	*ft_do_expansion(int *i, char *token, char **env_arr)
 {
 	int		j;
 	char	*cmd;
@@ -41,7 +41,7 @@ static char	*do_expansion(int *i, char *token, char **env_arr)
 	return aux;
 }
 
-char	*expand_cmd(char *token, char **env_arr)
+char	*ft_expand_cmd(char *token, char **env_arr)
 {
 	int		i;
 	char	*aux;
@@ -54,11 +54,11 @@ char	*expand_cmd(char *token, char **env_arr)
 		{
 			i++;
 			free(aux);
-			aux = do_expansion(&i, token, env_arr);
+			aux = ft_do_expansion(&i, token, env_arr);
 		}
 		else
 		{
-			aux = append_char(aux, token[i]);
+			aux = ft_append_char(aux, token[i]);
 			i++;
 		}
 	}
