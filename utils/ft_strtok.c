@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 13:00:06 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/17 13:06:39 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 		{
 			if (is_valid_char(*s.save_ptr) == 1)
 				get_unquoted_token(&s.save_ptr, &s.token, data);
+			s.flag = 1;
 		}
 	}
 	return (s.token);
