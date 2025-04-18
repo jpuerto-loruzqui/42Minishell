@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 17:29:59 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/18 12:06:33 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,25 +21,29 @@ int	ft_check_mode(char c, int mode)
 	return (mode);
 }
 
-char	ft_check_quote(char c)
+char	ft_check_quote(char *c)
 {
-	if (c == '"' || c == '\'')
-		return (c);
+	if ((*c == '\\' && *c + 1) && (*c + 1 == '\"' || *c + 1 == '\"'))
+		return ('\0');
+	if (*c == '"' || *c == '\'')
+		return (*c);
 	return ('\0');
 }
 
-void	ft_init_strtok_struct(t_strtok *s, char *str)
+bool	ft_is_not_escaped(char *ptr, int i)
 {
-	if (str)
-		s->save_ptr = str;
-	s->separator = ft_check_separator(s->save_ptr);
-	if (s->token)
+	int	count;
+
+	count = 0;
+	if (i == 0)
+		return (true);
+	i--;
+	while (i >= 0 && ptr[i] == '\\')
 	{
-		free(s->token);
-		s->token = NULL;
+		count++;
+		i--;
 	}
-	s->token = ft_strdup("");
-	s->flag = 0;
+	return (count % 2 == 0);
 }
 
 void	ft_manage_slash(char **str, char delim)
@@ -57,6 +61,7 @@ void	ft_manage_slash(char **str, char delim)
 		{
 			tmp = ft_append_char(tmp, delim);
 			(*str) += 2;
+			continue ;
 		}
 		if (ft_is_valid_char(**str) == 1)
 			tmp = ft_append_char(tmp, **str);
@@ -68,11 +73,21 @@ void	ft_manage_slash(char **str, char delim)
 
 int	ft_check_format(char **save_ptr, char delim, int *i, t_data *data)
 {
-	while ((*save_ptr)[*i] && (*save_ptr)[*i] != delim)
+	while ((*save_ptr)[*i])
 	{
-		if ((*save_ptr)[*i] == '\\' && (*save_ptr)[*i + 1]
-			&& (*save_ptr)[*i + 1] == delim)
-			(*i) += 2;
+		if ((*save_ptr)[*i] == '\\')
+		{
+			if ((*save_ptr)[*i + 1])
+			{
+				if ((*save_ptr)[*i + 1] == delim)
+				{
+					(*i) += 2;
+					continue ;
+				}
+			}
+		}
+		if ((*save_ptr)[*i] == delim)
+			break ;
 		(*i)++;
 	}
 	if (!(*save_ptr)[*i])

@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_init_strtok.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 19:03:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/18 12:05:47 by jpuerto          ###   ########.fr       */
+/*   Created: 2025/04/18 12:04:14 by jpuerto           #+#    #+#             */
+/*   Updated: 2025/04/18 12:04:33 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_env(char **args, t_env *envp)
+void	ft_init_strtok_struct(t_strtok *s, char *str)
 {
-	char	*save_ptr;
-
-	(void)args;
-	while (envp)
+	if (str)
+		s->save_ptr = str;
+	s->separator = ft_check_separator(s->save_ptr);
+	if (s->token)
 	{
-		save_ptr = ft_strchr(envp->content, '=');
-		if (ft_strncmp(save_ptr, "=\'\'", 4) != 0)
-		{
-			ft_putstr_fd(envp->content, STDOUT_FILENO);
-			ft_putchar_fd('\n', STDOUT_FILENO);
-		}
-		envp = envp->next;
+		free(s->token);
+		s->token = NULL;
 	}
-	return (1);
+	s->token = ft_strdup("");
+	s->flag = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 17:31:02 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/18 12:06:24 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ int			ft_is_valid_slash(char command);
 t_lexer		*ft_new_tok(int index, char *data, t_token type, int *mode);
 void		ft_add_tok(t_lexer **lexer, t_lexer *new);
 int			ft_check_mode(char c, int mode);
-char		ft_check_quote(char c);
+char		ft_check_quote(char *c);
 void		ft_init_strtok_struct(t_strtok *s, char *str);
 char		*ft_check_separator(char *sep);
 t_lexer		*ft_get_last_node(t_lexer *head);
@@ -165,6 +165,7 @@ t_env		*ft_dup_env(char **envp);
 t_env		*ft_new_node_env(void *content);
 void		ft_envadd_back(t_env **lst, t_env *new);
 char		*ft_getenv(const char *cmd, char **env_arr);
+bool		ft_is_not_escaped(char *ptr, int i);
 
 /****************************************************/
 //BUILT-INS
