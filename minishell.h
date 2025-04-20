@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/18 12:06:24 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/20 14:25:21 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ t_env		*ft_new_node_env(void *content);
 void		ft_envadd_back(t_env **lst, t_env *new);
 char		*ft_getenv(const char *cmd, char **env_arr);
 bool		ft_is_not_escaped(char *ptr, int i);
+char		*ft_control_getcwd(t_data *data);
 
 /****************************************************/
 //BUILT-INS
@@ -238,7 +239,7 @@ void		ft_free_env(t_data *data);
 int			ft_heredoc(char *delim, t_parser *commands);
 
 /****************************************************/
-//TEXT VISUALZIER
+//TEXT VISUALIZER
 /****************************************************/
 void		ft_show_visualizer(char *file);
 void		ft_set_raw_mode(int fd);

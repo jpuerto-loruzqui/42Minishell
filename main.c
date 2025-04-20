@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 19:23:23 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/20 14:24:29 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_get_prompt(t_data *data)
 	char	*colored;
 	char	*final;
 
-	cwd = getcwd(NULL, 0);
+	cwd = ft_control_getcwd(data);
 	colored = ft_strjoin("\001\033[0;32m\002", cwd);
 	final = ft_strjoin(colored, COLOR_USERS " minishell> \001\033[0m\002");
 	free(colored);
