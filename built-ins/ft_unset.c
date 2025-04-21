@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:40:16 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:16:23 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ static bool	ft_found_var(t_env *current, int i, char **args)
 	return (false);
 }
 
-static void	ft_delete_var(t_env **prev, t_env **current)
+static void	ft_delete_var(t_env **envp, t_env *prev, t_env **current)
 {
 	t_env	*temp;
 
 	if (prev)
-		(*prev)->next = (*current)->next;
+		prev->next = (*current)->next;
 	else
-		(*current) = (*current)->next;
+		*envp = (*current)->next;
 	temp = *current;
 	*current = (*current)->next;
 	free(temp->content);
@@ -50,7 +50,7 @@ t_env	*ft_unset(char **args, t_env *envp)
 		{
 			if (ft_found_var(current, i, args))
 			{
-				ft_delete_var(&prev, &current);
+				ft_delete_var(&envp, prev, &current);
 				break ;
 			}
 			i++;
