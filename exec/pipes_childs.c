@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes_childs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 18:01:51 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:43:53 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/18 13:19:04 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,16 @@ void	ft_exec_child(int i, int ***array_pipes, t_parser *cmd, t_data *data)
 	else
 		ft_pipes_middle_child(i, array_pipes, cmd);
 	ft_check_redirs(cmd, data);
-	ft_find_path(cmd, data->env_arr);
+	if (!ft_is_built_in(cmd, data))
+		ft_find_path(cmd, data->env_arr);
+	else
+	{
+		if (data->error == false)
+		{
+			data->last_exit_code = 0;
+			exit(0);
+		}
+		else
+			exit(data->last_exit_code);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 19:23:23 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/18 12:42:36 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_parse_syntax(t_data *data)
 		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles)
 		{
 			ft_exit_error("Syntax error");
+			data->last_exit_code = 2;
 			data->error = true;
 			break ;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:02:45 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/03/26 16:02:47 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/18 13:21:31 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,7 @@ int	ft_pwd(char **args) // no funciona cambiando la salida > ejemplo.txt
 {
 	char	*cwd;
 
-	if (args[1])
-	{
-		printf("pwd: too many arguments\n");
-		return (1);
-	}
+	(void)args;
 	cwd = getcwd(NULL, 0);
 	if (!cwd)
 	{
