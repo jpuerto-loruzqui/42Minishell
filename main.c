@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/20 14:24:29 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/21 18:57:01 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 char	*ft_get_prompt(t_data *data)
 {
-	char	*env_prompt[3];
 	char	*cwd;
 	char	*colored;
 	char	*final;
@@ -24,11 +23,6 @@ char	*ft_get_prompt(t_data *data)
 	final = ft_strjoin(colored, COLOR_USERS " minishell> \001\033[0m\002");
 	free(colored);
 	data->prompt = final;
-	env_prompt[0] = "export";
-	env_prompt[1] = ft_strjoin("PROMPT=", final);
-	env_prompt[2] = NULL;
-	ft_export(env_prompt, data);
-	free(env_prompt[1]);
 	free(cwd);
 	return (data->prompt);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:03:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/18 12:05:47 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/21 16:34:06 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_env(char **args, t_env *envp)
 	while (envp)
 	{
 		save_ptr = ft_strchr(envp->content, '=');
-		if (ft_strncmp(save_ptr, "=\'\'", 4) != 0)
+		if (ft_strncmp(save_ptr, "=", 2) != 0)
 		{
 			ft_putstr_fd(envp->content, STDOUT_FILENO);
 			ft_putchar_fd('\n', STDOUT_FILENO);
