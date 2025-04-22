@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_jp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:00:02 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/04/16 10:02:45 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:51:12 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	ft_clear_and_welcome(char *file)
 	printf("\033[96m     \\____/(__)   (__) (____)(_/\\_) (__) \n\033[0m");
 	printf("		  By jpuerto- & loruzqui\n");
 	printf("\033[96m\n--- Welcome to Jp Text Visualizer!");
-	printf(", reassding: \"%s\"   ---\n\n\033[0m", file);
+	printf(", reading: \"%s\"   ---\n\n\033[0m", file);
 }
 
 static void	ft_show_file(char *file, int fd, char *line)

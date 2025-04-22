@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lsttoa.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:11:49 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/08 13:23:22 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/21 17:29:45 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	ft_envsize(t_env *lst)
 	int	i;
 
 	i = 0;
+	if (!lst)
+		return (0);
 	while (lst)
 	{
 		lst = lst->next;

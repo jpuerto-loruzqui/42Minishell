@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 10:02:07 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:24:30 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ static void	ft_manage_heredoc(t_parser *cmd)
 {
 	if (cmd->delim)
 	{
-		signal(SIGINT, SIG_DFL);
 		ft_heredoc(cmd->delim, cmd);
 	}
 }
@@ -97,6 +96,7 @@ void	ft_exec_pipes(t_data *data)
 	status = 0;
 	cmd = data->commands;
 	ft_init_pipes(data->num_commands, &array_pipes, &array_pids);
+	signal(SIGINT, ft_sigint_handler);
 	ft_handle_all_heredocs(cmd);
 	ft_manage_commands(data, cmd, array_pipes, array_pids);
 	ft_close_all_pipes(data, array_pipes);
