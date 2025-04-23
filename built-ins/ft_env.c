@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:03:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/21 16:34:06 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:25:44 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ int	ft_env(char **args, t_env *envp)
 	char	*save_ptr;
 
 	(void)args;
+	if (args[1])
+	{
+		ft_exit_error("env: too many arguments");
+		return (1);
+	}
 	while (envp)
 	{
 		save_ptr = ft_strchr(envp->content, '=');
