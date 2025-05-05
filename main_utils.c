@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 14:24:09 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/23 18:38:49 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/05/05 12:59:23 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_control_getcwd(t_data *data)
 	return (cwd);
 }
 
-bool	error_tokens(t_data *data)
+bool	ft_error_tokens(t_data *data)
 {
 	t_lexer	*tok;
 

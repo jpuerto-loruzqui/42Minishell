@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/23 17:15:57 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/05/05 13:00:09 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ void		ft_envadd_back(t_env **lst, t_env *new);
 char		*ft_getenv(const char *cmd, char **env_arr);
 bool		ft_is_not_escaped(char *ptr, int i);
 char		*ft_control_getcwd(t_data *data);
-bool		error_tokens(t_data *data);
+bool		ft_error_tokens(t_data *data);
 
 /****************************************************/
 //BUILT-INS

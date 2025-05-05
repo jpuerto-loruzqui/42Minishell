@@ -3,35 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:40:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 09:49:37 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/05 16:50:36 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_exit(t_parser *parser, t_data *data)
+static int	ft_is_numeric_argument(char *arg)
 {
-	int		exit_code;
-	int		exit_atoi;
-	int		i;
+	int	i;
 
 	i = 0;
+	while (arg[i])
+	{
+		if (!ft_isdigit(arg[i]))
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+void	ft_exit(t_parser *parser, t_data *data)
+{
+	int	exit_code;
+	int	exit_atoi;
+
 	exit_code = EXIT_SUCCESS;
 	exit_atoi = 0;
+	if (parser->args[2])
+		return (ft_exit_error("Error: too many arguments"));
 	if (parser->args[1])
 	{
-		while (parser->args[1][i])
+		if (!ft_is_numeric_argument(parser->args[1]))
 		{
-			if (!ft_isdigit(parser->args[1][i]))
-			{
-				data->last_exit_code = 2;
-				return (ft_putstr_fd("Numeric argumen required: ", 2),
-					ft_putendl_fd(parser->args[1], 2));
-			}
-			i++;
+			data->last_exit_code = 2;
+			return (ft_putstr_fd("Numeric argument required: ", 2),
+				ft_putendl_fd(parser->args[1], 2));
 		}
 		exit_atoi = ft_atoi(parser->args[1]);
 	}
