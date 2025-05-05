@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 11:12:47 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/05 11:45:52 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 			return (s.save_ptr++, s.token);
 		}
 		if (ft_check_quote(s.save_ptr))
-		{	
+		{
 			s.flag = 1;
 			ft_get_command(mode, &s.save_ptr, &s.token, data);
 		}
