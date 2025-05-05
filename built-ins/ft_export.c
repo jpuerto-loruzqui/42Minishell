@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:50 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/21 16:41:17 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/05/05 11:25:23 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	ft_print_export(t_env *exports)
 		if (value && *(value + 1) == '\0')
 		{
 			ft_putstr_fd(lst->content, STDOUT_FILENO);
-			ft_putstr_fd("\'\'", STDOUT_FILENO);
+			ft_putstr_fd("\"\"", STDOUT_FILENO);
 			ft_putchar_fd('\n', STDOUT_FILENO);
 		}
 		else
@@ -92,10 +92,15 @@ int	ft_export(char **args, t_data *data)
 	t_env	*new_var;
 
 	exports = ft_dup_env(data->env_arr);
-	if ((args[0] && !args[1]) || (args[0] && args[1] && !args[1][0]))
+	if ((args[0] && !args[1]))
 	{
 		ft_export_sort(exports);
 		return (ft_print_export(exports), ft_free_exports(exports), 1);
+	}
+	if (args[0] && args[1] && !args[1][0])
+	{
+		data->last_exit_code = 1;
+		return (ft_exit_error("Not a valid identifier"), 0);
 	}
 	args++;
 	while (*args)

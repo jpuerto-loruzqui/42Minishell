@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_built_ins_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 21:21:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/20 13:39:17 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/05/05 11:31:13 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ bool	ft_exec_jp(t_parser *cmd, int *stdinout)
 	return (true);
 }
 
-bool	ft_exec_exit(t_parser *cmd, int *stdinout)
+bool	ft_exec_exit(t_parser *cmd, int *stdinout, t_data *data)
 {
 	stdinout = ft_redir_builtin(cmd);
-	ft_exit(cmd);
+	ft_exit(cmd, data);
 	ft_unset_std(stdinout);
 	return (true);
 }

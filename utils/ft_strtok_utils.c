@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/18 12:06:33 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/05 10:43:04 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	ft_check_format(char **save_ptr, char delim, int *i, t_data *data)
 	if (!(*save_ptr)[*i])
 	{
 		data->error = true;
+		data->last_exit_code = 2;
 		ft_exit_error("Invalid format");
 		return (0);
 	}

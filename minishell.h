@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
 /*   Updated: 2025/04/23 17:15:57 by jpuerto- &       ###   ########.fr       */
@@ -174,7 +174,7 @@ bool		error_tokens(t_data *data);
 /****************************************************/
 bool		ft_is_built_in(t_parser *commands, t_data *data);
 void		ft_unset_std(int *std_inout);
-void		ft_exit(t_parser *parser);
+void		ft_exit(t_parser *parser, t_data *data);
 void		ft_exit_error(char *message);
 int			ft_cd(char **args, t_data *data);
 int			ft_pwd(char **args);
@@ -190,7 +190,7 @@ int			*ft_redir_builtin(t_parser *commands);
 //EXEC BUILT-INS
 /****************************************************/
 bool		ft_exec_jp(t_parser *cmd, int *stdinout);
-bool		ft_exec_exit(t_parser *cmd, int *stdinout);
+bool		ft_exec_exit(t_parser *cmd, int *stdinout, t_data *data);
 bool		ft_exec_cd(t_parser *cmd, t_data *data, int *stdinout);
 bool		ft_exec_pwd(t_parser *cmd, int *stdinout);
 bool		ft_exec_echo(t_parser *cmd, int *stdinout);

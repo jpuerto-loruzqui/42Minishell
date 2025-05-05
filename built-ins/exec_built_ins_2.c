@@ -34,5 +34,7 @@ bool	ft_exec_export(t_parser *cmd, t_data *data, int *stdinout)
 	ft_free_split(data->env_arr);
 	data->env_arr = ft_lsttoa(*data);
 	ft_unset_std(stdinout);
+	if (data->error == false)
+		data->last_exit_code = 0;
 	return (true);
 }
