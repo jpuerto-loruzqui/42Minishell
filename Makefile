@@ -29,7 +29,7 @@ OBJ_PRINT = $(SRC_PRINT:%.c=$(OBJ_DIR)/%.o)
 NAME_PRINT = minishell_print
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 LDFLAGS = -L/usr/local/opt/readline -lreadline -L ./libft -lft
 INCLUDES = -I/usr/local/opt/readlineinclude
 

@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:03:06 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 09:48:46 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/05 11:18:15 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_env(char **args, t_env *envp)
 	while (envp)
 	{
 		save_ptr = ft_strchr(envp->content, '=');
-		if (ft_strncmp(save_ptr, "=\'\'", 4) != 0)
+		if (ft_strncmp(save_ptr, "=", 2) != 0)
 		{
 			ft_putstr_fd(envp->content, STDOUT_FILENO);
 			ft_putchar_fd('\n', STDOUT_FILENO);
