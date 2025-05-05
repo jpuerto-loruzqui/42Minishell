@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 11:27:33 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/04/23 17:16:26 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_parse_syntax(t_data *data)
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles)
+		if (error_tokens(data))
 		{
 			ft_exit_error("Syntax error");
 			data->error = true;

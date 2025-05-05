@@ -6,7 +6,7 @@
 /*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/17 17:29:02 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/04/23 17:16:23 by jpuerto- &       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ void	ft_parse_syntax(t_data *data)
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles
-			&& !tmp->outfiles->data)
+		if (error_tokens(data))
 		{
 			ft_exit_error("Syntax error");
 			data->error = true;
