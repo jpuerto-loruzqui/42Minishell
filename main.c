@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 12:59:52 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/06 10:13:55 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,52 @@ char	*ft_get_prompt(t_data *data)
 	return (data->prompt);
 }
 
-static void	ft_init_minishell(int argc, char **envp, t_data *data)
+void ft_export_env(char ***env, char *var, char *new_entry)
+{
+	int i;
+
+	i = 0;
+	while ((*env)[i])
+	{
+		if (ft_strncmp((*env)[i], var, 6) == 0)
+		{
+			(*env)[i] = new_entry;
+			return;
+		}
+		i++;
+	}
+	i = 0;
+	while ((*env)[i])
+		i++;
+	(*env)[i] = new_entry;
+	(*env)[i + 1] = NULL;
+}
+
+void update_shlvl(char ***env)
+{
+	char	*lvl_str;
+	int		lvl;
+	char	*new_lvl;
+	char	*new_entry;
+	
+	lvl_str = ft_getenv("SHLVL", *env);
+	if (lvl_str)
+		lvl = ft_atoi(lvl_str);
+	else
+		lvl = 0;
+	lvl++;
+	new_lvl = ft_itoa(lvl);
+	new_entry = ft_strjoin("SHLVL=", new_lvl);
+	free(new_lvl);
+	ft_export_env(env, "SHLVL=", new_entry);
+}
+
+static void	ft_init_minishell(int argc, char **envp, t_data *data, char **argv)
 {
 	if (argc != 1)
 		exit(EXIT_FAILURE);
+	update_shlvl(&envp);
+	data->program = argv[0];
 	data->env = ft_dup_env(envp);
 	data->env_arr = ft_strdup_matrix(envp);
 	data->last_exit_code = 0;
@@ -90,8 +132,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	(void)argv;
-	ft_init_minishell(argc, envp, &data);
+	ft_init_minishell(argc, envp, &data, argv);
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))

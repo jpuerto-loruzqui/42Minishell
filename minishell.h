@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 13:00:09 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/06 08:19:01 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ typedef struct s_data
 	int			last_token_type;
 	char		*pwd;
 	char		*prompt;
+	char		*program;
 }	t_data;
 
 /****************************************************/
@@ -197,6 +198,7 @@ bool		ft_exec_echo(t_parser *cmd, int *stdinout);
 bool		ft_exec_env(t_parser *cmd, t_data *data, int *stdinout);
 bool		ft_exec_unset(t_parser *cmd, t_data *data, int *stdinout);
 bool		ft_exec_export(t_parser *cmd, t_data *data, int *stdinout);
+bool		ft_exec_shell(t_parser *cmd, t_data *data, int *stdinout);
 
 /****************************************************/
 //SIGNALS
