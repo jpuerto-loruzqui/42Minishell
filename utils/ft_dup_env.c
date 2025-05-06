@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:10:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/06 10:12:47 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/06 11:01:54 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ t_env	*ft_new_node_env(void *content)
 	toreturn = malloc(sizeof(t_env));
 	if (!toreturn)
 		return (NULL);
-	if (ft_strncmp(content, "SHLVL=", 6) == 0)
-		toreturn->content = content;
-	else
-		toreturn->content = ft_strdup(content);
+	toreturn->content = ft_strdup(content);
 	toreturn->exported = true;
 	toreturn->next = NULL;
 	return (toreturn);

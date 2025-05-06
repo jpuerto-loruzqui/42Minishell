@@ -6,7 +6,7 @@
 /*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/06 10:13:55 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/06 11:09:20 by jpuerto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,15 @@ static void	ft_init_minishell(int argc, char **envp, t_data *data, char **argv)
 {
 	if (argc != 1)
 		exit(EXIT_FAILURE);
+
+	if (!ft_getenv("PWD", envp)) //LIMPIAR
+	{
+		char *newpwd = getcwd(NULL, 0);
+		char *export_str = ft_strjoin("PWD=", newpwd);
+		ft_export_env(&envp, "PWD=", export_str);
+		free(newpwd);	
+	}
+
 	update_shlvl(&envp);
 	data->program = argv[0];
 	data->env = ft_dup_env(envp);
