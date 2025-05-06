@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/06 11:36:17 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/06 18:08:24 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	ft_get_command(int *mode, char **save_ptr, char **token,
 	*save_ptr += i + 1;
 }
 
-static void	ft_get_unquoted_token(char **save_ptr, char **token, t_data *data, int *mode)
+static void	ft_get_unquoted_token(char **save_ptr, char **token, t_data *data,
+	int *mode)
 {
 	char	*aux;
 	int		i;

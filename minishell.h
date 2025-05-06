@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/06 11:35:58 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/06 18:16:34 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,9 @@ char		*ft_getenv(const char *cmd, char **env_arr);
 bool		ft_is_not_escaped(char *ptr, int i);
 char		*ft_control_getcwd(t_data *data);
 bool		ft_error_tokens(t_data *data);
+void		ft_update_shlvl(char ***env);
+char		*ft_get_prompt(t_data *data);
+void		ft_export_env(char ***env, char *var, char *new_entry);
 
 /****************************************************/
 //BUILT-INS

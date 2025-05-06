@@ -3,33 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/06 11:09:20 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/06 18:15:12 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*ft_get_prompt(t_data *data)
+void	ft_export_env(char ***env, char *var, char *new_entry)
 {
-	char	*cwd;
-	char	*colored;
-	char	*final;
-
-	cwd = ft_control_getcwd(data);
-	colored = ft_strjoin("\001\033[0;32m\002", cwd);
-	final = ft_strjoin(colored, COLOR_USERS " minishell> \001\033[0m\002");
-	free(colored);
-	data->prompt = final;
-	free(cwd);
-	return (data->prompt);
-}
-
-void ft_export_env(char ***env, char *var, char *new_entry)
-{
-	int i;
+	int	i;
 
 	i = 0;
 	while ((*env)[i])
@@ -37,7 +22,7 @@ void ft_export_env(char ***env, char *var, char *new_entry)
 		if (ft_strncmp((*env)[i], var, 6) == 0)
 		{
 			(*env)[i] = new_entry;
-			return;
+			return ;
 		}
 		i++;
 	}
@@ -48,39 +33,21 @@ void ft_export_env(char ***env, char *var, char *new_entry)
 	(*env)[i + 1] = NULL;
 }
 
-void update_shlvl(char ***env)
-{
-	char	*lvl_str;
-	int		lvl;
-	char	*new_lvl;
-	char	*new_entry;
-	
-	lvl_str = ft_getenv("SHLVL", *env);
-	if (lvl_str)
-		lvl = ft_atoi(lvl_str);
-	else
-		lvl = 0;
-	lvl++;
-	new_lvl = ft_itoa(lvl);
-	new_entry = ft_strjoin("SHLVL=", new_lvl);
-	free(new_lvl);
-	ft_export_env(env, "SHLVL=", new_entry);
-}
-
 static void	ft_init_minishell(int argc, char **envp, t_data *data, char **argv)
 {
+	char	*newpwd;
+	char	*export_str;
+
 	if (argc != 1)
 		exit(EXIT_FAILURE);
-
 	if (!ft_getenv("PWD", envp)) //LIMPIAR
 	{
-		char *newpwd = getcwd(NULL, 0);
-		char *export_str = ft_strjoin("PWD=", newpwd);
+		newpwd = getcwd(NULL, 0);
+		export_str = ft_strjoin("PWD=", newpwd);
 		ft_export_env(&envp, "PWD=", export_str);
-		free(newpwd);	
+		free(newpwd);
 	}
-
-	update_shlvl(&envp);
+	ft_update_shlvl(&envp);
 	data->program = argv[0];
 	data->env = ft_dup_env(envp);
 	data->env_arr = ft_strdup_matrix(envp);

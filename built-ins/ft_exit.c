@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:40:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 16:50:36 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/06 18:10:18 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_exit(t_parser *parser, t_data *data)
 
 	exit_code = EXIT_SUCCESS;
 	exit_atoi = 0;
-	if (parser->args[2])
+	if (parser->args[1] && parser->args[2])
 		return (ft_exit_error("Error: too many arguments"));
 	if (parser->args[1])
 	{
