@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_one_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/23 16:42:27 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/05/07 11:35:30 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ static void	ft_manage_signals(t_data *data, pid_t pid)
 	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
 		write(1, "\n", 1);
 	signal(SIGINT, ft_sigint_handler);
+	if (*data->input)
+		add_history(data->input);
 }
 
 void	ft_exec_one_command(t_data *data)

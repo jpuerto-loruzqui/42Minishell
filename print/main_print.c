@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 12:56:52 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:36:00 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static void	ft_init_minishell(int argc, char **envp, t_data *data)
 	data->last_token_type = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sigint_handler);
+	if (*data->input)
+		add_history(data->input);
 	data->num_commands = 0;
 }
 

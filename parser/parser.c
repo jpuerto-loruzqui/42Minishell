@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/06 18:09:16 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:35:09 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ t_parser	*ft_parser(t_lexer *lexer, t_data data)
 	t_parser	*head;
 	t_parser	*curr;
 	t_outfile	*last_out;
-	char		**split;
 
 	last_out = NULL;
 	head = NULL;
@@ -96,10 +95,7 @@ t_parser	*ft_parser(t_lexer *lexer, t_data data)
 		ft_check_parser_curr(&curr, &last_out, &head);
 		if (lexer->mode == EXPANDED && lexer->type_token == T_GENERAL
 			&& lexer->data && ft_strchr(lexer->data, ' '))
-		{
-			split = ft_split(lexer->data, ' '); // esto es para el export a="ls -l"
-			curr->args = split;
-		}
+			curr->args = ft_split(lexer->data, ' ');
 		else if (lexer->type_token == T_GENERAL && lexer->data)
 			curr->args = ft_add_arg(curr->args, lexer->data);
 		if (!ft_parse_redirs(&lexer, &curr, &last_out, data))

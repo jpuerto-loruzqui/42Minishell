@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:04 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/06 11:34:33 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/07 22:29:23 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_lexer	*ft_lexer(t_data *data)
 		ft_get_type_of_delimiter(token, &type, data);
 		if (ft_strncmp(token, " ", 2) != 0)
 			ft_add_tok(&lexer_lst, ft_new_tok(index++, token, type, &mode));
-		mode = NORMAL_MODE; // hay que probar cosas por esto
+		mode = NORMAL_MODE;
 		token = ft_strtok(NULL, &mode, data);
 		if (data->error)
 			return (ft_free_lexer(lexer_lst), NULL);

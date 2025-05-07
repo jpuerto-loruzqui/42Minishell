@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/23 16:42:30 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/05/07 11:35:50 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static void	ft_manage_signals(t_data *data, int status, pid_t *array_pids)
 	if (interrupted)
 		write(1, "\n", 1);
 	signal(SIGINT, ft_sigint_handler);
+	if (*data->input)
+		add_history(data->input);
 }
 
 static void	ft_manage_heredoc(t_parser *cmd)
@@ -97,6 +99,8 @@ void	ft_exec_pipes(t_data *data)
 	cmd = data->commands;
 	ft_init_pipes(data->num_commands, &array_pipes, &array_pids);
 	signal(SIGINT, ft_sigint_handler);
+	if (*data->input)
+		add_history(data->input);
 	ft_handle_all_heredocs(cmd);
 	ft_manage_commands(data, cmd, array_pipes, array_pids);
 	ft_close_all_pipes(data, array_pipes);

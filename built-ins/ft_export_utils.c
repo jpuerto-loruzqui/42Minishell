@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:42:05 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 09:50:34 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/07 22:33:56 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,13 @@ void	ft_create_var(t_env **new_var, char *args, t_data *data)
 		return (ft_putstr_fd("Not identifier: ", 2), ft_putendl_fd(args, 2));
 	}
 	var = ft_substr(args, 0, i);
+	var = ft_append_char(var, '=');
 	if (args[i] == '=')
 	{
-		var = ft_append_char(var, '=');
 		i++;
 		while (args[i])
 			var = ft_append_char(var, args[i++]);
 	}
-	else
-		var = ft_append_char(var, '=');
 	(*new_var) = ft_new_node_env(var);
 	ft_envadd_back(&data->env, *new_var);
 	free(var);

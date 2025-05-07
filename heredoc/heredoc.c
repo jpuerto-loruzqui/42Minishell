@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 17:42:14 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:47:04 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/07 22:22:24 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,12 @@ static void	ft_read_heredoc(int fd, char *delim)
 		ft_print_prompt();
 		line = get_next_line(STDIN_FILENO);
 		if (!line)
+		{
+			write(2, "\nwarning: heredoc delimited by EOF (wanted '", 44);
+			write(2, delim, ft_strlen(delim));
+			write(2, "')\n", 3);
 			break ;
+		}
 		if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
 		if (ft_strncmp(line, delim, ft_strlen(delim) + 1) == 0)
