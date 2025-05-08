@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:35 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/07 11:35:30 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:53:11 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void	ft_exec_one_command(t_data *data)
 	}
 	else if (pid == 0)
 	{
+		if ((!data->commands->args || !data->commands->args[0])
+			&& data->commands->infile)
+			ft_manage_infile(data->commands);
 		if (data->commands->delim)
 		{
 			signal(SIGINT, SIG_DFL);

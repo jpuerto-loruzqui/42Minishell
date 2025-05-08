@@ -6,44 +6,56 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/07 11:36:00 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:48:55 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "print.h"
 
-char	*ft_get_prompt(t_data *data)
+void	ft_export_env(char ***env, char *var, char *new_entry)
 {
-	char	*env_prompt[3];
-	char	*cwd;
-	char	*colored;
-	char	*final;
+	int	i;
 
-	cwd = getcwd(NULL, 0);
-	colored = ft_strjoin("\001\033[0;32m\002", cwd);
-	final = ft_strjoin(colored, COLOR_USERS " minishell> \001\033[0m\002");
-	free(colored);
-	data->prompt = final;
-	env_prompt[0] = "export";
-	env_prompt[1] = ft_strjoin("PROMPT=", final);
-	env_prompt[2] = NULL;
-	ft_export(env_prompt, data);
-	free(env_prompt[1]);
-	free(cwd);
-	return (data->prompt);
+	i = 0;
+	while ((*env)[i])
+	{
+		if (ft_strncmp((*env)[i], var, 6) == 0)
+		{
+			(*env)[i] = new_entry;
+			return ;
+		}
+		i++;
+	}
+	i = 0;
+	while ((*env)[i])
+		i++;
+	(*env)[i] = new_entry;
+	(*env)[i + 1] = NULL;
 }
 
-static void	ft_init_minishell(int argc, char **envp, t_data *data)
+static void	ft_init_minishell(int argc, char **envp, t_data *data, char **argv)
 {
+	char	*newpwd;
+	char	*export_str;
+
 	if (argc != 1)
 		exit(EXIT_FAILURE);
+	if (!ft_getenv("PWD", envp))
+	{
+		newpwd = getcwd(NULL, 0);
+		export_str = ft_strjoin("PWD=", newpwd);
+		ft_export_env(&envp, "PWD=", export_str);
+		free(newpwd);
+	}
+	ft_update_shlvl(&envp);
+	data->program = argv[0];
 	data->env = ft_dup_env(envp);
 	data->env_arr = ft_strdup_matrix(envp);
 	data->last_exit_code = 0;
 	data->last_token_type = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sigint_handler);
-	if (*data->input)
+	if (data->input)
 		add_history(data->input);
 	data->num_commands = 0;
 }
@@ -100,8 +112,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	(void)argv;
-	ft_init_minishell(argc, envp, &data);
+	ft_init_minishell(argc, envp, &data, argv);
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
