@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main_print.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
 /*   Updated: 2025/05/08 11:48:55 by loruzqui         ###   ########.fr       */
@@ -55,8 +55,6 @@ static void	ft_init_minishell(int argc, char **envp, t_data *data, char **argv)
 	data->last_token_type = 0;
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, ft_sigint_handler);
-	if (data->input)
-		add_history(data->input);
 	data->num_commands = 0;
 }
 
@@ -67,10 +65,10 @@ void	ft_parse_syntax(t_data *data)
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (ft_error_tokens(data))
+		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles
+			&& !tmp->outfiles->data)
 		{
-			ft_exit_error("Syntax error");
-			data->error = true;
+			ft_exit_error("Syntax error", data, 2);
 			break ;
 		}
 		tmp = tmp->next;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/07 22:58:52 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/08 13:49:23 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,7 @@ static void	ft_get_command(int *mode, char **save_ptr, char **token,
 	*save_ptr += i + 1;
 }
 
-static void	ft_get_unquoted_token(char **save_ptr, char **token, t_data *data,
-	int *mode)
+static void	ft_get_unquoted_token(char **save_ptr, char **token, t_data *data)
 {
 	char	*aux;
 	int		i;
@@ -68,8 +67,6 @@ static void	ft_get_unquoted_token(char **save_ptr, char **token, t_data *data,
 	aux = ft_substr(*save_ptr, 0, i);
 	ft_manage_slash(&aux, 0);
 	tmp = ft_parser_expand_strtok(aux, data, 0);
-	if (ft_strncmp(aux, tmp, ft_strlen(tmp) != 0))
-		*mode = EXPANDED;
 	free(aux);
 	aux = ft_strjoin(*token, tmp);
 	free(*token);
@@ -116,7 +113,7 @@ char	*ft_strtok(char *str, int *mode, t_data *data)
 		if (ft_check_quote(s.save_ptr))
 			ft_get_command(mode, &s.save_ptr, &s.token, data);
 		else
-			ft_get_unquoted_token(&s.save_ptr, &s.token, data, mode);
+			ft_get_unquoted_token(&s.save_ptr, &s.token, data);
 		s.flag = 1;
 	}
 	return (s.token);

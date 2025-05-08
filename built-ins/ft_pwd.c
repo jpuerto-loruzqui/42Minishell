@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:02:45 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 12:52:36 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:44:30 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_pwd(char **args)
+int	ft_pwd(char **args) // no funciona cambiando la salida > ejemplo.txt
 {
 	char	*cwd;
 

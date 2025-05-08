@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
 /*   Updated: 2025/05/08 11:36:49 by loruzqui         ###   ########.fr       */
@@ -32,7 +32,6 @@
 # define NORMAL_MODE 0
 # define DOUBLE_MODE 1
 # define SIMPLE_MODE 2
-# define EXPANDED 3
 
 # define COLOR_USERS "\033[38;2;84;222;253m"
 # define COLOR_RESET "\033[0m"
@@ -170,7 +169,7 @@ void		ft_export_env(char ***env, char *var, char *new_entry);
 bool		ft_is_built_in(t_parser *commands, t_data *data);
 void		ft_unset_std(int *std_inout);
 void		ft_exit(t_parser *parser, t_data *data);
-void		ft_exit_error(char *message);
+void		ft_exit_error(char *message, t_data *data, int code);
 int			ft_cd(char **args, t_data *data);
 int			ft_pwd(char **args);
 int			ft_echo(char **arg);
@@ -184,10 +183,10 @@ int			*ft_redir_builtin(t_parser *commands);
 /****************************************************/
 //EXEC BUILT-INS
 /****************************************************/
-bool		ft_exec_jp(t_parser *cmd, int *stdinout);
+bool		ft_exec_jp(t_parser *cmd, int *stdinout, t_data *data);
 bool		ft_exec_exit(t_parser *cmd, int *stdinout, t_data *data);
 bool		ft_exec_cd(t_parser *cmd, t_data *data, int *stdinout);
-bool		ft_exec_pwd(t_parser *cmd, int *stdinout);
+bool		ft_exec_pwd(t_parser *cmd, int *stdinout, t_data *data);
 bool		ft_exec_echo(t_parser *cmd, int *stdinout);
 bool		ft_exec_env(t_parser *cmd, t_data *data, int *stdinout);
 bool		ft_exec_unset(t_parser *cmd, t_data *data, int *stdinout);

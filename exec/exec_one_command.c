@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   exec_one_command.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:35 by loruzqui          #+#    #+#             */
 /*   Updated: 2025/05/08 11:53:11 by loruzqui         ###   ########.fr       */
@@ -40,7 +40,7 @@ void	ft_exec_one_command(t_data *data)
 	if (pid < 0)
 	{
 		ft_free_parser(data->commands);
-		ft_exit_error("Error fork one command");
+		ft_exit_error("Error fork one command", data, 1);
 	}
 	else if (pid == 0)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_built_in.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/26 16:04:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/06 08:25:30 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/08 16:47:17 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ bool	ft_is_built_in(t_parser *commands, t_data *data)
 	if (commands->args == NULL)
 		return (false);
 	if (ft_strncmp(commands->args[0], "jp", 3) == 0)
-		return (ft_exec_jp(commands, stdinout));
+		return (ft_exec_jp(commands, stdinout, data));
 	if (ft_strncmp(commands->args[0], "exit", 5) == 0)
 		return (ft_exec_exit(commands, stdinout, data));
 	else if (ft_strncmp(commands->args[0], "cd", 3) == 0)
 		return (ft_exec_cd(commands, data, stdinout));
 	else if (ft_strncmp(commands->args[0], "pwd", 4) == 0)
-		return (ft_exec_pwd(commands, stdinout));
+		return (ft_exec_pwd(commands, stdinout, data));
 	else if (ft_strncmp(commands->args[0], "echo", 5) == 0)
 		return (ft_exec_echo(commands, stdinout));
 	else if (ft_strncmp(commands->args[0], "env", 4) == 0)

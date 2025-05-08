@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 17:00:42 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/16 09:43:10 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:36:56 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_init_pipes(int num_commands, int ***array_pipes, pid_t **array_pids)
 	while (i < num_commands - 1)
 	{
 		if (pipe((*array_pipes)[i]) == -1)
-			ft_exit_error("Error init pipes");
+			ft_exit_error("Error init pipes", NULL, 0);
 		i++;
 	}
 }
@@ -124,7 +124,7 @@ void	ft_find_path(t_parser *commands, char **envp)
 			execve(commands->args[0], commands->args, envp);
 		else
 		{
-			ft_exit_error("command not found");
+			ft_exit_error("command not found", NULL, 0);
 			ft_free_parser(commands);
 			exit(127);
 		}
@@ -133,7 +133,7 @@ void	ft_find_path(t_parser *commands, char **envp)
 	if (!path || execve(path, commands->args, envp) == -1)
 	{
 		ft_free_parser(commands);
-		ft_exit_error("command not found");
+		ft_exit_error("command not found", NULL, 0);
 		exit(127);
 	}
 }

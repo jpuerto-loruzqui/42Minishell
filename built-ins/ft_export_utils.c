@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 13:42:05 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/07 22:33:56 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:29:07 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,8 @@ void	ft_create_var(t_env **new_var, char *args, t_data *data)
 	if ((!ft_isalpha(args[0]) && args[0] != '_')
 		|| (args[i] != '=' && args[i] != '\0' ))
 	{
-		data->error = true;
-		data->last_exit_code = 1;
-		return (ft_putstr_fd("Not identifier: ", 2), ft_putendl_fd(args, 2));
+		ft_exit_error("Not identifier: ", data, 1);
+		return ;
 	}
 	var = ft_substr(args, 0, i);
 	var = ft_append_char(var, '=');

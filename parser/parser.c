@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/07 22:35:09 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/08 14:07:13 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,17 @@ t_parser	*ft_parser(t_lexer *lexer, t_data data)
 		if (!ft_parse_pipes(&lexer, &curr))
 			continue ;
 		ft_check_parser_curr(&curr, &last_out, &head);
-		if (lexer->mode == EXPANDED && lexer->type_token == T_GENERAL
-			&& lexer->data && ft_strchr(lexer->data, ' '))
-			curr->args = ft_split(lexer->data, ' ');
+		if (lexer->mode == NORMAL_MODE && lexer->type_token == T_GENERAL && ft_strchr(lexer->data, ' ') && lexer->data)
+		{
+			char **split = ft_split(lexer->data, ' ');
+			int i = 0;
+			while (split[i])
+			{
+				curr->args = ft_add_arg(curr->args, split[i]);
+				i++;
+			}
+			ft_free_split(split);
+		}
 		else if (lexer->type_token == T_GENERAL && lexer->data)
 			curr->args = ft_add_arg(curr->args, lexer->data);
 		if (!ft_parse_redirs(&lexer, &curr, &last_out, data))
