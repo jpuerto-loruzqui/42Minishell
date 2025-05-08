@@ -6,7 +6,7 @@
 /*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/08 12:52:25 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:11:20 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_env	*ft_unset(char **args, t_env *envp)
 		{
 			if (ft_strncmp(args[i], "PWD", 4) == 0)
 			{
-				ft_exit_error("minishell: cannot unset protected variable");
+				ft_exit_error("minishell: cannot unset protected variable", NULL, 0);
 				return (envp);
 			}
 			if (ft_found_var(current, i, args))
