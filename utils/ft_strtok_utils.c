@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtok_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 19:17:25 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 10:43:04 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/08 16:35:00 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	ft_check_format(char **save_ptr, char delim, int *i, t_data *data)
 	{
 		data->error = true;
 		data->last_exit_code = 2;
-		ft_exit_error("Invalid format");
+		ft_exit_error("Invalid format", data, 1);
 		return (0);
 	}
 	return (1);

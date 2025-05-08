@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_redir.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 10:02:17 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/08 16:35:28 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_output_redir(t_parser *commands)
 		if (fd_out < 0)
 		{
 			ft_free_parser(commands);
-			ft_exit_error("Error opening file output");
+			ft_exit_error("Error opening file output", NULL, 0);
 		}
 		if (dup2(fd_out, STDOUT_FILENO) == -1)
 		{

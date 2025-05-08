@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 15:40:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/06 18:10:18 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:38:04 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_exit(t_parser *parser, t_data *data)
 	exit_code = EXIT_SUCCESS;
 	exit_atoi = 0;
 	if (parser->args[1] && parser->args[2])
-		return (ft_exit_error("Error: too many arguments"));
+		return (ft_exit_error("Error: too many arguments", data, 1));
 	if (parser->args[1])
 	{
 		if (!ft_is_numeric_argument(parser->args[1]))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 16:52:52 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/07 11:35:50 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:37:08 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	ft_manage_commands(t_data *data, t_parser *cmd, int **array_pipes,
 		if (pid < 0)
 		{
 			ft_free_parser(cmd);
-			ft_exit_error("Error fork pipes");
+			ft_exit_error("Error fork pipes", data, 1);
 		}
 		else if (pid == 0)
 		{

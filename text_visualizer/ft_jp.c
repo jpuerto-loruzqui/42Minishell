@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_jp.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 12:00:02 by jpuerto           #+#    #+#             */
-/*   Updated: 2025/05/07 11:36:23 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:12:50 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,15 @@ void	ft_show_visualizer(char *file)
 	char	*line;
 
 	line = "";
+	flag = 0;
 	if (!file)
 	{
 		file = ft_get_file();
 		flag = 1;
 	}
 	fd = open(file, O_RDONLY);
+	if (flag == 1 && fd < 0)
+		free(file);
 	if (fd < 0)
 		return (ft_putstr_fd("Jp visualizer: Error opening file\n", 2));
 	write(1, "\033[?1049h", 8);
@@ -92,7 +95,6 @@ void	ft_show_visualizer(char *file)
 	ft_show_file(file, fd, line);
 	write(1, "\033[?1049l", 8);
 	ft_restore_terminal(STDIN_FILENO);
-	signal(SIGINT, ft_sigint_handler);
 	if (flag == 1)
 		free(file);
 	close(fd);
