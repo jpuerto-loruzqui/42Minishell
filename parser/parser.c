@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loruzqui < >                               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/08 14:07:13 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/05/08 17:16:54 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ t_parser	*ft_parser(t_lexer *lexer, t_data data)
 	t_parser	*head;
 	t_parser	*curr;
 	t_outfile	*last_out;
+	char		**split;
+	int			i;
 
 	last_out = NULL;
 	head = NULL;
@@ -93,10 +95,11 @@ t_parser	*ft_parser(t_lexer *lexer, t_data data)
 		if (!ft_parse_pipes(&lexer, &curr))
 			continue ;
 		ft_check_parser_curr(&curr, &last_out, &head);
-		if (lexer->mode == NORMAL_MODE && lexer->type_token == T_GENERAL && ft_strchr(lexer->data, ' ') && lexer->data)
+		if (lexer->mode == NORMAL_MODE && lexer->type_token == T_GENERAL
+			&& ft_strchr(lexer->data, ' ') && lexer->data)
 		{
-			char **split = ft_split(lexer->data, ' ');
-			int i = 0;
+			split = ft_split(lexer->data, ' ');
+			i = 0;
 			while (split[i])
 			{
 				curr->args = ft_add_arg(curr->args, split[i]);
