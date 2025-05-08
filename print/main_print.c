@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/08 16:36:00 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:48:55 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,22 @@ void	ft_export_env(char ***env, char *var, char *new_entry)
 	(*env)[i + 1] = NULL;
 }
 
-static void	ft_init_minishell(int argc, char **envp, t_data *data)
+static void	ft_init_minishell(int argc, char **envp, t_data *data, char **argv)
 {
+	char	*newpwd;
+	char	*export_str;
+
 	if (argc != 1)
 		exit(EXIT_FAILURE);
+	if (!ft_getenv("PWD", envp))
+	{
+		newpwd = getcwd(NULL, 0);
+		export_str = ft_strjoin("PWD=", newpwd);
+		ft_export_env(&envp, "PWD=", export_str);
+		free(newpwd);
+	}
+	ft_update_shlvl(&envp);
+	data->program = argv[0];
 	data->env = ft_dup_env(envp);
 	data->env_arr = ft_strdup_matrix(envp);
 	data->last_exit_code = 0;
@@ -98,8 +110,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
 
-	(void)argv;
-	ft_init_minishell(argc, envp, &data);
+	ft_init_minishell(argc, envp, &data, argv);
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))

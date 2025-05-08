@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:22:55 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/08 16:45:54 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:36:49 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@
 # define COLOR_USERS "\033[38;2;84;222;253m"
 # define COLOR_RESET "\033[0m"
 
-/**
- * @brief Tipos de tokens
- */
 typedef enum e_token
 {
 	T_GENERAL,
@@ -52,10 +49,6 @@ typedef enum e_token
 	T_OUTFILE,		// outfile
 	T_APPEND,		// >>
 }	t_token;
-
-/**
- * @brief Nodo en la lista de análisis léxico.
- */
 
 typedef struct s_outfile
 {
@@ -82,9 +75,6 @@ typedef struct s_lexer
 	struct s_lexer	*prev;		// anterior token
 }	t_lexer;
 
-/**
- * @brief Nodo en la lista de análisis sintáctico.
- */
 typedef struct s_parser
 {
 	char				**args;		// comando + sus flags
@@ -223,6 +213,7 @@ void		ft_close_all_pipes(t_data *data, int **array_pipes);
 void		ft_find_path(t_parser *commands, char **envp);
 void		ft_exec_child(int i, int ***array_pipes, t_parser *cmd,
 				t_data *data);
+void		ft_manage_infile(t_parser *commands);
 
 /****************************************************/
 //REDIRECTIONS

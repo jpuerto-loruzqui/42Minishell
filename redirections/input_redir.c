@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_redir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto <jpuerto@student.42.fr>            +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:22 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/05 10:01:59 by jpuerto          ###   ########.fr       */
+/*   Updated: 2025/05/08 11:36:09 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_manage_heredoc(t_parser *commands)
 	close(commands->here_fd);
 }
 
-static void	ft_manage_infile(t_parser *commands)
+void	ft_manage_infile(t_parser *commands)
 {
 	int	fd_in;
 

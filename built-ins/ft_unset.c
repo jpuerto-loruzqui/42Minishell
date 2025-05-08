@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpuerto- & loruzqui < >                    +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 19:00:40 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/04/21 18:16:23 by jpuerto- &       ###   ########.fr       */
+/*   Updated: 2025/05/08 12:52:25 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ t_env	*ft_unset(char **args, t_env *envp)
 		i = 0;
 		while (args[i])
 		{
+			if (ft_strncmp(args[i], "PWD", 4) == 0)
+			{
+				ft_exit_error("minishell: cannot unset protected variable");
+				return (envp);
+			}
 			if (ft_found_var(current, i, args))
 			{
 				ft_delete_var(&envp, prev, &current);
