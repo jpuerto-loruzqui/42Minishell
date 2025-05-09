@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui < >                               +#+  +:+       +#+        */
+/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/08 17:16:54 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/09 11:42:54 by loruzqui         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,32 @@ t_outfile	*ft_new_outfile(t_lexer *lexer, t_data data)
 	return (node);
 }
 
+static void	ft_parse_general_token(t_lexer *lexer, t_parser *curr)
+{
+	int		i;
+	char	**split;
+
+	if (lexer->mode == NORMAL_MODE && lexer->type_token == T_GENERAL
+		&& ft_strchr(lexer->data, ' ') && lexer->data)
+	{
+		split = ft_split(lexer->data, ' ');
+		i = 0;
+		while (split[i])
+		{
+			curr->args = ft_add_arg(curr->args, split[i]);
+			i++;
+		}
+		ft_free_split(split);
+	}
+	else if (lexer->type_token == T_GENERAL && lexer->data)
+		curr->args = ft_add_arg(curr->args, lexer->data);
+}
+
 t_parser	*ft_parser(t_lexer *lexer, t_data data)
 {
 	t_parser	*head;
 	t_parser	*curr;
 	t_outfile	*last_out;
-	char		**split;
-	int			i;
 
 	last_out = NULL;
 	head = NULL;
@@ -95,20 +114,7 @@ t_parser	*ft_parser(t_lexer *lexer, t_data data)
 		if (!ft_parse_pipes(&lexer, &curr))
 			continue ;
 		ft_check_parser_curr(&curr, &last_out, &head);
-		if (lexer->mode == NORMAL_MODE && lexer->type_token == T_GENERAL
-			&& ft_strchr(lexer->data, ' ') && lexer->data)
-		{
-			split = ft_split(lexer->data, ' ');
-			i = 0;
-			while (split[i])
-			{
-				curr->args = ft_add_arg(curr->args, split[i]);
-				i++;
-			}
-			ft_free_split(split);
-		}
-		else if (lexer->type_token == T_GENERAL && lexer->data)
-			curr->args = ft_add_arg(curr->args, lexer->data);
+		ft_parse_general_token(lexer, curr);
 		if (!ft_parse_redirs(&lexer, &curr, &last_out, data))
 			continue ;
 		lexer = lexer->next;
