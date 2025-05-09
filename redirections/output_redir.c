@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 16:12:32 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/08 16:35:28 by jpuerto-         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:46:22 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_check_redirs(t_parser *cmd, t_data *data)
 		exit(1);
 	}
 	if (!cmd->args && cmd->delim && !cmd->outfiles)
-		exit(1);
+		exit(0);
 	if ((cmd->outfiles && cmd->outfiles->data && !cmd->args) || (cmd->outfiles
 			&& cmd->outfiles->data && cmd->infile && !cmd->args))
 	{

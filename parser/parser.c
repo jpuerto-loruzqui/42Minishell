@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 18:54:23 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/09 11:42:54 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/09 12:20:31 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static void	ft_parse_general_token(t_lexer *lexer, t_parser *curr)
 	int		i;
 	char	**split;
 
-	if (lexer->mode == NORMAL_MODE && lexer->type_token == T_GENERAL
+	if (lexer->mode == EXPANDED && lexer->type_token == T_GENERAL
 		&& ft_strchr(lexer->data, ' ') && lexer->data)
 	{
 		split = ft_split(lexer->data, ' ');

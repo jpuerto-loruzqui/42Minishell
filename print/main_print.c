@@ -6,7 +6,7 @@
 /*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 10:07:38 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/08 11:48:55 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:50:53 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ void	ft_parse_syntax(t_data *data)
 	tmp = data->commands;
 	while (tmp)
 	{
-		if (!tmp->args && !tmp->delim && !tmp->infile && !tmp->outfiles
-			&& !tmp->outfiles->data)
+		if (ft_error_tokens(data))
 		{
 			ft_exit_error("Syntax error", data, 2);
 			break ;
@@ -113,6 +112,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_minishell(argc, envp, &data, argv);
 	while (1)
 	{
+		data.last_token_type = 0;
 		if (isatty(STDIN_FILENO))
 			data.input = readline(ft_get_prompt(&data));
 		else

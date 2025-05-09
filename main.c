@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loruzqui <loruzqui@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpuerto- <jpuerto-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/06 19:53:21 by loruzqui          #+#    #+#             */
-/*   Updated: 2025/05/08 11:51:45 by loruzqui         ###   ########.fr       */
+/*   Updated: 2025/05/09 13:08:43 by jpuerto-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_init_minishell(argc, envp, &data, argv);
 	while (1)
 	{
+		data.last_token_type = 0;
 		if (isatty(STDIN_FILENO))
 			data.input = readline(ft_get_prompt(&data));
 		else
