@@ -22,11 +22,7 @@ Minishell es una aplicación que interpreta comandos escritos por el usuario en 
 
 ### 🎬 Vídeo explicativo
 
-
-
-
-
-
+![Demo](minishell.gif)
 
 ### 📁 Archivos Incluidos
 
